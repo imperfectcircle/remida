@@ -1,8 +1,7 @@
 import { CardCarousel } from '@/Components/CardCarousel';
 import Ghost from '@/Components/Ghost';
 import PublicLayout from '@/Layouts/PublicLayout';
-import TypingAnimation from '@/shadcn/magicui/typing-animation';
-import { Button } from '@/shadcn/ui/button';
+import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -44,28 +43,19 @@ export default function Home() {
                             />
                         </motion.div>
                         <div className="flex items-center justify-center text-white">
-                            <h1 className="w-8/12 text-3xl md:text-6xl">
-                                <TypingAnimation
-                                    className="text-3xl font-bold md:text-6xl"
-                                    text="REMIDA"
-                                    duration={100}
-                                />
-                                {/* <span className="font-bold">REMIDA</span> */}
-                                <TypingAnimation
-                                    className="text-3xl font-semibold text-gray-400 md:text-6xl"
-                                    text="Innoviamo con creatività."
-                                    duration={50}
-                                />
-                                {/* <span className="font-semibold text-gray-400">
+                            <motion.h1
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 2.5 }}
+                                className="w-9/12 text-3xl md:text-6xl"
+                            >
+                                <span className="font-bold">REMIDA</span>
+                                <br />
+                                <span className="font-semibold text-gray-400">
                                     Innoviamo con creatività.
-                                </span> */}
-
-                                <motion.span
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 3.5 }}
-                                    className="text-xl md:text-2xl"
-                                >
+                                </span>
+                                <br />
+                                <span className="text-xl md:text-2xl">
                                     Laboratori, formazione e tanto altro con
                                     riutilizzo di materiale di scarto aziendale
                                     per un futuro sostenibile.
@@ -73,8 +63,8 @@ export default function Home() {
                                     Siamo la tua destinazione per la creatività
                                     e il riutilizzo di materiali non
                                     strutturati.
-                                </motion.span>
-                            </h1>
+                                </span>
+                            </motion.h1>
                         </div>
                     </section>
                     <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 lg:grid-cols-6">
@@ -137,9 +127,13 @@ export default function Home() {
                                 transition={{ duration: 2 }}
                                 className="px-5"
                             >
-                                <Button className="mt-3 w-full bg-red-600 text-lg hover:bg-red-800">
+                                <ShimmerButton
+                                    className="mt-3 w-full bg-red-600 text-lg hover:bg-red-800"
+                                    shimmerSize="0.2rem"
+                                    background="rgba(185, 28, 28 , 1)"
+                                >
                                     Contattaci
-                                </Button>
+                                </ShimmerButton>
                             </motion.div>
                         </div>
                     </motion.section>
