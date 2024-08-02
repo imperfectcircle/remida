@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #ef4444 #fca5a5;
+}
+
+@layer utilities {
+    .header {
+        background: linear-gradient(
+                to left bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.4)
+            ),
+            url('/public/images/header.webp');
+        background-attachment: fixed;
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        background-size: auto;
+    }
+}
+
+.where {
+    background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.8),
+            rgba(0, 0, 0, 0.4)
+        ),
+        url('/public/images/chiostro.webp');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
