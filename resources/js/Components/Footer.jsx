@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
     return (
@@ -31,6 +32,11 @@ export default function Footer() {
                     <h2 className="text-lg font-semibold">Policies</h2>
                     <Link href={route('home')}>Privacy Policy</Link>
                     <Link href={route('home')}>Cookie Policy</Link>
+                    <h2 className="mb-3 mt-5 text-lg font-semibold">Social</h2>
+                    <div className="flex space-x-5">
+                        <FaFacebook className="text-3xl" />
+                        <FaInstagram className="text-3xl" />
+                    </div>
                 </div>
             </div>
         </footer>

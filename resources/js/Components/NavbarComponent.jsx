@@ -1,10 +1,10 @@
-import { Button } from '@/shadcn/ui/button';
+import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { Navbar } from 'flowbite-react';
 
 export default function NavbarComponent() {
     return (
         <Navbar
-            className="fixed left-0 top-0 z-50 w-full shadow-md"
+            className="fixed left-0 top-0 z-50 w-full bg-white/40 shadow-md backdrop-blur-lg"
             fluid
             rounded
         >
@@ -21,9 +21,15 @@ export default function NavbarComponent() {
                 />
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Button className="bg-red-600 text-lg shadow-md transition-colors hover:bg-red-800">
-                    Contatti
-                </Button>
+                <ShimmerButton
+                    className=""
+                    shimmerSize="0.2rem"
+                    background="rgba(185, 28, 28 , 1)"
+                >
+                    <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                        Contatti
+                    </span>
+                </ShimmerButton>
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>

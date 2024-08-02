@@ -1,6 +1,7 @@
 import { CardCarousel } from '@/Components/CardCarousel';
 import Ghost from '@/Components/Ghost';
 import PublicLayout from '@/Layouts/PublicLayout';
+import TypingAnimation from '@/shadcn/magicui/typing-animation';
 import { Button } from '@/shadcn/ui/button';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -29,7 +30,7 @@ export default function Home() {
                 </div>
             ) : (
                 <PublicLayout>
-                    <section className="lg:header mt-[100px] grid h-screen grid-cols-1 p-5 md:grid-cols-2 md:p-0 lg:mt-0">
+                    <section className="lg:header mt-[100px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-2 md:p-0 lg:mt-0">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -43,19 +44,28 @@ export default function Home() {
                             />
                         </motion.div>
                         <div className="flex items-center justify-center text-white">
-                            <motion.h1
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 2.5 }}
-                                className="w-8/12 text-3xl md:text-6xl"
-                            >
-                                <span className="font-bold">REMIDA</span>
-                                <br />
-                                <span className="font-semibold text-gray-400">
+                            <h1 className="w-8/12 text-3xl md:text-6xl">
+                                <TypingAnimation
+                                    className="text-3xl font-bold md:text-6xl"
+                                    text="REMIDA"
+                                    duration={100}
+                                />
+                                {/* <span className="font-bold">REMIDA</span> */}
+                                <TypingAnimation
+                                    className="text-3xl font-semibold text-gray-400 md:text-6xl"
+                                    text="Innoviamo con creatività."
+                                    duration={50}
+                                />
+                                {/* <span className="font-semibold text-gray-400">
                                     Innoviamo con creatività.
-                                </span>
-                                <br />
-                                <span className="text-xl md:text-2xl">
+                                </span> */}
+
+                                <motion.span
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 3.5 }}
+                                    className="text-xl md:text-2xl"
+                                >
                                     Laboratori, formazione e tanto altro con
                                     riutilizzo di materiale di scarto aziendale
                                     per un futuro sostenibile.
@@ -63,8 +73,8 @@ export default function Home() {
                                     Siamo la tua destinazione per la creatività
                                     e il riutilizzo di materiali non
                                     strutturati.
-                                </span>
-                            </motion.h1>
+                                </motion.span>
+                            </h1>
                         </div>
                     </section>
                     <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 lg:grid-cols-6">
