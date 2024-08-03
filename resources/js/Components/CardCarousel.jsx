@@ -1,17 +1,32 @@
-import { Card, CardContent } from "@/shadcn/ui/card";
+import { Card, CardContent } from '@/shadcn/ui/card';
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/shadcn/ui/carousel";
+} from '@/shadcn/ui/carousel';
+import { useEffect, useState } from 'react';
 
 export function CardCarousel() {
+    const [isVisible, setIsVisible] = useState(window.innerWidth >= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsVisible(window.innerWidth >= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <Carousel
             opts={{
-                align: "start",
+                align: 'start',
             }}
             className="w-full max-w-7xl"
         >
@@ -34,8 +49,12 @@ export function CardCarousel() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            {isVisible && (
+                <div>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </div>
+            )}
         </Carousel>
     );
 }

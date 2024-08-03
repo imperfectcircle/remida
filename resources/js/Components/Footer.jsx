@@ -29,7 +29,9 @@ export default function Footer() {
                     <Link href={route('home')}>Contatti</Link>
                 </div>
                 <div className="flex flex-col">
-                    <h2 className="text-lg font-semibold">Policies</h2>
+                    <h2 className="mt-5 text-lg font-semibold md:mt-0">
+                        Policies
+                    </h2>
                     <Link href={route('home')}>Privacy Policy</Link>
                     <Link href={route('home')}>Cookie Policy</Link>
                     <h2 className="mb-3 mt-5 text-lg font-semibold">Social</h2>

@@ -29,7 +29,7 @@ export default function Home() {
                 </div>
             ) : (
                 <PublicLayout>
-                    <section className="lg:header mt-[100px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-2 md:p-0 lg:mt-0">
+                    <section className="header grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}

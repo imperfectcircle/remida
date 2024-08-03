@@ -16,7 +16,7 @@ export default function NavbarComponent() {
                 />
                 <img
                     src="/images/altrementi_logo.webp"
-                    className="mr-3 h-12 md:h-16 lg:h-20"
+                    className="mr-3 h-9 md:h-16 lg:h-20"
                     alt="Altrementi Logo"
                 />
             </Navbar.Brand>
