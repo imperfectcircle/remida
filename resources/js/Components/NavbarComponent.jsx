@@ -4,7 +4,7 @@ import { Navbar } from 'flowbite-react';
 export default function NavbarComponent() {
     return (
         <Navbar
-            className="fixed left-0 top-0 z-50 w-full bg-white/40 shadow-md backdrop-blur-lg"
+            className="fixed left-0 top-0 z-50 w-full bg-white/70 shadow-md backdrop-blur-lg"
             fluid
             rounded
         >

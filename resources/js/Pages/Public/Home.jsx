@@ -1,6 +1,8 @@
 import { CardCarousel } from '@/Components/CardCarousel';
+import CardTicker from '@/Components/CardTicker';
 import Ghost from '@/Components/Ghost';
 import PublicLayout from '@/Layouts/PublicLayout';
+import NumberTicker from '@/shadcn/magicui/number-ticker';
 import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -29,7 +31,7 @@ export default function Home() {
                 </div>
             ) : (
                 <PublicLayout>
-                    <section className="header grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
+                    <section className="grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -49,7 +51,7 @@ export default function Home() {
                                 transition={{ duration: 2.5 }}
                                 className="w-9/12 text-3xl md:text-6xl"
                             >
-                                <span className="font-bold">REMIDA</span>
+                                <span className="font-bold">REMIDA VARESE</span>
                                 <br />
                                 <span className="font-semibold text-gray-400">
                                     Innoviamo con creatività.
@@ -166,6 +168,34 @@ export default function Home() {
                             <img src="https://picsum.photos/205" alt="" />
                             <img src="https://picsum.photos/206" alt="" />
                             <img src="https://picsum.photos/207" alt="" />
+                        </div>
+                    </motion.section>
+                    <motion.section
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 2 }}
+                        className="mt-10 flex min-h-fit flex-col items-center justify-center p-5"
+                    >
+                        <h2 className="mb-10 text-center text-6xl">
+                            Quanto abbiamo fatto
+                        </h2>
+                        <div className="grid w-full grid-cols-1 justify-items-center gap-5 p-10 lg:grid-cols-3">
+                            <CardTicker
+                                title="Lorem Ipsum"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
+                                value={2500}
+                            />
+                            <CardTicker
+                                title="Lorem Ipsum"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
+                                value={150}
+                            />
+                            <CardTicker
+                                title="Lorem Ipsum"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
+                                value={625}
+                            />
                         </div>
                     </motion.section>
                 </PublicLayout>
