@@ -17,7 +17,7 @@ export default function NavbarComponent() {
                     alt="ReMida Varese Logo"
                 />
                 <img
-                    src="/images/altrementi_logo.webp"
+                    src="/images/altrementi-logo.webp"
                     className="mr-3 h-9 md:h-16 lg:h-20"
                     alt="Altrementi Logo"
                 />

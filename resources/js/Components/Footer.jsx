@@ -11,7 +11,7 @@ export default function Footer() {
                     alt="ReMida Varese Logo"
                 />
                 <img
-                    src="/images/altrementi_logo.webp"
+                    src="/images/altrementi-logo.webp"
                     className="mr-3 h-12 md:h-16 lg:h-20"
                     alt="Altrementi Logo"
                 />
