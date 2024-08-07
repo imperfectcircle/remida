@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa';
 export default function Footer() {
     return (
         <footer className="grid h-fit grid-cols-1 text-white md:grid-cols-3">
-            <div className="bg-red-800 p-10">
+            <div className="grid place-items-center bg-red-800 p-10 md:block">
                 <img
                     src="/images/remida_logo.webp"
                     className="mr-3 h-12 md:h-16 lg:h-20"
@@ -22,11 +22,10 @@ export default function Footer() {
                 <div className="flex flex-col">
                     <h2 className="text-lg font-semibold">Menù</h2>
                     <Link href={route('home')}>Home</Link>
-                    <Link href={route('home')}>Chi siamo</Link>
-                    <Link href={route('home')}>Cosa Facciamo</Link>
-                    <Link href={route('home')}>In Evidenza</Link>
-                    <Link href={route('home')}>Dove Siamo</Link>
-                    <Link href={route('home')}>Contatti</Link>
+                    <Link href={route('about')}>Chi siamo</Link>
+                    <Link href={route('expertise')}>Cosa Facciamo</Link>
+                    <Link href={route('events')}>In Evidenza</Link>
+                    <Link href={route('contacts')}>Contatti</Link>
                 </div>
                 <div className="flex flex-col">
                     <h2 className="mt-5 text-lg font-semibold md:mt-0">

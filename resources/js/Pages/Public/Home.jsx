@@ -154,20 +154,22 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 2 }}
-                        className="mt-10 flex min-h-fit flex-col items-center justify-center bg-slate-400 p-5"
+                        className="my-5 mt-10 grid min-h-fit grid-cols-1 bg-slate-400 md:grid-cols-2"
                     >
-                        <h2 className="mb-10 text-center text-6xl">
-                            I Nostri Partner
-                        </h2>
-                        <div className="grid grid-cols-1 justify-items-center gap-5 bg-slate-400 p-10 md:grid-cols-2 lg:grid-cols-4">
-                            <img src="https://picsum.photos/200" alt="" />
-                            <img src="https://picsum.photos/201" alt="" />
-                            <img src="https://picsum.photos/202" alt="" />
-                            <img src="https://picsum.photos/203" alt="" />
-                            <img src="https://picsum.photos/204" alt="" />
-                            <img src="https://picsum.photos/205" alt="" />
-                            <img src="https://picsum.photos/206" alt="" />
-                            <img src="https://picsum.photos/207" alt="" />
+                        <div className="flex flex-col items-center justify-center bg-slate-500 p-5">
+                            <h2 className="mb-10 text-center text-6xl">
+                                Aperture
+                            </h2>
+                            <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2"></div>
+                        </div>
+                        <div className="flex flex-col items-center justify-center p-5">
+                            <h2 className="mb-10 text-center text-6xl">
+                                I Nostri Partner
+                            </h2>
+                            <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2">
+                                <img src="https://picsum.photos/200" alt="" />
+                                <img src="https://picsum.photos/201" alt="" />
+                            </div>
                         </div>
                     </motion.section>
                     <motion.section

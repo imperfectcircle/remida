@@ -8,6 +8,10 @@ use Inertia\Inertia;
 
 Route::controller(PublicController::class)->group(function () {
     Route::get('/', 'home')->name('home');
+    Route::get('/chi-siamo', 'about')->name('about');
+    Route::get('/cosa-facciamo', 'expertise')->name('expertise');
+    Route::get('/eventi', 'events')->name('events');
+    Route::get('/contatti', 'contacts')->name('contacts');
 });
 
 Route::get('/dashboard', function () {
