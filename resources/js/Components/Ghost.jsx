@@ -6,8 +6,8 @@ export default function Ghost({ source, alternative, title }) {
                 alt={alternative}
                 className="size-28 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]"
             />
-            <div className="w-48 h-32 bg-white rounded-bl-[50px] rounded-tr-[50px] -mt-[50px] shadow-md flex justify-center items-end p-5">
-                <h2 className="text-xl">{title}</h2>
+            <div className="-mt-[50px] flex h-32 w-48 items-end justify-center rounded-bl-[50px] rounded-tr-[50px] bg-white p-5 shadow-md dark:bg-slate-400">
+                <h2 className="text-xl text-black dark:text-white">{title}</h2>
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { Link, usePage } from '@inertiajs/react';
 import { Navbar } from 'flowbite-react';
+import ThemeSwitcher from './ThemeSwitcher';
 
 export default function NavbarComponent() {
     const { url } = usePage();
@@ -18,12 +19,18 @@ export default function NavbarComponent() {
                 />
                 <img
                     src="/images/altrementi-logo.webp"
-                    className="mr-3 h-9 md:h-16 lg:h-20"
+                    className="mr-3 h-9 dark:hidden md:h-16 lg:h-20"
+                    alt="Altrementi Logo"
+                />
+                <img
+                    src="/images/altrementi-logo-light.webp"
+                    className="mr-3 hidden h-9 dark:inline-block md:h-16 lg:h-20"
                     alt="Altrementi Logo"
                 />
             </Navbar.Brand>
-            <div className="flex md:order-2">
-                <form action={route('contacts')}>
+            <div className="flex items-center md:order-2">
+                <ThemeSwitcher />
+                <form action={route('contacts')} className="ml-5">
                     <ShimmerButton
                         className=""
                         shimmerSize="0.2rem"

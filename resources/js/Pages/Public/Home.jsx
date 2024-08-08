@@ -69,7 +69,7 @@ export default function Home() {
                             </motion.h1>
                         </div>
                     </section>
-                    <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 lg:grid-cols-6">
+                    <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 dark:bg-slate-600 md:grid-cols-3 lg:grid-cols-6">
                         <Ghost
                             source="/images/Nero.png"
                             alternative="Fantasma Nero"
@@ -130,7 +130,7 @@ export default function Home() {
                                 className="px-5"
                             >
                                 <ShimmerButton
-                                    className="mt-3 w-full bg-red-600 text-lg hover:bg-red-800"
+                                    className="mt-3 w-full bg-red-600 text-lg hover:bg-red-800 dark:font-bold"
                                     shimmerSize="0.2rem"
                                     background="rgba(185, 28, 28 , 1)"
                                 >
@@ -144,9 +144,11 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 2 }}
-                        className="mt-10 flex flex-col items-center justify-center p-5"
+                        className="flex flex-col items-center justify-center bg-transparent p-5 py-10 dark:bg-slate-600"
                     >
-                        <h2 className="mb-10 text-6xl">In Evidenza</h2>
+                        <h2 className="mb-10 text-6xl text-black dark:text-gray-300">
+                            In Evidenza
+                        </h2>
                         <CardCarousel />
                     </motion.section>
                     <motion.section
@@ -154,15 +156,15 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 2 }}
-                        className="my-5 mt-10 grid min-h-fit grid-cols-1 bg-slate-400 md:grid-cols-2"
+                        className="grid min-h-fit grid-cols-1 bg-slate-400 md:grid-cols-2"
                     >
-                        <div className="flex flex-col items-center justify-center bg-slate-500 p-5">
+                        <div className="flex flex-col items-center justify-center bg-slate-500 p-10">
                             <h2 className="mb-10 text-center text-6xl">
                                 Aperture
                             </h2>
                             <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2"></div>
                         </div>
-                        <div className="flex flex-col items-center justify-center p-5">
+                        <div className="flex flex-col items-center justify-center p-10">
                             <h2 className="mb-10 text-center text-6xl">
                                 I Nostri Partner
                             </h2>
@@ -177,9 +179,9 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 2 }}
-                        className="mt-10 flex min-h-fit flex-col items-center justify-center p-5"
+                        className="flex min-h-fit flex-col items-center justify-center p-10 dark:bg-slate-600"
                     >
-                        <h2 className="mb-10 text-center text-6xl">
+                        <h2 className="mb-10 text-center text-6xl text-black dark:text-white">
                             Quanto abbiamo fatto
                         </h2>
                         <div className="grid w-full grid-cols-1 justify-items-center gap-5 p-10 lg:grid-cols-3">

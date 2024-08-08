@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa';
 export default function Footer() {
     return (
         <footer className="grid h-fit grid-cols-1 text-white md:grid-cols-3">
-            <div className="grid place-items-center bg-red-800 p-10 md:block">
+            <div className="grid place-items-center bg-red-800 p-10 dark:bg-red-900 md:block">
                 <img
                     src="/images/remida_logo.webp"
                     className="mr-3 h-12 md:h-16 lg:h-20"
@@ -12,13 +12,18 @@ export default function Footer() {
                 />
                 <img
                     src="/images/altrementi-logo.webp"
-                    className="mr-3 h-12 md:h-16 lg:h-20"
+                    className="mr-3 h-12 dark:hidden md:h-16 lg:h-20"
+                    alt="Altrementi Logo"
+                />
+                <img
+                    src="/images/altrementi-logo-light.webp"
+                    className="mr-3 hidden h-12 dark:inline-block md:h-16 lg:h-20"
                     alt="Altrementi Logo"
                 />
                 <p>c/o Chiostro di Voltorre</p>
                 <p> Gavirate - Varese</p>
             </div>
-            <div className="grid grid-cols-1 place-items-center bg-red-900 p-10 md:col-span-2 md:grid-cols-2">
+            <div className="grid grid-cols-1 place-items-center bg-red-900 p-10 dark:bg-red-950 md:col-span-2 md:grid-cols-2">
                 <div className="flex flex-col">
                     <h2 className="text-lg font-semibold">Menù</h2>
                     <Link href={route('home')}>Home</Link>

@@ -2,7 +2,7 @@
 import forms from '@tailwindcss/forms';
 import flowbite from 'flowbite-react/tailwind';
 export default {
-    darkMode: ['class'],
+    darkMode: ['selector'],
     content: [
         'resources/**/*.{js,jsx}',
         './pages/**/*.{js,jsx}',
