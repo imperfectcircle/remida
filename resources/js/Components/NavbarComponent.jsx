@@ -12,21 +12,23 @@ export default function NavbarComponent() {
             rounded
         >
             <Navbar.Brand href="https://flowbite-react.com">
-                <img
-                    src="/images/remida_logo.webp"
-                    className="mr-3 h-12 md:h-16 lg:h-20"
-                    alt="ReMida Varese Logo"
-                />
-                <img
-                    src="/images/altrementi-logo.webp"
-                    className="mr-3 h-9 dark:hidden md:h-16 lg:h-20"
-                    alt="Altrementi Logo"
-                />
-                <img
-                    src="/images/altrementi-logo-light.webp"
-                    className="mr-3 hidden h-9 dark:inline-block md:h-16 lg:h-20"
-                    alt="Altrementi Logo"
-                />
+                <div className="md:flex">
+                    <img
+                        src="/images/remida_logo.webp"
+                        className="mr-3 h-12 md:h-16 lg:h-20"
+                        alt="ReMida Varese Logo"
+                    />
+                    <img
+                        src="/images/altrementi-logo.webp"
+                        className="mr-3 h-9 md:h-16 lg:h-20 dark:hidden"
+                        alt="Altrementi Logo"
+                    />
+                    <img
+                        src="/images/altrementi-logo-light.webp"
+                        className="mr-3 hidden h-9 md:h-16 lg:h-20 dark:inline-block"
+                        alt="Altrementi Logo"
+                    />
+                </div>
             </Navbar.Brand>
             <div className="flex items-center md:order-2">
                 <ThemeSwitcher />
@@ -36,7 +38,7 @@ export default function NavbarComponent() {
                         shimmerSize="0.2rem"
                         background="rgba(185, 28, 28 , 1)"
                     >
-                        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg dark:from-white dark:to-slate-900/10">
                             Contatti
                         </span>
                     </ShimmerButton>

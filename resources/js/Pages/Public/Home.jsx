@@ -2,7 +2,6 @@ import { CardCarousel } from '@/Components/CardCarousel';
 import CardTicker from '@/Components/CardTicker';
 import Ghost from '@/Components/Ghost';
 import PublicLayout from '@/Layouts/PublicLayout';
-import NumberTicker from '@/shadcn/magicui/number-ticker';
 import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -11,9 +10,16 @@ export default function Home() {
     const [loader, setLoader] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
+        const hasVisited = sessionStorage.getItem('hasVisited');
+
+        if (!hasVisited) {
+            setTimeout(() => {
+                setLoader(false);
+                sessionStorage.setItem('hasVisited', true);
+            }, 2500);
+        } else {
             setLoader(false);
-        }, 2500);
+        }
     }, []);
 
     return (
@@ -24,8 +30,8 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1.5 }}
-                        className="inline-block"
-                        src="/images/Arancio.png"
+                        className="inline-block w-full object-contain"
+                        src="/images/splash.gif"
                         alt=""
                     />
                 </div>
@@ -69,7 +75,7 @@ export default function Home() {
                             </motion.h1>
                         </div>
                     </section>
-                    <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 dark:bg-slate-600 md:grid-cols-3 lg:grid-cols-6">
+                    <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 lg:grid-cols-6 dark:bg-slate-600">
                         <Ghost
                             source="/images/Nero.png"
                             alternative="Fantasma Nero"
@@ -164,7 +170,7 @@ export default function Home() {
                             </h2>
                             <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2"></div>
                         </div>
-                        <div className="flex flex-col items-center justify-center p-10">
+                        <div className="flex flex-col items-center justify-center p-5 md:p-10">
                             <h2 className="mb-10 text-center text-6xl">
                                 I Nostri Partner
                             </h2>
@@ -179,12 +185,12 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 2 }}
-                        className="flex min-h-fit flex-col items-center justify-center p-10 dark:bg-slate-600"
+                        className="flex min-h-fit flex-col items-center justify-center p-2 md:p-10 dark:bg-slate-600"
                     >
                         <h2 className="mb-10 text-center text-6xl text-black dark:text-white">
                             Quanto abbiamo fatto
                         </h2>
-                        <div className="grid w-full grid-cols-1 justify-items-center gap-5 p-10 lg:grid-cols-3">
+                        <div className="grid w-full grid-cols-1 justify-items-center gap-5 p-2 md:p-10 lg:grid-cols-3">
                             <CardTicker
                                 title="Lorem Ipsum"
                                 text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
