@@ -1,10 +1,10 @@
 import ShimmerButton from '@/shadcn/magicui/shimmer-button';
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Navbar } from 'flowbite-react';
 import ThemeSwitcher from './ThemeSwitcher';
+import NavbarLink from './NavbarLink';
 
 export default function NavbarComponent() {
-    const { url } = usePage();
     return (
         <Navbar
             className="fixed left-0 top-0 z-50 w-full bg-white/70 shadow-md backdrop-blur-lg"
@@ -32,7 +32,8 @@ export default function NavbarComponent() {
             </Navbar.Brand>
             <div className="flex items-center md:order-2">
                 <ThemeSwitcher />
-                <form action={route('contacts')} className="ml-5">
+
+                <Link href={route('contacts')} className="ml-5">
                     <ShimmerButton
                         className=""
                         shimmerSize="0.2rem"
@@ -42,34 +43,34 @@ export default function NavbarComponent() {
                             Contatti
                         </span>
                     </ShimmerButton>
-                </form>
+                </Link>
+
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link
+                <NavbarLink namedRoute={route('home')} uri="/" label="Home" />
+                <NavbarLink
+                    namedRoute={route('about')}
+                    uri="/chi-siamo"
+                    label="Chi Siamo"
+                />
+                <NavbarLink
+                    namedRoute={route('expertise')}
+                    uri="/cosa-facciamo"
+                    label="Cosa Facciamo"
+                />
+                <NavbarLink
+                    namedRoute={route('events')}
+                    uri="/eventi"
+                    label="In Evidenza"
+                />
+                {/* <Link
                     href={route('home')}
+                    className={`block py-2 pl-3 pr-4 font-bold text-black/90 transition-colors hover:text-white md:p-0 md:text-lg dark:text-slate-400 ${url === '/' ? 'active' : ''}`}
                     active={url === '/' ? true : false}
                 >
                     Home
-                </Navbar.Link>
-                <Navbar.Link
-                    href={route('about')}
-                    active={url === '/chi-siamo' ? true : false}
-                >
-                    Chi Siamo
-                </Navbar.Link>
-                <Navbar.Link
-                    href={route('expertise')}
-                    active={url === '/cosa-facciamo' ? true : false}
-                >
-                    Cosa Facciamo
-                </Navbar.Link>
-                <Navbar.Link
-                    href={route('events')}
-                    active={url === '/eventi' ? true : false}
-                >
-                    In Evidenza
-                </Navbar.Link>
+                </Link> */}
             </Navbar.Collapse>
         </Navbar>
     );

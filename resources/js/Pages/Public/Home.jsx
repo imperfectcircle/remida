@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react';
 import { CardCarousel } from '@/Components/CardCarousel';
 import CardTicker from '@/Components/CardTicker';
 import Ghost from '@/Components/Ghost';
+import SplashScreen from '@/Components/SplashScreen';
 import PublicLayout from '@/Layouts/PublicLayout';
 import ShimmerButton from '@/shadcn/magicui/shimmer-button';
+import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 export default function Home() {
     const [loader, setLoader] = useState(true);
@@ -22,26 +24,30 @@ export default function Home() {
         }
     }, []);
 
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { duration: 1.5 },
+        },
+    };
+
     return (
         <>
+            <Head>
+                <title>REMIDA VARESE - Innoviamo con creatività | Home </title>
+                <meta name="description" content=""></meta>
+                <link rel="canonical" href="https://remidavarese.it/"></link>
+            </Head>
             {loader ? (
-                <div className="flex h-screen w-full items-center justify-center">
-                    <motion.img
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1.5 }}
-                        className="inline-block w-full object-contain"
-                        src="/images/splash.gif"
-                        alt=""
-                    />
-                </div>
+                <SplashScreen variants={variants} />
             ) : (
                 <PublicLayout>
                     <section className="grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 2.5 }}
+                            initial="hidden"
+                            animate="visible"
+                            variants={variants}
                             className="hidden md:flex md:items-center md:justify-center"
                         >
                             <img
@@ -52,9 +58,9 @@ export default function Home() {
                         </motion.div>
                         <div className="flex items-center justify-center text-white">
                             <motion.h1
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 2.5 }}
+                                initial="hidden"
+                                animate="visible"
+                                variants={variants}
                                 className="w-9/12 text-3xl md:text-6xl"
                             >
                                 <span className="font-bold">REMIDA VARESE</span>
@@ -75,7 +81,7 @@ export default function Home() {
                             </motion.h1>
                         </div>
                     </section>
-                    <section className="grid min-h-fit grid-cols-1 justify-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 lg:grid-cols-6 dark:bg-slate-600">
+                    <section className="grid min-h-[65vh] grid-cols-1 place-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 dark:bg-slate-600">
                         <Ghost
                             source="/images/Nero.png"
                             alternative="Fantasma Nero"
@@ -108,18 +114,27 @@ export default function Home() {
                         />
                     </section>
                     <motion.section
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 2 }}
+                        variants={variants}
                         className="where grid h-screen place-items-center text-white"
                     >
-                        <div className="max-w-xl p-5 md:p-0">
-                            <motion.p
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
+                        <div className="max-w-xl p-5 text-center md:p-0">
+                            <motion.h2
+                                initial="hidden"
+                                whileInView="visible"
                                 viewport={{ once: true }}
-                                transition={{ duration: 2 }}
+                                variants={variants}
+                                className="mb-10 pb-5 text-center text-6xl"
+                            >
+                                Dove Siamo
+                            </motion.h2>
+                            <motion.p
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                variants={variants}
                                 className="text-4xl"
                             >
                                 Il chiostro di Voltorre è un monastero
@@ -129,27 +144,29 @@ export default function Home() {
                                 apprendimento di ReMida Varese
                             </motion.p>
                             <motion.div
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
+                                initial="hidden"
+                                whileInView="visible"
                                 viewport={{ once: true }}
-                                transition={{ duration: 2 }}
+                                variants={variants}
                                 className="px-5"
                             >
-                                <ShimmerButton
-                                    className="mt-3 w-full bg-red-600 text-lg hover:bg-red-800 dark:font-bold"
-                                    shimmerSize="0.2rem"
-                                    background="rgba(185, 28, 28 , 1)"
-                                >
-                                    Contattaci
-                                </ShimmerButton>
+                                <Link href={route('contacts')}>
+                                    <ShimmerButton
+                                        className="mt-3 w-full bg-red-600 text-lg hover:bg-red-800 dark:font-bold"
+                                        shimmerSize="0.2rem"
+                                        background="rgba(185, 28, 28 , 1)"
+                                    >
+                                        Contattaci
+                                    </ShimmerButton>
+                                </Link>
                             </motion.div>
                         </div>
                     </motion.section>
                     <motion.section
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 2 }}
+                        variants={variants}
                         className="flex flex-col items-center justify-center bg-transparent p-5 py-10 dark:bg-slate-600"
                     >
                         <h2 className="mb-10 text-6xl text-black dark:text-gray-300">
@@ -158,10 +175,10 @@ export default function Home() {
                         <CardCarousel />
                     </motion.section>
                     <motion.section
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 2 }}
+                        variants={variants}
                         className="grid min-h-fit grid-cols-1 bg-slate-400 md:grid-cols-2"
                     >
                         <div className="flex flex-col items-center justify-center bg-slate-500 p-10">
@@ -181,10 +198,10 @@ export default function Home() {
                         </div>
                     </motion.section>
                     <motion.section
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 2 }}
+                        variants={variants}
                         className="flex min-h-fit flex-col items-center justify-center p-2 md:p-10 dark:bg-slate-600"
                     >
                         <h2 className="mb-10 text-center text-6xl text-black dark:text-white">
