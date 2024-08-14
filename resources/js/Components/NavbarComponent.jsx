@@ -48,22 +48,30 @@ export default function NavbarComponent() {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <NavbarLink namedRoute={route('home')} uri="/" label="Home" />
                 <NavbarLink
-                    namedRoute={route('about')}
-                    uri="/chi-siamo"
-                    label="Chi Siamo"
-                />
+                    href={route('home')}
+                    active={route().current('home')}
+                >
+                    Home
+                </NavbarLink>
                 <NavbarLink
-                    namedRoute={route('expertise')}
-                    uri="/cosa-facciamo"
-                    label="Cosa Facciamo"
-                />
+                    href={route('about')}
+                    active={route().current('about')}
+                >
+                    Chi Siamo
+                </NavbarLink>
                 <NavbarLink
-                    namedRoute={route('events')}
-                    uri="/eventi"
-                    label="In Evidenza"
-                />
+                    href={route('expertise')}
+                    active={route().current('expertise')}
+                >
+                    Cosa Facciamo
+                </NavbarLink>
+                <NavbarLink
+                    href={route('events')}
+                    active={route().current('events')}
+                >
+                    In Evidenza
+                </NavbarLink>
                 {/* <Link
                     href={route('home')}
                     className={`block py-2 pl-3 pr-4 font-bold text-black/90 transition-colors hover:text-white md:p-0 md:text-lg dark:text-slate-400 ${url === '/' ? 'active' : ''}`}
