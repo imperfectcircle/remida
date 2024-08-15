@@ -1,7 +1,6 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 
 export default function NavbarLink({ active = false, children, ...props }) {
-    const { url } = usePage();
     return (
         <Link
             {...props}
