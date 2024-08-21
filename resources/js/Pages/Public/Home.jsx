@@ -7,6 +7,7 @@ import PublicLayout from '@/Layouts/PublicLayout';
 import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
+import Timeline from '@/Components/Timeline';
 
 export default function Home() {
     const [loader, setLoader] = useState(true);
@@ -85,32 +86,38 @@ export default function Home() {
                         <Ghost
                             source="/images/Nero.png"
                             alternative="Fantasma Nero"
-                            title="Titolo Nero"
+                            title="Laboratori per Scuole"
+                            href={route('laboratories')}
                         />
                         <Ghost
                             source="/images/Grigio.png"
                             alternative="Fantasma Grigio"
-                            title="Titolo Grigio"
+                            title="Formazione"
+                            href={route('training')}
                         />
                         <Ghost
                             source="/images/Blu.png"
                             alternative="Fantasma Blu"
-                            title="Titolo Blu"
+                            title="Emporio dei Materiali"
+                            href={route('emporium')}
                         />
                         <Ghost
                             source="/images/Verde.png"
                             alternative="Fantasma Verde"
-                            title="Titolo Verde"
+                            title="Laboratori per Altri Enti"
+                            href={route('other')}
                         />
                         <Ghost
                             source="/images/Viola.png"
                             alternative="Fantasma Viola"
-                            title="Titolo Viola"
+                            title="Aziende"
+                            href={route('agency')}
                         />
                         <Ghost
                             source="/images/Arancio.png"
                             alternative="Fantasma Arancio"
-                            title="Titolo Arancio"
+                            title="Laboratori Speciali"
+                            href={route('special')}
                         />
                     </section>
                     <motion.section
@@ -206,6 +213,18 @@ export default function Home() {
                     >
                         <h2 className="mb-10 text-center text-6xl text-black dark:text-white">
                             Quanto abbiamo fatto
+                        </h2>
+                        <Timeline />
+                    </motion.section>
+                    <motion.section
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={variants}
+                        className="flex min-h-fit flex-col items-center justify-center bg-slate-600 p-2 md:p-10"
+                    >
+                        <h2 className="mb-10 text-center text-6xl text-white">
+                            Collaborazioni
                         </h2>
                         <div className="grid w-full grid-cols-1 justify-items-center gap-5 p-2 md:p-10 lg:grid-cols-3">
                             <CardTicker

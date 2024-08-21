@@ -67,6 +67,12 @@ export default function NavbarComponent() {
                     Cosa Facciamo
                 </NavbarLink>
                 <NavbarLink
+                    href={route('gallery')}
+                    active={route().current('gallery')}
+                >
+                    Galleria
+                </NavbarLink>
+                <NavbarLink
                     href={route('events')}
                     active={route().current('events')}
                 >

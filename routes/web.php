@@ -11,7 +11,15 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/chi-siamo', 'about')->name('about');
     Route::get('/cosa-facciamo', 'expertise')->name('expertise');
     Route::get('/eventi', 'events')->name('events');
+    Route::get('/gallery', 'gallery')->name('gallery');
     Route::get('/contatti', 'contacts')->name('contacts');
+
+    Route::get('/laboratori-per-scuole', 'laboratories')->name('laboratories');
+    Route::get('/formazione', 'training')->name('training');
+    Route::get('/emporio-dei-materiali', 'emporium')->name('emporium');
+    Route::get('/laboratori-per-altri-enti', 'other')->name('other');
+    Route::get('/aziende', 'agency')->name('agency');
+    Route::get('/laboratori-speciali', 'special')->name('special');
 });
 
 Route::get('/dashboard', function () {

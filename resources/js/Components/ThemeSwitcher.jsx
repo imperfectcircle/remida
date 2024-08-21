@@ -32,7 +32,11 @@ export default function ThemeSwitcher() {
         <>
             <div className="flex items-center space-x-1">
                 <FaSun className={isDark ? 'text-white' : 'text-black'} />
-                <Switch onClick={handleThemeChange} checked={isDark} />
+                <Switch
+                    onClick={handleThemeChange}
+                    checked={isDark}
+                    className="data-[state=unchecked]:bg-gray-400"
+                />
                 <FaMoon className={isDark ? 'text-white' : 'text-black'} />
             </div>
         </>

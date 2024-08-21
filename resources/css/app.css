@@ -5,6 +5,7 @@
 html {
     scrollbar-width: thin;
     scrollbar-color: #ef4444 #fca5a5;
+    overflow-x: hidden;
 }
 
 @layer utilities {

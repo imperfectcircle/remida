@@ -23,7 +23,35 @@ class PublicController extends Controller
         return Inertia::render('Public/Events');
     }
 
+    public function gallery() {
+        return Inertia::render('Public/Gallery');
+    }
+
     public function contacts() {
         return Inertia::render('Public/Contacts');
+    }
+
+    public function laboratories() {
+        return Inertia::render('Public/Laboratories');
+    }
+    
+    public function training() {
+        return Inertia::render('Public/Training');
+    }
+
+    public function emporium() {
+        return Inertia::render('Public/Emporium');
+    }
+
+    public function other() {
+        return Inertia::render('Public/Other');
+    }
+
+    public function agency() {
+        return Inertia::render('Public/Agency');
+    }
+
+    public function special() {
+        return Inertia::render('Public/Special');
     }
 }
