@@ -2,7 +2,10 @@ import { Link } from '@inertiajs/react';
 
 export default function Ghost({ source, alternative, title, href }) {
     return (
-        <Link href={href} className="flex flex-col items-center">
+        <Link
+            href={href}
+            className="flex flex-col items-center transition-all hover:scale-105"
+        >
             <img
                 src={source}
                 alt={alternative}
