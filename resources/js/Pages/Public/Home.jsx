@@ -8,6 +8,7 @@ import ShimmerButton from '@/shadcn/magicui/shimmer-button';
 import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Timeline from '@/Components/Timeline';
+import { variants } from '@/Constants';
 
 export default function Home() {
     const [loader, setLoader] = useState(true);
@@ -25,14 +26,6 @@ export default function Home() {
         }
     }, []);
 
-    const variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { duration: 1.5 },
-        },
-    };
-
     return (
         <>
             <Head>
@@ -41,7 +34,7 @@ export default function Home() {
                 <link rel="canonical" href="https://remidavarese.it/"></link>
             </Head>
             {loader ? (
-                <SplashScreen variants={variants} />
+                <SplashScreen />
             ) : (
                 <PublicLayout>
                     <section className="grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">

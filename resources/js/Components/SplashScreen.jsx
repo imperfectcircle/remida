@@ -1,6 +1,7 @@
+import { variants } from '@/Constants';
 import { motion } from 'framer-motion';
 
-export default function SplashScreen({ variants }) {
+export default function SplashScreen() {
     return (
         <div className="flex h-screen w-full items-center justify-center">
             <motion.img

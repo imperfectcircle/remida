@@ -8,7 +8,7 @@ html {
     overflow-x: hidden;
 }
 
-@layer utilities {
+@layer base {
     .header {
         background: linear-gradient(
                 to left bottom,
@@ -20,6 +20,32 @@ html {
         background-position: bottom right;
         background-repeat: no-repeat;
         background-size: auto;
+    }
+
+    .about {
+        background: linear-gradient(
+                to left bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.4)
+            ),
+            url('/public/images/about.webp');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .laboratories {
+        background: linear-gradient(
+                to left bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.4)
+            ),
+            url('/public/images/laboratories.webp');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 }
 

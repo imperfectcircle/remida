@@ -20,6 +20,8 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/laboratori-per-altri-enti', 'other')->name('other');
     Route::get('/aziende', 'agency')->name('agency');
     Route::get('/laboratori-speciali', 'special')->name('special');
+
+    Route::post('/contact/schools', 'contactSchools')->name('contact.schools');
 });
 
 Route::get('/dashboard', function () {

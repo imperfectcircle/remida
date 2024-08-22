@@ -51,8 +51,8 @@ export function CardCarousel() {
             </CarouselContent>
             {isVisible && (
                 <div>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="dark:text-white" />
+                    <CarouselNext className="dark:text-white" />
                 </div>
             )}
         </Carousel>
