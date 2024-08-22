@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactSchoolRequest;
+use App\Mail\SchoolMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class PublicController extends Controller
@@ -53,5 +56,18 @@ class PublicController extends Controller
 
     public function special() {
         return Inertia::render('Public/Special');
+    }
+
+    public function contactSchools(ContactSchoolRequest $req) {
+        $name =$req->name;
+        $email = $req->email;
+        $phone = $req->phone;
+        $school = $req->school;
+        $message = $req->message;
+        $privacy = $req->privacy;
+
+        $contact = compact('name', 'email', 'phone', 'school', 'message', 'privacy');
+        Mail::to('info@remidavarese.it')->send(new SchoolMail($contact));
+        return to_route('laboratories')->with('message', 'La mail è stata inviata correttamente');
     }
 }
