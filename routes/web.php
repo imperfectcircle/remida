@@ -22,6 +22,7 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/laboratori-speciali', 'special')->name('special');
 
     Route::post('/contact/schools', 'contactSchools')->name('contact.schools');
+    Route::post('/contact/generic', 'contactGeneric')->name('contact.generic');
 });
 
 Route::get('/dashboard', function () {

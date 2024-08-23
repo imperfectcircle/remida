@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactGenericRequest;
 use App\Http\Requests\ContactSchoolRequest;
+use App\Mail\GenericMail;
 use App\Mail\SchoolMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -69,5 +71,17 @@ class PublicController extends Controller
         $contact = compact('name', 'email', 'phone', 'school', 'message', 'privacy');
         Mail::to('info@remidavarese.it')->send(new SchoolMail($contact));
         return to_route('laboratories')->with('message', 'La mail è stata inviata correttamente');
+    }
+
+    public function contactGeneric(ContactGenericRequest $req) {
+        $name =$req->name;
+        $email = $req->email;
+        $phone = $req->phone;
+        $message = $req->message;
+        $privacy = $req->privacy;
+
+        $contact = compact('name', 'email', 'phone', 'message', 'privacy');
+        Mail::to('info@remidavarese.it')->send(new GenericMail($contact));
+        return to_route('contacts')->with('message', 'La mail è stata inviata correttamente');
     }
 }
