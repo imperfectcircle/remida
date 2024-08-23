@@ -20,7 +20,7 @@ export default function NavbarComponent() {
                     />
                     <img
                         src="/images/altrementi-logo.webp"
-                        className="mr-3 h-9 md:h-16 lg:h-20 dark:hidden"
+                        className="mr-3 flex h-10 items-end dark:hidden"
                         alt="Altrementi Logo"
                     />
                     <img
