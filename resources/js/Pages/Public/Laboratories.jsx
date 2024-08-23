@@ -134,7 +134,7 @@ export default function Laboratories() {
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={variants}
-                    className="grid place-items-center p-10 dark:bg-slate-500 dark:text-white"
+                    className="grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white"
                 >
                     <div className="">
                         <h2 className="mb-10 text-6xl">Contattaci</h2>

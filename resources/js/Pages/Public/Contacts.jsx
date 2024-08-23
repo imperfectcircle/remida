@@ -55,7 +55,7 @@ export default function Contacts() {
                     initial="hidden"
                     animate="visible"
                     variants={variants}
-                    className="grid min-h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-20"
+                    className="mt-[100px] grid min-h-fit grid-cols-1 bg-black/60 p-2 md:grid-cols-2 md:p-20 lg:mt-20"
                 >
                     <div className="flex flex-col items-center justify-center p-10 text-white">
                         <h1 className="w-9/12 text-3xl md:text-6xl">
@@ -236,6 +236,18 @@ export default function Contacts() {
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </motion.section>
+                <motion.section
+                    initial="hidden"
+                    animate="visible"
+                    variants={variants}
+                >
+                    <div className="h-[65vh] w-full">
+                        <iframe
+                            className="h-[65vh] w-full"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3297.5070175352453!2d8.731766776622383!3d45.833361408731534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786792be1c69103%3A0x343281f25d94a7ca!2sChiostro%20di%20Voltorre!5e1!3m2!1sit!2sit!4v1724407744334!5m2!1sit!2sit"
+                        ></iframe>
                     </div>
                 </motion.section>
             </PublicLayout>
