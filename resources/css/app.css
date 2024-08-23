@@ -47,6 +47,19 @@ html {
         background-repeat: no-repeat;
         background-size: cover;
     }
+
+    .expertise {
+        background: linear-gradient(
+                to left bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.4)
+            ),
+            url('/public/images/expertise.webp');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }
 
 .where {

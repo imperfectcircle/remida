@@ -12,7 +12,7 @@ export default function NavbarComponent() {
             rounded
         >
             <Navbar.Brand href="https://flowbite-react.com">
-                <div className="md:flex">
+                <div className="items-end md:flex">
                     <img
                         src="/images/remida_logo.webp"
                         className="mr-3 h-12 md:h-16 lg:h-20"
@@ -25,7 +25,7 @@ export default function NavbarComponent() {
                     />
                     <img
                         src="/images/altrementi-logo-light.webp"
-                        className="mr-3 hidden h-9 md:h-16 lg:h-20 dark:inline-block"
+                        className="mr-3 hidden h-10 dark:inline-block"
                         alt="Altrementi Logo"
                     />
                 </div>
