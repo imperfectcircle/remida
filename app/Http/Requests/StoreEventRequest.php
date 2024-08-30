@@ -23,7 +23,7 @@ class StoreEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:events,title',
             'slug' => 'unique:events,slug',
             'description' => 'required',
             'status' => ['required', Rule::in(['published', 'unpublished'])],
@@ -36,6 +36,7 @@ class StoreEventRequest extends FormRequest
         return [
             'title.required' => 'Il titolo è obbligatorio',
             'title.max' => 'Il titolo non può essere più lungo di 255 caratteri',
+            'title.unique' => 'È già presente un evento con questo titolo',
             'description.required' => 'La descrizione è obbligatoria',
             'status.required' => 'Lo stato è obbligatorio',
             'status.in' => 'Lo stato deve essere pubblicato o non pubblicato',

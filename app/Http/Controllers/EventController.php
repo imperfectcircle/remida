@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use App\Http\Resources\EventResource;
+use App\Traits\CloudinaryImageHandler;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -18,6 +19,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class EventController extends Controller
 {
+    use CloudinaryImageHandler;
     /**
      * Display a listing of the resource.
      */
@@ -146,25 +148,5 @@ class EventController extends Controller
         return to_route('event.index')->with('message', "Evento \"$eventTitle\" Cancellato con Successo.");
     }
 
-    protected function uploadImageToCloudinary($image) {
-        $nameGen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        $imgManager = new ImageManager(new Driver());
-        $thumbImage = $imgManager->read($image)->pad(800, 800, 'fff', 'center');
-        
-        $savePath = public_path('upload/cloudinary/' . $nameGen);
-        $thumbImage->save($savePath);
-
-        if (File::exists($savePath)) {
-            $uploadedFileUrl = Cloudinary::upload($savePath)->getSecurePath();
-            File::delete($savePath);
-            return $uploadedFileUrl;
-        }
-
-        throw new \Exception('Image upload failed.');
-    }
-
-    protected function deleteImageFromCloudinary($image_url) {
-        $publicId = basename($image_url, '.' . pathinfo($image_url, PATHINFO_EXTENSION));
-        Cloudinary::destroy($publicId);
-    }
+    
 }
