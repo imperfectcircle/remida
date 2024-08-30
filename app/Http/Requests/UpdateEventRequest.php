@@ -23,7 +23,7 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255|unique:events,title',
+            'title' => ['required', 'max:255', Rule::unique('events', 'title')->ignore($this->event)],
             'slug' => 'unique:events,slug',
             'description' => 'required',
             'status' => ['required', Rule::in(['published', 'unpublished'])],
