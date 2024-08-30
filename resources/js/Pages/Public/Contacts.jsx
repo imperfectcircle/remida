@@ -3,7 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { variants } from '@/Constants';
 import PublicLayout from '@/Layouts/PublicLayout';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { IoIosMail } from 'react-icons/io';
@@ -61,15 +61,20 @@ export default function Contacts() {
                         <h1 className="w-9/12 text-3xl md:text-6xl">
                             <span className="font-bold">REMIDA VARESE</span>
                             <br />
-                            <span className="font-semibold text-gray-400">
-                                Lorem ipsum dolor sit.
-                            </span>
                         </h1>
-                        <p className="mt-5 text-lg text-white md:w-5/6">
-                            Siamo qui per rispondere a tutte le tue domande o
-                            richieste. Puoi raggiungerci utilizzando i dettagli
-                            di contatto forniti di seguito oppure compilando il
-                            modulo di contatto. Risponderemo il prima possibile!
+                        <p className="mt-5 text-xl text-white md:w-5/6">
+                            Il{' '}
+                            <a
+                                href="https://it.wikipedia.org/wiki/Chiostro_di_Voltorre"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-white underline"
+                            >
+                                Chiostro di Voltorre
+                            </a>{' '}
+                            a Gavirate (VA) è un monastero benedettino del XII
+                            secolo di stile romanico. Ospita da oltre dieci anni
+                            i contesti ludici di apprendimento di ReMida Varese.
                         </p>
                         <div className="mt-10 grid grid-cols-2 gap-10 text-6xl text-red-500">
                             <div className="flex flex-col items-center justify-center">

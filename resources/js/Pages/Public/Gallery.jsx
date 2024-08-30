@@ -1,7 +1,8 @@
+import { FocusCards } from '@/Components/FocusCards';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Gallery() {
+export default function Gallery({ images }) {
     return (
         <>
             <Head>
@@ -15,7 +16,11 @@ export default function Gallery() {
                 ></link>
             </Head>
 
-            <PublicLayout>Gallery</PublicLayout>
+            <PublicLayout>
+                <section className="my-[150px] grid place-items-center p-5">
+                    <FocusCards cards={images} />
+                </section>
+            </PublicLayout>
         </>
     );
 }

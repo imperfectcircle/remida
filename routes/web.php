@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
+use App\Http\Middleware\CacheControl;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -11,6 +16,7 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/chi-siamo', 'about')->name('about');
     Route::get('/cosa-facciamo', 'expertise')->name('expertise');
     Route::get('/eventi', 'events')->name('events');
+    Route::get('/eventi/{slug}', 'eventShow')->name('public.event.show');
     Route::get('/gallery', 'gallery')->name('gallery');
     Route::get('/contatti', 'contacts')->name('contacts');
 
@@ -25,14 +31,23 @@ Route::controller(PublicController::class)->group(function () {
     Route::post('/contact/generic', 'contactGeneric')->name('contact.generic');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(AdminPanelController::class)->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('event', EventController::class)->withoutMiddleware(CacheControl::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('image', ImageController::class)->withoutMiddleware(CacheControl::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

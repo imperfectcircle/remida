@@ -8,16 +8,15 @@ export default function TimelineComponent() {
             <Timeline.Item>
                 <Timeline.Point icon={HiCalendar} />
                 <Timeline.Content>
-                    <Timeline.Time>February 2022</Timeline.Time>
-                    <Timeline.Title>
-                        Application UI code in Tailwind CSS
-                    </Timeline.Title>
+                    <Timeline.Title>LABORATORI SCOLASTICI</Timeline.Title>
                     <Timeline.Body>
-                        Get access to over 20+ pages including a dashboard
-                        layout, charts, kanban board, calendar, and pre-order
-                        E-commerce & Marketing pages.
+                        Attività creative, di apprendimento e di socializzazione
+                        con gruppi di bambini di Asilo Nido, Scuole d’Infanzia,
+                        Scuola Primaria, ragazzi di Scuola Secondaria di Primo e
+                        Secondo Grado, svolti al Chiostro di Voltorre o
+                        itineranti presso le sedi dei committenti.
                         <NumberTicker
-                            value="250"
+                            value="454"
                             className="ml-10 text-3xl font-bold text-black"
                         />
                     </Timeline.Body>
@@ -26,16 +25,14 @@ export default function TimelineComponent() {
             <Timeline.Item>
                 <Timeline.Point icon={HiCalendar} />
                 <Timeline.Content>
-                    <Timeline.Time>March 2022</Timeline.Time>
-                    <Timeline.Title>
-                        Marketing UI design in Figma
-                    </Timeline.Title>
+                    <Timeline.Title>CORSI DI FORMAZIONE</Timeline.Title>
                     <Timeline.Body>
-                        All of the pages and components are first designed in
-                        Figma and we keep a parity between the two versions even
-                        as we update the project.
+                        Percorsi sulla promozione della creatività con materiali
+                        non strutturati, interventi sull’organizzazione di
+                        attività e contesti di apprendimento per Asili e Scuole,
+                        sia Pubbliche che Paritarie e Private
                         <NumberTicker
-                            value="627"
+                            value="58"
                             className="ml-10 text-3xl font-bold text-black"
                         />
                     </Timeline.Body>
@@ -44,15 +41,48 @@ export default function TimelineComponent() {
             <Timeline.Item>
                 <Timeline.Point icon={HiCalendar} />
                 <Timeline.Content>
-                    <Timeline.Time>April 2022</Timeline.Time>
                     <Timeline.Title>
-                        E-Commerce UI code in Tailwind CSS
+                        MATERIALE NON STRUTTURATO RECUPERATO DA AZIENDE E
+                        ARTIGIANI
                     </Timeline.Title>
                     <Timeline.Body>
-                        Get started with dozens of web components and
-                        interactive elements built on top of Tailwind CSS.
+                        Legni, corde, plastiche di vario genere, cartoni, carta,
+                        metalli, stoffe, spugne, feltro, magneti, sughero,
+                        pizzi, valorizzato in Quintali
                         <NumberTicker
-                            value="985"
+                            value="45"
+                            className="ml-10 text-3xl font-bold text-black"
+                        />
+                    </Timeline.Body>
+                </Timeline.Content>
+            </Timeline.Item>
+            <Timeline.Item>
+                <Timeline.Point icon={HiCalendar} />
+                <Timeline.Content>
+                    <Timeline.Title>AZIENDE</Timeline.Title>
+                    <Timeline.Body>
+                        Realtà grandi e piccole, multinazionali e singoli
+                        artigiani della nostra zona che devolvono gratuitamente
+                        i loro scarti, le loro rimanenze di magazzino, i loro
+                        sottoprodotti a Remida Varese
+                        <NumberTicker
+                            value="35"
+                            className="ml-10 text-3xl font-bold text-black"
+                        />
+                    </Timeline.Body>
+                </Timeline.Content>
+            </Timeline.Item>
+            <Timeline.Item>
+                <Timeline.Point icon={HiCalendar} />
+                <Timeline.Content>
+                    <Timeline.Title>PARTECIPANTI ATTIVI</Timeline.Title>
+                    <Timeline.Body>
+                        Bambini, adulti, anziani, famiglie intere che hanno
+                        frequentato la nostra sede o hanno partecipato alle
+                        nostre attività itineranti in piazze, parchi e altri
+                        luoghi comunitari
+                        <NumberTicker
+                            value="3650"
                             className="ml-10 text-3xl font-bold text-black"
                         />
                     </Timeline.Body>

@@ -42,10 +42,16 @@ export default function Laboratories() {
         <>
             <Head>
                 <title>
-                    REMIDA VARESE - Innoviamo con creatività | Laboratori per le
+                    REMIDA VARESE - Innoviamo con creatività | Laboratori per
                     Scuole
                 </title>
-                <meta name="description" content=""></meta>
+                <meta
+                    name="description"
+                    content="I laboratori proposti si basano su approcci
+                                pedagogici che permettono di fare scoperte, di
+                                provare e sperimentare, di conoscere, di
+                                sbagliare e di apprendere."
+                ></meta>
                 <link
                     rel="canonical"
                     href="https://remidavarese.it/laboratori-per-scuole"
@@ -62,21 +68,15 @@ export default function Laboratories() {
                             className="w-9/12 text-3xl md:text-6xl"
                         >
                             <span className="font-bold">
-                                Laboratori per le Scuole
+                                Laboratori per Scuole
                             </span>
-                            <br />
-                            <span className="font-semibold text-gray-400">
-                                Lorem Ipsum.
-                            </span>
-                            <br />
-                            <span className="text-xl md:text-2xl">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Laudantium dolores delectus
-                                quaerat harum vitae quam neque blanditiis
-                                officiis earum ipsa iusto repudiandae
-                                recusandae, quasi sit facilis reprehenderit
-                                voluptas, modi architecto!
-                            </span>
+
+                            <p className="mt-5 text-xl md:text-2xl">
+                                I laboratori proposti si basano su approcci
+                                pedagogici che permettono di fare scoperte, di
+                                provare e sperimentare, di conoscere, di
+                                sbagliare e di apprendere.
+                            </p>
                         </motion.h1>
                     </div>
                 </section>
@@ -85,36 +85,432 @@ export default function Laboratories() {
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={variants}
+                    className="bg-transparent dark:bg-slate-500 dark:text-white"
+                >
+                    <div className="mx-auto max-w-7xl py-10 text-2xl">
+                        <p>
+                            Le idee e la loro realizzazione nascono spontanee
+                            nei nostri laboratori, che prevedono la
+                            manipolazione attiva dei materiali non strutturati
+                            messi a disposizione in contesti appropriati, dove
+                            divengono mediatori di apprendimento e strumenti
+                            d’indagine per il singolo e per il gruppo che
+                            interagisce.
+                        </p>
+                        <p className="mt-5">
+                            Le proposte tengono in considerazione le conoscenze
+                            e le abilità dei partecipanti, le esigenze di gioco
+                            e le tematiche, differenziate per fasce d’età e
+                            congruenti con le programmazioni scolastiche.
+                        </p>
+                        <p className="mt-5">
+                            IMPORTANTE: diamo la possibilità di consumare un
+                            pranzo al sacco in autonomia al termine dei
+                            laboratori, nei pressi del Chiostro se bel tempo o
+                            in spazi coperti in caso di maltempo.
+                        </p>
+                        <p className="mt-5">
+                            Di seguito le proposte educativo/didattiche per
+                            l'anno scolastico 2024-2025:
+                        </p>
+                    </div>
+                </motion.section>
+                <motion.section
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={variants}
                     className="grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600"
                 >
-                    <div className="rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-center text-white">
-                        <h2 className="mb-10 text-6xl">Nido</h2>
-                        <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                    <div className="rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white">
+                        <h2 className="mb-10 text-center text-6xl">
+                            Nido d'infanzia
+                        </h2>
+                        <p>
+                            Il bambino da 1 a 3 anni si interessa spontaneamente
+                            all’ambiente che lo circonda, scopre e conosce
+                            attraverso i sensi e tutto il suo corpo: come un
+                            esploratore si muove alla ricerca di ciò che è
+                            nuovo, che attira la sua attenzione e, grazie alla
+                            ripetizione instancabile, conosce e diventa abile.
+                            Sperimentare, scoprire e ripetere sono le azioni
+                            attraverso cui il bambino affina le proprie abilità
+                            cognitive, manuali, emotive.
+                        </p>
+                        <p className="mt-5">
+                            Il materiale non strutturato, per le sue
+                            caratteristiche, offre infinite possibilità al
+                            bambino di questa età: concetti come pieno e vuoto,
+                            dentro e fuori, alto e basso, luce e ombra,
+                            l’equilibrio e la caduta (ecc.) sono conosciuti e
+                            acquisiti da esperienze dirette che egli fa con le
+                            mani e con il corpo, per la sua mente.
+                        </p>
+                        <p className="mt-5">
+                            Il team educativo di Remida Varese offre laboratori{' '}
+                            <strong>
+                                permanenti presso il Chiostro di Voltorre
+                            </strong>{' '}
+                            o{' '}
+                            <strong>
+                                itineranti presso la sede degli Asili
+                            </strong>
+                            , con la possibilità di programmare più incontri in
+                            modo da avere più tempo nell’esplorazione delle
+                            potenzialità dei materiali non strutturati.
+                        </p>
+                        <p className="mt-5">
+                            È infine possibile{' '}
+                            <strong>
+                                organizzare i seguenti laboratori con la
+                                presenza dei genitori, per la festa finale
+                                dell’anno scolastico e/o per la promozione del
+                                proprio Asilo
+                            </strong>
+                            .
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE
+                        </h2>
+                        <p className="mt-5">
+                            Remida Varese ha allestito presso la sua sede dei
+                            contesti ludici, pronti ad accogliere fino a 25
+                            bambini per ognuna delle seguenti attività:
+                        </p>
+                        <p className="mt-5">
+                            <strong>CHE COMBINAZIONE!</strong> – GIOCO EURISTICO
+                            – 12/24 mesi
+                        </p>
+                        <p className="mt-5">
+                            “Cosa posso fare con questo oggetto? Come funziona?
+                            “
+                        </p>
+                        <p className="mt-5">
+                            Il laboratorio euristico è uno spazio dedicato di
+                            libera sperimentazione e scoperta, di materiali non
+                            consueti: il materiale non strutturato è
+                            classificato per categorie di oggetti, selezionati
+                            accuratamente in quantità e qualità per offrire al
+                            bambino la possibilità di raggiungere nuove mete e
+                            scoperte autonome (Eureka!).
+                        </p>
+                        <p className="mt-5">
+                            Una proposta educativa che offre agli educatori la
+                            possibilità di trovare un nuovo sguardo sui bambini,
+                            al loro desiderio di sperimentazione e scoperta, per
+                            comprendere e conoscere il bambino in tutta la sua
+                            totalità: emotiva, corporea, cognitiva.
+                        </p>
+                        <p className="mt-5">
+                            <strong>EQUILIBRI</strong> – MOVIMENTO E SCOPERTA –
+                            24/36 mesi
+                        </p>
+                        <p className="mt-5">
+                            Questo contesto con gioco a terra permette di
+                            coniugare il desiderio di fare grandi spostamenti,
+                            sperimentare e ricercare l’equilibrio degli oggetti
+                            e del loro corpo. Esperienze di gioco in movimento
+                            come: impilare, costruire torri e farle cadere,
+                            allineare, costruire camminamenti per provare
+                            equilibri con il corpo, trasportare e sperimentare
+                            il peso, la leggerezza, la stabilità.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
+                        </h2>
+                        <p className="mt-5">
+                            Gli stessi laboratori si possono realizzare nelle
+                            vostre sedi, in spazi idonei. Una sola attività o
+                            una serie di esperienze evitando la trasferta verso
+                            il Chiostro di Voltorre,{' '}
+                            <strong>con o senza genitori.</strong>.
+                        </p>
+                        <p className="mt-5">
+                            <strong>
+                                Compilate il form sottostante per ricevere una
+                                proposta ad hoc.
+                            </strong>
                         </p>
                     </div>
-                    <div className="rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-center text-black dark:bg-slate-400">
-                        <h2 className="mb-10 text-6xl">Scuole dell'infanzia</h2>
-                        <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                    <div className="rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400">
+                        <h2 className="mb-10 text-center text-6xl">
+                            Scuole dell'infanzia
+                        </h2>
+                        <p>
+                            <strong>
+                                “non sono sicuro di aver vissuto, dopo
+                                l’infanzia” A. de Saint-Exupéry
+                            </strong>
+                        </p>
+                        <p className="mt-5">
+                            I laboratori pensati per l’infanzia facilitano
+                            attività espressive come quelle di simbolizzazione e
+                            narrazione, suggeriscono domande e fanno nascere
+                            suggestioni.
+                        </p>
+                        <p className="mt-5">
+                            Fruizione di stimoli e informazioni provenienti dai
+                            materiali, dallo spazio e dalle loro interazioni,
+                            rielaborazione e produzione creativa sono le
+                            attività che prendono vita nei laboratori per
+                            l’infanzia di Remida Varese, verso l’obiettivo
+                            ultimo del potenziamento del pensiero divergente,
+                            contraddistinto da flessibilità, fluidità,
+                            originalità, elaborazione, valutazione, cambiamento
+                            e innovazione.
+                        </p>
+                        <p className="mt-5">
+                            Remida Varese offre laboratori{' '}
+                            <strong>
+                                permanenti presso il Chiostro di Voltorre a
+                                Gavirate o itineranti presso la sede delle
+                                Scuole
+                            </strong>
+                            , con la possibilità di programmare più incontri in
+                            modo da avere più tempo nell’esplorazione delle
+                            potenzialità dei materiali non strutturati.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE
+                        </h2>
+                        <p className="mt-5">
+                            Remida Varese ha allestito presso la sua sede dei
+                            contesti ludici di apprendimento per ognuna delle
+                            seguenti attività, che una volta terminate prevedono
+                            il riordino dei materiali riutilizzati:
+                        </p>
+                        <p className="mt-5">
+                            <strong>TAPPETO DI TESORI</strong> – ESPLORAZIONE
+                            SENSORIALE POLIMATERICA – sezione primavera, primo
+                            anno
+                        </p>
+                        <p className="mt-5">
+                            Luogo di scoperte e ricerche sensoriali dove i bimbi
+                            entrano in relazione con i diversi materiali per
+                            toccarli, allinearli, impilarli, scuoterli,
+                            infilarli l’uno dentro l’altro. Il tatto, la vista,
+                            l’udito indagano e scoprono le potenzialità infinite
+                            dei materiali presenti, in un’armonia che genera
+                            nuove combinazioni e possibilità costruttive.
+                        </p>
+                        <p className="mt-5">
+                            <strong>CANTIERE</strong> – MACRO COSTRUTTIVITÁ –
+                            primo, secondo e terzo anno
+                        </p>
+                        <p className="mt-5">
+                            Il materiale non strutturato induce esplorazioni di
+                            equilibri, piani inclinati, incastri per la
+                            costruzione di architetture fantastiche per forma,
+                            dimensione, colore. Si sviluppa un processo in
+                            continua trasformazione dove abilità fisiche e
+                            matematiche si mettono alla prova, favorendo la
+                            collaborazione e la cooperazione tra i partecipanti.
+                        </p>
+                        <p className="mt-5">
+                            <strong>CORNICI MATERICHE</strong> – MICRO
+                            CREATIVITÁ – primo, secondo e terzo anno
+                        </p>
+                        <p className="mt-5">
+                            Propone un percorso creativo e immaginativo
+                            attraverso il riuso di piccoli materiali non
+                            strutturati. La varietà per tipologia, forma, colore
+                            dei materiali messi a disposizione dei bambini
+                            stimola l’espressività insita in ognuno. Si
+                            privilegia il processo creativo piuttosto che il
+                            prodotto finale, si induce la riflessione su quello
+                            che si sta facendo, si manifesta la voglia di
+                            condividere il significato dell’opera realizzata.
+                        </p>
+                        <p className="mt-5">
+                            <strong>LUCI E OMBRE</strong> – ESPLORAZIONE E
+                            CREATIVITÁ – primo, secondo e terzo anno
+                        </p>
+                        <p className="mt-5">
+                            In un ambiente oscurato si esplorano le potenzialità
+                            dei materiali non strutturati in relazione alla
+                            luce, diffusa dal basso o proiettata verso una
+                            parete. In un continuo gioco individuale o di gruppo
+                            si apprendono mutazioni di tonalità, di grandezza,
+                            di combinazione cromatica interagendo con le ombre
+                            che si possono creare. La percezione degli oggetti
+                            varia permettendo apprendimenti in relazione anche
+                            al corpo e al movimento.
+                        </p>
+                        <p className="mt-5">
+                            <strong>RECYCLING ORCHESTRA</strong> – SONORITÁ E
+                            COOPERAZIONE – secondo e terzo anno
+                        </p>
+                        <p className="mt-5">
+                            Tutto suona, i corpi, gli ambienti, la natura e i
+                            materiali che ci circondano. Il laboratorio propone
+                            giochi con cui imparare a riconoscere e riprodurre i
+                            diversi suoni e ritmi che scaturiscono dalla
+                            percussione, dallo scuotimento, dall’oscillamento
+                            degli oggetti messi a disposizione dei partecipanti.
+                            Guidati dal musicoterapista Antonio Testa il gruppo
+                            di partecipanti diviene una piccola orchestra
+                            attraverso l’ascolto degli altri, la concentrazione
+                            e la cooperazione.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
+                        </h2>
+                        <p className="mt-5">
+                            La stessa tipologia di laboratori può giungere nelle
+                            vostre sedi. Un solo laboratorio o una serie di
+                            esperienze senza la trasferta verso il Chiostro di
+                            Voltorre. Siamo in grado di trasportare materiali e
+                            attrezzature in spazi idonei, visionati in
+                            precedenza.
+                        </p>
+                        <p className="mt-5">
+                            <strong>
+                                Compilate il form sottostante per ricevere una
+                                proposta ad hoc.
+                            </strong>
                         </p>
                     </div>
-                    <div className="rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-center text-black dark:bg-slate-400">
-                        <h2 className="mb-10 text-6xl">Scuole Primarie</h2>
-                        <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                    <div className="rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400">
+                        <h2 className="mb-10 text-center text-6xl">
+                            Scuole Primarie
+                        </h2>
+                        <p>
+                            I nostri laboratori sono un luogo di esplorazione e
+                            di creatività, sono una pratica del fare, dove lo
+                            studente diventa protagonista di un processo di
+                            costruzione di conoscenze che gli permettono di
+                            essere coinvolto in una situazione collettiva di
+                            scambio comunicativo tra pari, di costruzione di
+                            apprendimenti significativi.
+                        </p>
+                        <p className="mt-5">
+                            Remida Varese per la scuola primaria adotta un
+                            metodo pedagogico rigoroso e mirato a mantenere un
+                            atteggiamento al contempo aperto e analitico nei
+                            confronti delle cose, di quelle sconosciute, ma
+                            soprattutto di quelle conosciute.
+                        </p>
+                        <p className="mt-5">
+                            Remida Varese offre laboratori{' '}
+                            <strong>
+                                permanenti presso il Chiostro di Voltorre a
+                                Gavirate
+                            </strong>
+                            , che toccano anche{' '}
+                            <strong>argomenti storici</strong> (le origini del
+                            Monastero) e <strong>ambientali </strong>(con una
+                            eventuale passeggiata in sicurezza sulle sponde del
+                            lago di Varese) o{' '}
+                            <strong>
+                                itineranti presso la sede delle Scuole
+                            </strong>
+                            , con la possibilità di programmare più incontri in
+                            modo da avere più tempo nell’esplorazione delle
+                            potenzialità dei materiali non strutturati.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE
+                        </h2>
+                        <p className="mt-5">
+                            Remida Varese ha allestito presso la sua sede dei
+                            contesti ludici di apprendimento per ognuna delle
+                            seguenti attività, che una volta terminate prevedono
+                            il riordino dei materiali riutilizzati:
+                        </p>
+                        <p className="mt-5">
+                            <strong>CITTÁ INFINITA</strong> – MACRO
+                            COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquiennio
+                        </p>
+                        <p className="mt-5">
+                            <strong>ANIMALIAMO</strong> – CREATIVITÁ,
+                            COOPERAZIONE E NARRAZIONE – tutto il quinquiennio
+                        </p>
+                        <p className="mt-5">
+                            Partendo dalla visione dell’albo illustrato
+                            “Bestiario universale”, gli studenti sono stimolati
+                            a progettare e realizzare in coppia un animale
+                            fantastico, riutilizzando piccoli materiali da
+                            combinare tra loro. Successivamente le superbestie
+                            si presentano al resto del gruppo, specificando
+                            caratteristiche fisiche ed etologiche uniche e
+                            irripetibili!
+                        </p>
+                        <p className="mt-5">
+                            <strong>TANGRAM</strong> – LOGICA, IMMAGINAZIONE E
+                            COOPERAZIONE – primo e secondo anno
+                        </p>
+                        <p className="mt-5">
+                            Il Tangram è un gioco-rompicapo antichissimo di
+                            origine orientale, costituito da sette tavole il cui
+                            scopo è formare una figura utilizzando tutti i pezzi
+                            senza sovrapposizioni. Sviluppa l’immaginazione e la
+                            fantasia per creare sagome di uomini, animali, case,
+                            ecc..
+                        </p>
+                        <p className="mt-5">
+                            È un importante esercizio di concentrazione e
+                            conoscenza delle forme geometriche, della loro
+                            visione e composizione nello spazio. Nelle scuole
+                            primarie del nord Europa è inserito nella
+                            programmazione didattica di geometria e di altre
+                            discipline.
+                        </p>
+                        <p className="mt-5">
+                            Remida Varese riutilizza materiali non strutturati
+                            sia per costruire i tangram di varie dimensioni, sia
+                            per personalizzare le configurazioni realizzate.
+                        </p>
+                        <p className="mt-5">
+                            <strong>LUCI E OMBRE</strong> – ESPLORAZIONE E
+                            CREATIVITÁ
+                        </p>
+                        <p className="mt-5">
+                            In un ambiente oscurato si esplorano le potenzialità
+                            dei materiali non strutturati in relazione alla
+                            luce, diffusa dal basso o proiettata verso una
+                            parete. In un continuo gioco individuale o di gruppo
+                            si apprendono mutazioni di tonalità, di grandezza,
+                            di combinazione cromatica interagendo con le ombre
+                            che si possono creare. La percezione degli oggetti
+                            varia permettendo apprendimenti in relazione anche
+                            al corpo e al movimento. Si potranno infine
+                            comprendere fenomeni come l’eclissi e l’alternanza
+                            delle stagioni
+                        </p>
+                        <p className="mt-5">
+                            <strong>RECYCLING ORCHESTRA</strong> – SONORITÁ E
+                            COOPERAZIONE
+                        </p>
+                        <p className="mt-5">
+                            I materiali non strutturati nascondono svariate
+                            potenzialità sonore. Il laboratorio propone indagini
+                            attraverso la relazione tra il corpo, le mani, i
+                            gesti e le qualità sonore dei vari materiali, anche
+                            in combinazione tra loro: nascono così suoni e ritmi
+                            che scaturiscono dalla percussione, dallo
+                            scuotimento, dall’oscillamento degli oggetti messi a
+                            disposizione dei partecipanti. Guidati dal
+                            musicoterapista Antonio Testa il gruppo di
+                            partecipanti diviene una piccola orchestra
+                            attraverso l’ascolto degli altri, la concentrazione
+                            e la cooperazione.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
+                        </h2>
+                        <p className="mt-5">
+                            La stessa tipologia di laboratori può giungere nelle
+                            vostre sedi. Un solo laboratorio o una serie di
+                            esperienze senza la trasferta verso il Chiostro di
+                            Voltorre. Siamo in grado di trasportare materiali e
+                            attrezzature in spazi idonei, visionati in
+                            precedenza.
+                        </p>
+                        <p className="mt-5">
+                            <strong>
+                                Compilate il form sottostante per ricevere una
+                                proposta ad hoc.
+                            </strong>
                         </p>
                     </div>
                     <div className="rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-center text-white">
@@ -152,10 +548,9 @@ export default function Laboratories() {
                             <div>
                                 <InputLabel
                                     htmlFor="name"
+                                    value="Nome Contatto"
                                     className="mb-2 text-xl dark:text-white"
-                                >
-                                    Nome Contatto
-                                </InputLabel>
+                                />
                                 <TextInput
                                     type="text"
                                     name="name"
@@ -175,10 +570,9 @@ export default function Laboratories() {
                             <div>
                                 <InputLabel
                                     htmlFor="email"
+                                    value="Indirizzo Email"
                                     className="mb-2 text-xl dark:text-white"
-                                >
-                                    Indirizzo Email
-                                </InputLabel>
+                                />
                                 <TextInput
                                     type="email"
                                     name="email"
@@ -198,10 +592,9 @@ export default function Laboratories() {
                             <div>
                                 <InputLabel
                                     htmlFor="phone"
+                                    value="Numero di Telefono"
                                     className="mb-2 text-xl dark:text-white"
-                                >
-                                    Numero di Telefono
-                                </InputLabel>
+                                />
                                 <TextInput
                                     type="text"
                                     name="phone"
@@ -221,10 +614,9 @@ export default function Laboratories() {
                             <div>
                                 <InputLabel
                                     htmlFor="school"
+                                    value="Seleziona il tipo di Scuola"
                                     className="mb-2 text-xl dark:text-white"
-                                >
-                                    Seleziona il tipo di Scuola
-                                </InputLabel>
+                                />
                                 <select
                                     id="school"
                                     name="school"
@@ -256,10 +648,9 @@ export default function Laboratories() {
                             <div>
                                 <InputLabel
                                     htmlFor="message"
+                                    value="Il Tuo Messaggio"
                                     className="mb-2 text-xl dark:text-white"
-                                >
-                                    Il Tuo Messaggio
-                                </InputLabel>
+                                />
                                 <textarea
                                     id="message"
                                     name="message"

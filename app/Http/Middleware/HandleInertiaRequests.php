@@ -39,4 +39,14 @@ class HandleInertiaRequests extends Middleware
             ],
         ];
     }
+
+    public function rootView(Request $request)
+    {
+        if ($request->is('event*')) {
+            return 'app';
+        }
+
+        return 'app'; // o qualsiasi altra vista tu stia usando per il SSR
+    }
+
 }

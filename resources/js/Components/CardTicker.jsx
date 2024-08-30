@@ -1,5 +1,3 @@
-import NumberTicker from '@/shadcn/magicui/number-ticker';
-
 export default function CardTicker({ title, text, value }) {
     return (
         <div className="w-full">

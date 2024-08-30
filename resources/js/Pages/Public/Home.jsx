@@ -9,8 +9,9 @@ import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Timeline from '@/Components/Timeline';
 import { variants } from '@/Constants';
+import { CollaborationCarousel } from '@/Components/CollaborationCarousel';
 
-export default function Home() {
+export default function Home({ events }) {
     const [loader, setLoader] = useState(true);
 
     useEffect(() => {
@@ -30,7 +31,10 @@ export default function Home() {
         <>
             <Head>
                 <title>REMIDA VARESE - Innoviamo con creatività | Home </title>
-                <meta name="description" content=""></meta>
+                <meta
+                    name="description"
+                    content="Centro di ricerca creativa che promuove il riutilizzo di materiali non strutturati di origine aziendale artigianale e naturale con finalità educative, ambientali ed artistiche."
+                ></meta>
                 <link rel="canonical" href="https://remidavarese.it/"></link>
             </Head>
             {loader ? (
@@ -50,7 +54,7 @@ export default function Home() {
                                 className="drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]"
                             />
                         </motion.div>
-                        <div className="flex items-center justify-center text-white">
+                        <div className="flex flex-col items-center justify-center text-white">
                             <motion.h1
                                 initial="hidden"
                                 animate="visible"
@@ -59,20 +63,21 @@ export default function Home() {
                             >
                                 <span className="font-bold">REMIDA VARESE</span>
                                 <br />
-                                <span className="font-semibold text-gray-400">
-                                    Innoviamo con creatività.
-                                </span>
-                                <br />
-                                <span className="text-xl md:text-2xl">
-                                    Laboratori, formazione e tanto altro con
-                                    riutilizzo di materiale di scarto aziendale
-                                    per un futuro sostenibile.
-                                    <br />
-                                    Siamo la tua destinazione per la creatività
-                                    e il riutilizzo di materiali non
-                                    strutturati.
+
+                                <span className="mt-2 text-xl md:text-2xl">
+                                    Centro di ricerca creativa che promuove il
+                                    riutilizzo di materiali non strutturati di
+                                    origine aziendale artigianale e naturale con
+                                    finalità educative, ambientali ed
+                                    artistiche. <br /> Remida Varese attinge al
+                                    metodo pedagogico ”Reggio Emilia Approach”.
                                 </span>
                             </motion.h1>
+                            <Link href={route('about')}>
+                                <button className="mt-10 w-full rounded-3xl bg-white px-6 py-2 text-lg font-semibold text-black shadow-lg transition-colors hover:bg-gray-200 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700">
+                                    Scopri di più
+                                </button>
+                            </Link>
                         </div>
                     </section>
                     <section className="grid min-h-[65vh] grid-cols-1 place-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 dark:bg-slate-600">
@@ -137,8 +142,17 @@ export default function Home() {
                                 variants={variants}
                                 className="text-4xl"
                             >
-                                Il chiostro di Voltorre è un monastero
-                                benedettino del XII secolo di stile romanico.
+                                Il{' '}
+                                <a
+                                    href="https://it.wikipedia.org/wiki/Chiostro_di_Voltorre"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-white underline"
+                                >
+                                    Chiostro di Voltorre
+                                </a>{' '}
+                                è un monastero benedettino del XII secolo di
+                                stile romanico.
                                 <br />
                                 Ospita al piano superiore i contesti ludici di
                                 apprendimento di ReMida Varese
@@ -169,10 +183,17 @@ export default function Home() {
                         variants={variants}
                         className="flex flex-col items-center justify-center bg-transparent p-5 py-10 dark:bg-slate-600"
                     >
-                        <h2 className="mb-10 text-6xl text-black dark:text-gray-300">
+                        <h2 className="mb-10 text-6xl text-black dark:text-gray-200">
                             In Evidenza
                         </h2>
-                        <CardCarousel />
+                        {events.length == 0 && (
+                            <div className="">
+                                <p className="min-h-[25vh] text-2xl dark:text-white">
+                                    Non Sono Ancora Presenti Eventi
+                                </p>
+                            </div>
+                        )}
+                        <CardCarousel events={events} />
                     </motion.section>
                     <motion.section
                         initial="hidden"
@@ -182,13 +203,36 @@ export default function Home() {
                         className="grid min-h-fit grid-cols-1 bg-slate-400 md:grid-cols-2"
                     >
                         <div className="flex flex-col items-center justify-center bg-slate-500 p-10">
-                            <h2 className="mb-10 text-center text-6xl">
+                            <h2 className="mb-10 text-center text-6xl text-white">
                                 Aperture
                             </h2>
-                            <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2"></div>
+                            <div className="grid grid-cols-1 justify-items-center p-2 md:p-10">
+                                <p className="text-2xl text-white md:text-4xl">
+                                    Remida Varese apre solo su prenotazione per
+                                    i{' '}
+                                    <Link
+                                        href={route('laboratories')}
+                                        className="text-white underline"
+                                    >
+                                        Laboratori per scuole
+                                    </Link>{' '}
+                                    e per il prelievo di materiale non
+                                    strutturato dall’Emporio dei Materiali. I
+                                    Laboratori creativi per famiglie aprono con
+                                    calendario stagionale (vedere le{' '}
+                                    <Link
+                                        href={route('events')}
+                                        className="text-white underline"
+                                    >
+                                        notizie in Evidenza
+                                    </Link>
+                                    ). Tutte le attività sono riservate agli
+                                    Associati di Altrementi aps.
+                                </p>
+                            </div>
                         </div>
                         <div className="flex flex-col items-center justify-center p-5 md:p-10">
-                            <h2 className="mb-10 text-center text-6xl">
+                            <h2 className="mb-10 text-center text-6xl text-white">
                                 I Nostri Partner
                             </h2>
                             <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2">
@@ -207,7 +251,9 @@ export default function Home() {
                         <h2 className="mb-10 text-center text-6xl text-black dark:text-white">
                             Quanto abbiamo fatto
                         </h2>
-                        <Timeline />
+                        <div className="max-w-6xl p-5">
+                            <Timeline />
+                        </div>
                     </motion.section>
                     <motion.section
                         initial="hidden"
@@ -219,23 +265,7 @@ export default function Home() {
                         <h2 className="mb-10 text-center text-6xl text-white">
                             Collaborazioni
                         </h2>
-                        <div className="grid w-full grid-cols-1 justify-items-center gap-5 p-2 md:p-10 lg:grid-cols-3">
-                            <CardTicker
-                                title="Lorem Ipsum"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
-                                value={2500}
-                            />
-                            <CardTicker
-                                title="Lorem Ipsum"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
-                                value={150}
-                            />
-                            <CardTicker
-                                title="Lorem Ipsum"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus."
-                                value={625}
-                            />
-                        </div>
+                        <CollaborationCarousel />
                     </motion.section>
                 </PublicLayout>
             )}

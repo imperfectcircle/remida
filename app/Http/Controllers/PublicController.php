@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ContactGenericRequest;
-use App\Http\Requests\ContactSchoolRequest;
-use App\Mail\GenericMail;
+use Inertia\Inertia;
+use App\Models\Event;
+use App\Models\Image;
 use App\Mail\SchoolMail;
+use App\Mail\GenericMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Inertia\Inertia;
+use App\Http\Requests\ContactSchoolRequest;
+use App\Http\Requests\ContactGenericRequest;
 
 class PublicController extends Controller
 {
     public function home() {
-        return Inertia::render('Public/Home');
+        $events = Event::where('status', 'published')->latest()->take(5)->get();
+        return Inertia::render('Public/Home', compact('events'));
     }
 
     public function about() {
@@ -25,11 +28,18 @@ class PublicController extends Controller
     }
 
     public function events() {
-        return Inertia::render('Public/Events');
+        $events = Event::all();
+        return Inertia::render('Public/Events', compact('events'));
+    }
+
+    public function eventShow($slug) {
+        $event = Event::where('slug', $slug)->first();
+        return inertia('Public/EventShow', compact('event'));
     }
 
     public function gallery() {
-        return Inertia::render('Public/Gallery');
+        $images = Image::all();
+        return Inertia::render('Public/Gallery', compact('images'));
     }
 
     public function contacts() {
