@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManager;
 use App\Http\Resources\ImageResource;
 use App\Traits\CloudinaryImageHandler;
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
-use Intervention\Image\Drivers\Gd\Driver;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ImageController extends Controller
 {

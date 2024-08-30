@@ -7,14 +7,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManager;
 use App\Http\Resources\EventResource;
 use App\Traits\CloudinaryImageHandler;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use Intervention\Image\Drivers\Gd\Driver;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
 class EventController extends Controller

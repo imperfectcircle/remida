@@ -11,7 +11,7 @@ export default function NavbarComponent() {
             fluid
             rounded
         >
-            <Navbar.Brand href="https://flowbite-react.com">
+            <Navbar.Brand href={route('home')}>
                 <div className="items-end md:flex">
                     <img
                         src="/images/remida_logo.webp"
