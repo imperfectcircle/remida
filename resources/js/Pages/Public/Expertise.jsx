@@ -167,6 +167,32 @@ export default function Expertise() {
                         </ButtonLink>
                     </div>
                 </motion.section>
+                <motion.section
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={variants}
+                    className="bg-transparent py-10 dark:bg-slate-600"
+                >
+                    <div className="mx-auto flex max-w-7xl flex-col items-center justify-center text-2xl dark:text-white">
+                        <h2 className="pb-10 text-6xl">Compleanni</h2>
+                        <p>
+                            Remida Varese è un servizio per associati pensato
+                            per offrire a bambini e adulti un contesto speciale
+                            dove festeggiare insieme un compleanno alternativo e
+                            sostenibile; un’occasione all’insegna del
+                            divertimento e della creatività, per socializzare
+                            sperimentando, toccando e trasformando i materiali
+                            non strutturati di origine aziendale e artigianale.
+                        </p>
+                        <p className="pb-10 pt-5">
+                            Remida Varese è anche itinerante: vuoi organizzare
+                            un compleanno creativo? ReMida Varese viene da te
+                            con tutto il necessario per rendere ancora più
+                            speciale una giornata importante.
+                        </p>
+                    </div>
+                </motion.section>
             </PublicLayout>
         </>
     );
