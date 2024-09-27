@@ -80,11 +80,10 @@ export default function Expertise() {
                         />
                         <h2 className="mb-10 text-6xl">Formazione</h2>
                         <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                            Per Remida Varese è una priorità la condivisione
+                            delle conoscenze e delle competenze acquisite negli
+                            anni di attività in dialogo con il territorio e la
+                            comunità che lo vive.
                         </p>
                         <ButtonLink href={route('training')}>
                             Scopri di più
@@ -100,11 +99,12 @@ export default function Expertise() {
                             Emporio dei Materiali
                         </h2>
                         <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                            Remida Varese recupera dalle aziende, da artigiani,
+                            da commercianti materiali in eccedenza e/o destinati
+                            allo smaltimento, li espone nell’emporio dei
+                            materiali per metterli a disposizione di scuole,
+                            associazioni ed enti non a scopo di lucro per
+                            attività e progetti socio-educativi o culturali.
                         </p>
                         <ButtonLink href={route('emporium')}>
                             Scopri di più
@@ -120,11 +120,13 @@ export default function Expertise() {
                             Laboratori per Altri Enti
                         </h2>
                         <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                            I nostri laboratori creativi di sensibilizzazione
+                            alla sostenibilità ambientale per famiglie si
+                            possono realizzare durante manifestazioni ed eventi
+                            pubblici organizzati da Enti Locali, Pro Loco,
+                            Associazioni ecc. e presso le sedi di organizzazioni
+                            come Comunità, Centri diurni, RSA, Fondazioni ecc.
+                            per ospiti con disabilità, anziani, minori ecc..
                         </p>
                         <ButtonLink light href={route('other')}>
                             Scopri di più
@@ -138,11 +140,15 @@ export default function Expertise() {
                         />
                         <h2 className="mb-10 text-6xl">Aziende</h2>
                         <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                            La fonte delle nostre proposte sono i materiali che
+                            recuperiamo gratuitamente dalle realtà industriali,
+                            artigianali e commerciali del territorio. Siamo
+                            sempre alla ricerca di nuove collaborazioni per
+                            trasformare insieme gli scarti di produzione, le
+                            rimanenze di magazzino, le eccedenze e altri
+                            materiali esclusi dalla commercializzazione in
+                            preziose risorse per la comunità, senza fini di
+                            lucro.
                         </p>
                         <ButtonLink light href={route('agency')}>
                             Scopri di più
@@ -154,13 +160,15 @@ export default function Expertise() {
                             alt="Fantasmino Arancio"
                             className="mx-auto mb-5 w-20"
                         />
-                        <h2 className="mb-10 text-6xl">Laboratori Speciali</h2>
+                        <h2 className="mb-10 text-6xl">Progetti Speciali</h2>
                         <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
+                            Installazioni interattive, creazioni artistiche e
+                            laboratori creati su misura, in collaborazione con
+                            vari Enti, per rendere unico l’evento a cui
+                            partecipiamo e promuovere contemporaneamente la
+                            sostenibilità ambientale, in quanto il materiale
+                            utilizzato è esclusivamente scarto aziendale o
+                            artigianale.
                         </p>
                         <ButtonLink href={route('special')}>
                             Scopri di più

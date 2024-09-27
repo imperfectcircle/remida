@@ -80,7 +80,7 @@ export default function TimelineComponent() {
                         Bambini, adulti, anziani, famiglie intere che hanno
                         frequentato la nostra sede o hanno partecipato alle
                         nostre attività itineranti in piazze, parchi e altri
-                        luoghi comunitari
+                        luoghi comunitari nel 2023
                         <NumberTicker
                             value="3650"
                             className="ml-10 text-3xl font-bold text-black"

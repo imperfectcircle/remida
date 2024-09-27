@@ -6,6 +6,11 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 
+/**
+ *
+ * TODO Form per Laboratori
+ */
+
 export default function Laboratories() {
     const { flash } = usePage().props;
     const {
@@ -98,9 +103,10 @@ export default function Laboratories() {
                             interagisce.
                         </p>
                         <p className="mt-5">
-                            Le proposte tengono in considerazione le conoscenze
-                            e le abilità dei partecipanti, le esigenze di gioco
-                            e le tematiche, differenziate per fasce d’età e
+                            <strong>Le proposte</strong> tengono in
+                            considerazione le conoscenze e le abilità dei
+                            partecipanti, le esigenze di gioco e le tematiche,{' '}
+                            <strong>differenziate per fasce d’età</strong> e
                             congruenti con le programmazioni scolastiche.
                         </p>
                         <p className="mt-5">
@@ -124,7 +130,7 @@ export default function Laboratories() {
                 >
                     <div className="rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white">
                         <h2 className="mb-10 text-center text-6xl">
-                            Nido d'infanzia
+                            Asilo Nido e Sezione Primavera
                         </h2>
                         <p>
                             Il bambino da 1 a 3 anni si interessa spontaneamente
@@ -178,6 +184,19 @@ export default function Laboratories() {
                             bambini per ognuna delle seguenti attività:
                         </p>
                         <p className="mt-5">
+                            <strong>TAPPETO DI TESORI</strong> – ESPLORAZIONE
+                            SENSORIALE POLIMATERICA – 12/18 mesi
+                        </p>
+                        <p className="mt-5">
+                            Luogo di scoperte e ricerche sensoriali dove i bimbi
+                            entrano in relazione con i diversi materiali per
+                            toccarli, allinearli, impilarli, scuoterli,
+                            infilarli l’uno dentro l’altro. Il tatto, la vista,
+                            l’udito indagano e scoprono le potenzialità infinite
+                            dei materiali presenti, in un’armonia che genera
+                            nuove combinazioni e possibilità costruttive.
+                        </p>
+                        <p className="mt-5">
                             <strong>CHE COMBINAZIONE!</strong> – GIOCO EURISTICO
                             – 12/24 mesi
                         </p>
@@ -203,7 +222,7 @@ export default function Laboratories() {
                         </p>
                         <p className="mt-5">
                             <strong>EQUILIBRI</strong> – MOVIMENTO E SCOPERTA –
-                            24/36 mesi
+                            12/24 mesi
                         </p>
                         <p className="mt-5">
                             Questo contesto con gioco a terra permette di
@@ -214,6 +233,19 @@ export default function Laboratories() {
                             allineare, costruire camminamenti per provare
                             equilibri con il corpo, trasportare e sperimentare
                             il peso, la leggerezza, la stabilità.
+                        </p>
+                        <p className="mt-5">
+                            <strong>CANTIERE</strong> – MACRO COSTRUTTIVITÁ –
+                            12/24 mesi, Sezione Primavera
+                        </p>
+                        <p className="mt-5">
+                            Il materiale non strutturato induce esplorazioni di
+                            equilibri, piani inclinati, incastri per la
+                            costruzione di architetture fantastiche per forma,
+                            dimensione, colore. Si sviluppa un processo in
+                            continua trasformazione dove abilità fisiche e
+                            matematiche si mettono alla prova, favorendo la
+                            collaborazione e la cooperazione tra i partecipanti.
                         </p>
                         <h2 className="my-10 text-3xl font-semibold">
                             LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
@@ -234,7 +266,7 @@ export default function Laboratories() {
                     </div>
                     <div className="rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400">
                         <h2 className="mb-10 text-center text-6xl">
-                            Scuole dell'infanzia
+                            Scuola dell'infanzia
                         </h2>
                         <p>
                             <strong>
@@ -280,20 +312,6 @@ export default function Laboratories() {
                             il riordino dei materiali riutilizzati:
                         </p>
                         <p className="mt-5">
-                            <strong>TAPPETO DI TESORI</strong> – ESPLORAZIONE
-                            SENSORIALE POLIMATERICA – sezione primavera, primo
-                            anno
-                        </p>
-                        <p className="mt-5">
-                            Luogo di scoperte e ricerche sensoriali dove i bimbi
-                            entrano in relazione con i diversi materiali per
-                            toccarli, allinearli, impilarli, scuoterli,
-                            infilarli l’uno dentro l’altro. Il tatto, la vista,
-                            l’udito indagano e scoprono le potenzialità infinite
-                            dei materiali presenti, in un’armonia che genera
-                            nuove combinazioni e possibilità costruttive.
-                        </p>
-                        <p className="mt-5">
                             <strong>CANTIERE</strong> – MACRO COSTRUTTIVITÁ –
                             primo, secondo e terzo anno
                         </p>
@@ -337,7 +355,7 @@ export default function Laboratories() {
                             al corpo e al movimento.
                         </p>
                         <p className="mt-5">
-                            <strong>RECYCLING ORCHESTRA</strong> – SONORITÁ E
+                            <strong>GIOCARE CON I SUONI</strong> – SONORITÁ E
                             COOPERAZIONE – secondo e terzo anno
                         </p>
                         <p className="mt-5">
@@ -372,7 +390,7 @@ export default function Laboratories() {
                     </div>
                     <div className="rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400">
                         <h2 className="mb-10 text-center text-6xl">
-                            Scuole Primarie
+                            Scuola Primaria
                         </h2>
                         <p>
                             I nostri laboratori sono un luogo di esplorazione e
@@ -418,24 +436,6 @@ export default function Laboratories() {
                             il riordino dei materiali riutilizzati:
                         </p>
                         <p className="mt-5">
-                            <strong>CITTÁ INFINITA</strong> – MACRO
-                            COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquiennio
-                        </p>
-                        <p className="mt-5">
-                            <strong>ANIMALIAMO</strong> – CREATIVITÁ,
-                            COOPERAZIONE E NARRAZIONE – tutto il quinquiennio
-                        </p>
-                        <p className="mt-5">
-                            Partendo dalla visione dell’albo illustrato
-                            “Bestiario universale”, gli studenti sono stimolati
-                            a progettare e realizzare in coppia un animale
-                            fantastico, riutilizzando piccoli materiali da
-                            combinare tra loro. Successivamente le superbestie
-                            si presentano al resto del gruppo, specificando
-                            caratteristiche fisiche ed etologiche uniche e
-                            irripetibili!
-                        </p>
-                        <p className="mt-5">
                             <strong>TANGRAM</strong> – LOGICA, IMMAGINAZIONE E
                             COOPERAZIONE – primo e secondo anno
                         </p>
@@ -461,8 +461,34 @@ export default function Laboratories() {
                             per personalizzare le configurazioni realizzate.
                         </p>
                         <p className="mt-5">
+                            <strong>CITTÁ INFINITA</strong> – MACRO
+                            COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquennio
+                        </p>
+                        <p className="mt-5">
+                            Un’esperienza collettiva di creazione e costruzione
+                            di spazi urbani sempre nuovi e unici. La città
+                            diventa il luogo delle relazioni e del dialogo.
+                            Partendo dalla propria casa, ogni partecipante
+                            incrementa il valore della cooperazione realizzando
+                            insieme ad altri spazi ed edifici condivisi.
+                        </p>
+                        <p className="mt-5">
+                            <strong>ANIMALIAMO</strong> – CREATIVITÁ,
+                            COOPERAZIONE E NARRAZIONE – tutto il quinquennio
+                        </p>
+                        <p className="mt-5">
+                            Partendo dalla visione dell’albo illustrato
+                            “Bestiario universale”, gli studenti sono stimolati
+                            a progettare e realizzare in coppia un animale
+                            fantastico, riutilizzando piccoli materiali da
+                            combinare tra loro. Successivamente le superbestie
+                            si presentano al resto del gruppo, specificando
+                            caratteristiche fisiche ed etologiche uniche e
+                            irripetibili!
+                        </p>
+                        <p className="mt-5">
                             <strong>LUCI E OMBRE</strong> – ESPLORAZIONE E
-                            CREATIVITÁ
+                            CREATIVITÁ – tutto il quinquennio
                         </p>
                         <p className="mt-5">
                             In un ambiente oscurato si esplorano le potenzialità
@@ -478,7 +504,115 @@ export default function Laboratories() {
                             delle stagioni
                         </p>
                         <p className="mt-5">
-                            <strong>RECYCLING ORCHESTRA</strong> – SONORITÁ E
+                            <strong>GIOCARE CON I SUONI</strong> – SONORITÁ E
+                            COOPERAZIONE – tutto il quinquennio
+                        </p>
+                        <p className="mt-5">
+                            I materiali non strutturati nascondono svariate
+                            potenzialità sonore. Il laboratorio propone indagini
+                            attraverso la relazione tra il corpo, le mani, i
+                            gesti e le qualità sonore dei vari materiali, anche
+                            in combinazione tra loro: nascono così suoni e ritmi
+                            che scaturiscono dalla percussione, dallo
+                            scuotimento, dall’oscillamento degli oggetti messi a
+                            disposizione dei partecipanti. Guidati dal
+                            musicoterapista Antonio Testa il gruppo di
+                            partecipanti diviene una piccola orchestra
+                            attraverso l’ascolto degli altri, la concentrazione
+                            e la cooperazione.
+                        </p>
+                        <p className="mt-5">
+                            <strong>
+                                Compilate il form sottostante per ricevere una
+                                proposta ad hoc.
+                            </strong>
+                        </p>
+                    </div>
+                    <div className="rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white">
+                        <h2 className="mb-10 text-center text-6xl">
+                            Scuola Secondaria
+                        </h2>
+                        <p className="text-2xl">
+                            Per le scuole secondarie privilegiamo: un{' '}
+                            <strong>
+                                metodo esperienziale e socializzante
+                            </strong>{' '}
+                            per stimolare la curiosità e l’interesse,
+                            consolidare le conoscenze e migliorare il
+                            coinvolgimento di tutti i partecipanti in ottica
+                            inclusiva; <strong>l’interdisciplinarità</strong>{' '}
+                            per allenarsi a stabilire connessioni in modo da
+                            acquisire un atteggiamento mentale aperto e
+                            consapevole;{' '}
+                            <strong>l’imparare divertendosi</strong> in cui le
+                            attività assecondano la naturale inclinazione degli
+                            studenti verso il gioco, predisponendoli ad un
+                            atteggiamento positivo e propositivo. Per questi
+                            ordini di scuola siamo in grado di{' '}
+                            <strong>
+                                personalizzare i laboratori a seconda delle
+                                vostre richiesta didattiche e curricolari
+                            </strong>
+                            .
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE
+                        </h2>
+                        <p className="mt-5">
+                            Remida Varese ha allestito presso la sua sede dei
+                            contesti ludici di apprendimento per ognuna delle
+                            seguenti attività, che una volta terminate prevedono
+                            il riordino dei materiali riutilizzati:
+                        </p>
+                        <p className="mt-5">
+                            <strong>
+                                GIORNATA DI ACCOGLIENZA A INIZIO ANNO SCOLASTICO
+                            </strong>{' '}
+                            – classi di 1° secondaria di primo e secondo grado
+                        </p>
+                        <p className="mt-5">
+                            Gli obiettivi primari del{' '}
+                            <strong>periodo di accoglienza</strong> nel nuovo
+                            istituto di scuola secondaria sono di disporre
+                            l’allievo/a ad un{' '}
+                            <strong>
+                                approccio collaborativo con gli insegnanti e con
+                                i nuovi compagni/e di classe
+                            </strong>{' '}
+                            e di consolidare una seria motivazione
+                            all’apprendimento e allo studio. Per concorrere alla
+                            migliore riuscita dell’accoglienza proponiamo una
+                            serie di attività creative e di gruppo per un’intera
+                            giornata, compreso un pranzo al sacco condiviso.
+                        </p>
+                        <p className="mt-5">
+                            <strong>CORPO ALLE EMOZIONI</strong> – CREATIVITÁ E
+                            CONSAPEVOLEZZA – tutte le classi
+                        </p>
+                        <p className="mt-5">
+                            Laboratorio creativo in piccoli gruppi adattabile, a
+                            livelli diversi, a tutte le classi della Scuola
+                            secondaria. Stimoliamo gli studenti in piccoli
+                            gruppi a scegliere un’emozione e a rappresentarla
+                            tridimensionalmente con i materiali non strutturati
+                            a disposizione. Rabbia, paura, tristezza, ansia,
+                            vergogna, felicità e altre emozioni offrono
+                            un'esperienza unica e coinvolgente per esprimere e
+                            scoprire nuove sfumature del proprio mondo
+                            interiore.
+                        </p>
+                        <p className="mt-5">
+                            <strong>CITTÁ SOSTENIBILE</strong> – MACRO
+                            COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquennio
+                        </p>
+                        <p className="mt-5"></p>
+                        <p className="mt-5">
+                            <strong>RITRATTI</strong> – CREATIVITÁ, COOPERAZIONE
+                            E NARRAZIONE – tutto il quinquennio
+                        </p>
+                        <p className="mt-5"></p>
+                        <p className="mt-5">
+                            <strong>GIOCARE CON I SUONI</strong> – SONORITÁ E
                             COOPERAZIONE
                         </p>
                         <p className="mt-5">
@@ -495,32 +629,11 @@ export default function Laboratories() {
                             attraverso l’ascolto degli altri, la concentrazione
                             e la cooperazione.
                         </p>
-                        <h2 className="my-10 text-3xl font-semibold">
-                            LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
-                        </h2>
-                        <p className="mt-5">
-                            La stessa tipologia di laboratori può giungere nelle
-                            vostre sedi. Un solo laboratorio o una serie di
-                            esperienze senza la trasferta verso il Chiostro di
-                            Voltorre. Siamo in grado di trasportare materiali e
-                            attrezzature in spazi idonei, visionati in
-                            precedenza.
-                        </p>
                         <p className="mt-5">
                             <strong>
                                 Compilate il form sottostante per ricevere una
                                 proposta ad hoc.
                             </strong>
-                        </p>
-                    </div>
-                    <div className="rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-center text-white">
-                        <h2 className="mb-10 text-6xl">Scuole Secondarie</h2>
-                        <p className="text-2xl">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Asperiores, ad voluptatibus eum impedit culpa
-                            pariatur distinctio iste eveniet aperiam amet
-                            obcaecati sint sunt consequuntur, mollitia laborum,
-                            a cum exercitationem repudiandae?
                         </p>
                     </div>
                 </motion.section>

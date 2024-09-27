@@ -73,7 +73,7 @@ export default function Contacts() {
                                 Chiostro di Voltorre
                             </a>{' '}
                             a Gavirate (VA) è un monastero benedettino del XII
-                            secolo di stile romanico. Ospita da oltre dieci anni
+                            secolo in stile romanico. Ospita da oltre dieci anni
                             i contesti ludici di apprendimento di ReMida Varese.
                         </p>
                         <div className="mt-10 grid grid-cols-2 gap-10 text-6xl text-red-500">

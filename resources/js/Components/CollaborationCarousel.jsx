@@ -7,7 +7,6 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/shadcn/ui/carousel';
-import { Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 export function CollaborationCarousel({ array }) {
@@ -29,6 +28,7 @@ export function CollaborationCarousel({ array }) {
         <Carousel
             opts={{
                 align: 'start',
+                loop: true,
             }}
             className="w-full max-w-7xl"
         >
@@ -40,7 +40,7 @@ export function CollaborationCarousel({ array }) {
                     >
                         <div className="p-1">
                             <Card>
-                                <CardContent className="flex aspect-square items-center justify-center p-6">
+                                <CardContent className="flex h-fit items-center justify-center p-6">
                                     <div className="p-5">
                                         <h2 className="mb-2 text-2xl font-bold uppercase tracking-tight">
                                             {el.title}

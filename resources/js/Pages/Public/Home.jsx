@@ -41,7 +41,7 @@ export default function Home({ events }) {
                 <SplashScreen />
             ) : (
                 <PublicLayout>
-                    <section className="grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
+                    <section className="grid min-h-screen grid-cols-1 bg-[#1a759f]/40 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
                         <motion.div
                             initial="hidden"
                             animate="visible"
@@ -70,7 +70,16 @@ export default function Home({ events }) {
                                     origine aziendale artigianale e naturale con
                                     finalità educative, ambientali ed
                                     artistiche. <br /> Remida Varese attinge al
-                                    metodo pedagogico ”Reggio Emilia Approach”.
+                                    metodo pedagogico ”
+                                    <a
+                                        href="https://www.reggiochildren.it/reggio-emilia-approach/"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="text-white underline"
+                                    >
+                                        Reggio Emilia Approach
+                                    </a>
+                                    ”.
                                 </span>
                             </motion.h1>
                             <Link href={route('about')}>
@@ -151,10 +160,10 @@ export default function Home({ events }) {
                                 >
                                     Chiostro di Voltorre
                                 </a>{' '}
-                                è un monastero benedettino del XII secolo di
+                                è un monastero benedettino del XII secolo in
                                 stile romanico.
                                 <br />
-                                Ospita al piano superiore i contesti ludici di
+                                Ospita nei suoi locali i contesti ludici di
                                 apprendimento di ReMida Varese
                             </motion.p>
                             <motion.div
