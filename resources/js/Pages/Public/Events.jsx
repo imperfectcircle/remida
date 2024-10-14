@@ -25,7 +25,7 @@ export default function Events({ events }) {
                 )}
 
                 {events.length > 0 && (
-                    <section className="my-[150px] grid grid-cols-1 gap-5 p-5 md:grid-cols-5 dark:bg-slate-900 dark:text-white">
+                    <section className="grid grid-cols-1 gap-5 bg-gray-300 p-5 py-[150px] md:grid-cols-5 dark:bg-slate-900 dark:text-white">
                         {events.map((event) => (
                             <div
                                 key={event.id}

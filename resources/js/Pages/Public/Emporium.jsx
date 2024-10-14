@@ -26,7 +26,6 @@ export default function Emporium() {
         name: '',
         email: '',
         phone: '',
-        school: '',
         message: '',
         privacy: false,
     });
@@ -58,13 +57,13 @@ export default function Emporium() {
             </Head>
 
             <PublicLayout>
-                <section className="emporium grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
+                <section className="mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0">
                     <div className="flex items-center justify-center text-white">
                         <motion.h1
                             initial="hidden"
                             animate="visible"
                             variants={variants}
-                            className="w-9/12 text-3xl md:text-6xl"
+                            className="w-9/12 py-5 text-3xl md:text-6xl"
                         >
                             <span className="font-bold">Emporio</span>
 
@@ -78,6 +77,13 @@ export default function Emporium() {
                                 socio-educativi o culturali.
                             </p>
                         </motion.h1>
+                    </div>
+                    <div className="col-span-2">
+                        <img
+                            className="h-screen w-full object-cover opacity-90"
+                            src="/images/emporium.webp"
+                            alt=""
+                        />
                     </div>
                 </section>
                 <motion.section
@@ -301,40 +307,6 @@ export default function Emporium() {
                                 />
                                 {errors.phone && (
                                     <InputError message={errors.phone} />
-                                )}
-                            </div>
-                            <div>
-                                <InputLabel
-                                    htmlFor="school"
-                                    value="Seleziona il tipo di Scuola"
-                                    className="mb-2 text-xl dark:text-white"
-                                />
-                                <select
-                                    id="school"
-                                    name="school"
-                                    required
-                                    value={data.school}
-                                    onChange={(e) =>
-                                        setData('school', e.target.value)
-                                    }
-                                    className={`mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm ${errors.school && 'border-red-500'}`}
-                                >
-                                    <option value="">
-                                        Seleziona il tipo di scuola
-                                    </option>
-                                    <option value="nido">Nido</option>
-                                    <option value="scuola_dell_infanzia">
-                                        Scuola dell'infanzia
-                                    </option>
-                                    <option value="scuola_primaria">
-                                        Scuola primaria
-                                    </option>
-                                    <option value="scuola_secondaria">
-                                        Scuola secondaria
-                                    </option>
-                                </select>
-                                {errors.school && (
-                                    <InputError message={errors.school} />
                                 )}
                             </div>
                             <div>

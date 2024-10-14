@@ -37,45 +37,6 @@ a {
         background-repeat: no-repeat;
         background-size: auto;
     }
-
-    .about {
-        background: linear-gradient(
-                to left bottom,
-                rgba(0, 0, 0, 0.8),
-                rgba(0, 0, 0, 0.4)
-            ),
-            url('/public/images/about.webp');
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .laboratories {
-        background: linear-gradient(
-                to left bottom,
-                rgba(0, 0, 0, 0.8),
-                rgba(0, 0, 0, 0.4)
-            ),
-            url('/public/images/laboratories.webp');
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .expertise {
-        background: linear-gradient(
-                to left bottom,
-                rgba(0, 0, 0, 0.8),
-                rgba(0, 0, 0, 0.4)
-            ),
-            url('/public/images/expertise.webp');
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
 }
 
 .where {
@@ -90,71 +51,6 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-}
-
-.training {
-    background: linear-gradient(
-            to left bottom,
-            rgba(0, 0, 0, 0.8),
-            rgba(0, 0, 0, 0.4)
-        ),
-        url('/public/images/training.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.emporium {
-    background: linear-gradient(
-            to left bottom,
-            rgba(0, 0, 0, 0.8),
-            rgba(0, 0, 0, 0.4)
-        ),
-        url('/public/images/emporium.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.other {
-    background: linear-gradient(
-            to left bottom,
-            rgba(0, 0, 0, 0.8),
-            rgba(0, 0, 0, 0.4)
-        ),
-        url('/public/images/other.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.agency {
-    background: linear-gradient(
-            to left bottom,
-            rgba(0, 0, 0, 0.8),
-            rgba(0, 0, 0, 0.4)
-        ),
-        url('/public/images/agency.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.special {
-    background: linear-gradient(
-            to left bottom,
-            rgba(0, 0, 0, 0.8),
-            rgba(0, 0, 0, 0.4)
-        ),
-        url('/public/images/special.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .card {

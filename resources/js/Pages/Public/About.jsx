@@ -21,13 +21,13 @@ export default function About() {
                 ></link>
             </Head>
             <PublicLayout>
-                <section className="about grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
+                <section className="mt-[110px] grid h-screen grid-cols-1 bg-black/60 md:grid-cols-3 md:p-0 lg:mt-0">
                     <div className="flex items-center justify-center text-white">
                         <motion.h1
                             initial="hidden"
                             animate="visible"
                             variants={variants}
-                            className="w-9/12 text-3xl md:text-6xl"
+                            className="w-9/12 py-5 text-3xl md:text-6xl"
                         >
                             <span className="font-bold">Chi Siamo</span>
                             <br />
@@ -43,6 +43,13 @@ export default function About() {
                                 Altrementi di Varese.
                             </p>
                         </motion.h1>
+                    </div>
+                    <div className="col-span-2">
+                        <img
+                            className="h-full w-full object-cover opacity-90"
+                            src="/images/about.webp"
+                            alt=""
+                        />
                     </div>
                 </section>
                 <motion.section
@@ -318,6 +325,18 @@ export default function About() {
                             <Avatar
                                 source="/images/no-image.jpg"
                                 name="Sara Dalla Pozza"
+                            />
+                            <Avatar
+                                source="/images/no-image.jpg"
+                                name="Vice Patrini"
+                            />
+                            <Avatar
+                                source="/images/no-image.jpg"
+                                name="Barbara Parietti"
+                            />
+                            <Avatar
+                                source="/images/no-image.jpg"
+                                name="Luciano Filippi"
                             />
                         </div>
                     </div>

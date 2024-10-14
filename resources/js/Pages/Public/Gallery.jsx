@@ -17,7 +17,7 @@ export default function Gallery({ images }) {
             </Head>
 
             <PublicLayout>
-                <section className="my-[150px] grid place-items-center p-5">
+                <section className="grid place-items-center bg-gray-400 py-[150px] dark:bg-slate-700">
                     <FocusCards cards={images} />
                 </section>
             </PublicLayout>

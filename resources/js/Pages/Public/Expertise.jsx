@@ -22,13 +22,13 @@ export default function Expertise() {
             </Head>
 
             <PublicLayout>
-                <section className="expertise grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
+                <section className="mt-[110px] grid h-screen grid-cols-1 bg-black/60 md:grid-cols-3 md:p-0 lg:mt-0">
                     <div className="flex items-center justify-center text-white">
                         <motion.h1
                             initial="hidden"
                             animate="visible"
                             variants={variants}
-                            className="w-9/12 text-3xl md:text-6xl"
+                            className="w-9/12 py-5 text-3xl md:text-6xl"
                         >
                             <span className="font-bold">Cosa Facciamo</span>
                             <br />
@@ -41,6 +41,13 @@ export default function Expertise() {
                                 collaborazioni.
                             </p>
                         </motion.h1>
+                    </div>
+                    <div className="col-span-2">
+                        <img
+                            className="h-screen w-full object-cover opacity-90"
+                            src="/images/expertise.webp"
+                            alt=""
+                        />
                     </div>
                 </section>
                 <motion.section
@@ -183,22 +190,9 @@ export default function Expertise() {
                     className="bg-transparent py-10 dark:bg-slate-600"
                 >
                     <div className="mx-auto flex max-w-7xl flex-col items-center justify-center text-2xl dark:text-white">
-                        <h2 className="pb-10 text-6xl">Compleanni</h2>
-                        <p>
-                            Remida Varese è un servizio per associati pensato
-                            per offrire a bambini e adulti un contesto speciale
-                            dove festeggiare insieme un compleanno alternativo e
-                            sostenibile; un’occasione all’insegna del
-                            divertimento e della creatività, per socializzare
-                            sperimentando, toccando e trasformando i materiali
-                            non strutturati di origine aziendale e artigianale.
-                        </p>
-                        <p className="pb-10 pt-5">
-                            Remida Varese è anche itinerante: vuoi organizzare
-                            un compleanno creativo? ReMida Varese viene da te
-                            con tutto il necessario per rendere ancora più
-                            speciale una giornata importante.
-                        </p>
+                        <h2 className="pb-10 text-6xl">
+                            Riferimenti Culturali Pedagogici
+                        </h2>
                     </div>
                 </motion.section>
             </PublicLayout>

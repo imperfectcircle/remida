@@ -64,13 +64,13 @@ export default function Laboratories() {
             </Head>
 
             <PublicLayout>
-                <section className="laboratories grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0">
+                <section className="mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0">
                     <div className="flex items-center justify-center text-white">
                         <motion.h1
                             initial="hidden"
                             animate="visible"
                             variants={variants}
-                            className="w-9/12 text-3xl md:text-6xl"
+                            className="w-9/12 py-5 text-3xl md:text-6xl"
                         >
                             <span className="font-bold">
                                 Laboratori per Scuole
@@ -84,6 +84,13 @@ export default function Laboratories() {
                             </p>
                         </motion.h1>
                     </div>
+                    <div className="col-span-2">
+                        <img
+                            className="h-screen w-full object-cover opacity-90"
+                            src="/images/laboratories.webp"
+                            alt=""
+                        />
+                    </div>
                 </section>
                 <motion.section
                     initial="hidden"
@@ -92,7 +99,7 @@ export default function Laboratories() {
                     variants={variants}
                     className="bg-transparent dark:bg-slate-500 dark:text-white"
                 >
-                    <div className="mx-auto max-w-7xl py-10 text-2xl">
+                    <div className="mx-auto max-w-7xl px-5 py-10 text-2xl">
                         <p>
                             Le idee e la loro realizzazione nascono spontanee
                             nei nostri laboratori, che prevedono la
@@ -110,10 +117,22 @@ export default function Laboratories() {
                             congruenti con le programmazioni scolastiche.
                         </p>
                         <p className="mt-5">
-                            IMPORTANTE: diamo la possibilità di consumare un
-                            pranzo al sacco in autonomia al termine dei
-                            laboratori, nei pressi del Chiostro se bel tempo o
-                            in spazi coperti in caso di maltempo.
+                            Remida Varese offre laboratori{' '}
+                            <strong>
+                                permanenti presso il Chiostro di Voltorre
+                            </strong>{' '}
+                            o <strong>itineranti presso la vostra sede</strong>,
+                            con la possibilità di programmare più incontri in
+                            modo da avere più tempo nell’esplorazione delle
+                            potenzialità dei materiali non strutturati.
+                        </p>
+                        <p className="mt-5">
+                            IMPORTANTE: per quanto riguarda le attività
+                            permanenti presso il Chiostro di Voltorre, diamo la
+                            possibilità di consumare un pranzo al sacco in
+                            autonomia al termine dei laboratori, nei pressi del
+                            Chiostro se bel tempo o in spazi coperti in caso di
+                            maltempo.
                         </p>
                         <p className="mt-5">
                             Di seguito le proposte educativo/didattiche per
@@ -152,21 +171,9 @@ export default function Laboratories() {
                             acquisiti da esperienze dirette che egli fa con le
                             mani e con il corpo, per la sua mente.
                         </p>
+
                         <p className="mt-5">
-                            Il team educativo di Remida Varese offre laboratori{' '}
-                            <strong>
-                                permanenti presso il Chiostro di Voltorre
-                            </strong>{' '}
-                            o{' '}
-                            <strong>
-                                itineranti presso la sede degli Asili
-                            </strong>
-                            , con la possibilità di programmare più incontri in
-                            modo da avere più tempo nell’esplorazione delle
-                            potenzialità dei materiali non strutturati.
-                        </p>
-                        <p className="mt-5">
-                            È infine possibile{' '}
+                            È possibile{' '}
                             <strong>
                                 organizzare i seguenti laboratori con la
                                 presenza dei genitori, per la festa finale
@@ -255,7 +262,7 @@ export default function Laboratories() {
                             vostre sedi, in spazi idonei. Una sola attività o
                             una serie di esperienze evitando la trasferta verso
                             il Chiostro di Voltorre,{' '}
-                            <strong>con o senza genitori.</strong>.
+                            <strong>con o senza genitori</strong>.
                         </p>
                         <p className="mt-5">
                             <strong>
@@ -290,17 +297,6 @@ export default function Laboratories() {
                             contraddistinto da flessibilità, fluidità,
                             originalità, elaborazione, valutazione, cambiamento
                             e innovazione.
-                        </p>
-                        <p className="mt-5">
-                            Remida Varese offre laboratori{' '}
-                            <strong>
-                                permanenti presso il Chiostro di Voltorre a
-                                Gavirate o itineranti presso la sede delle
-                                Scuole
-                            </strong>
-                            , con la possibilità di programmare più incontri in
-                            modo da avere più tempo nell’esplorazione delle
-                            potenzialità dei materiali non strutturati.
                         </p>
                         <h2 className="my-10 text-3xl font-semibold">
                             LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE
@@ -418,13 +414,7 @@ export default function Laboratories() {
                             <strong>argomenti storici</strong> (le origini del
                             Monastero) e <strong>ambientali </strong>(con una
                             eventuale passeggiata in sicurezza sulle sponde del
-                            lago di Varese) o{' '}
-                            <strong>
-                                itineranti presso la sede delle Scuole
-                            </strong>
-                            , con la possibilità di programmare più incontri in
-                            modo da avere più tempo nell’esplorazione delle
-                            potenzialità dei materiali non strutturati.
+                            lago di Varese)
                         </p>
                         <h2 className="my-10 text-3xl font-semibold">
                             LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE
@@ -434,6 +424,10 @@ export default function Laboratories() {
                             contesti ludici di apprendimento per ognuna delle
                             seguenti attività, che una volta terminate prevedono
                             il riordino dei materiali riutilizzati:
+                        </p>
+                        <p className="mt-5">
+                            <strong>TERRE DI MEZZO</strong> – LOGICA,
+                            IMMAGINAZIONE E COOPERAZIONE – primo e secondo anno
                         </p>
                         <p className="mt-5">
                             <strong>TANGRAM</strong> – LOGICA, IMMAGINAZIONE E
@@ -520,6 +514,16 @@ export default function Laboratories() {
                             partecipanti diviene una piccola orchestra
                             attraverso l’ascolto degli altri, la concentrazione
                             e la cooperazione.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
+                        </h2>
+                        <p className="mt-5">
+                            Gli stessi laboratori si possono realizzare nelle
+                            vostre sedi, in spazi idonei. Una sola attività o
+                            una serie di esperienze evitando la trasferta verso
+                            il Chiostro di Voltorre,{' '}
+                            <strong>con o senza genitori</strong>.
                         </p>
                         <p className="mt-5">
                             <strong>
@@ -628,6 +632,16 @@ export default function Laboratories() {
                             partecipanti diviene una piccola orchestra
                             attraverso l’ascolto degli altri, la concentrazione
                             e la cooperazione.
+                        </p>
+                        <h2 className="my-10 text-3xl font-semibold">
+                            LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE
+                        </h2>
+                        <p className="mt-5">
+                            Gli stessi laboratori si possono realizzare nelle
+                            vostre sedi, in spazi idonei. Una sola attività o
+                            una serie di esperienze evitando la trasferta verso
+                            il Chiostro di Voltorre,{' '}
+                            <strong>con o senza genitori</strong>.
                         </p>
                         <p className="mt-5">
                             <strong>
