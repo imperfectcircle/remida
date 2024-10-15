@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ContactSchoolRequest;
 use App\Http\Requests\ContactGenericRequest;
+use App\Http\Requests\ContactTrainingRequest;
+use App\Mail\EmporiumMail;
+use App\Mail\TrainingMail;
 
 class PublicController extends Controller
 {
@@ -71,27 +74,47 @@ class PublicController extends Controller
     }
 
     public function contactSchools(ContactSchoolRequest $req) {
-        $name =$req->name;
-        $email = $req->email;
-        $phone = $req->phone;
-        $school = $req->school;
-        $message = $req->message;
-        $privacy = $req->privacy;
+        $contact = $this->getContactDataFromRequest($req, true);
+        if ($contact['school'] == 'nido') {
+            Mail::to('nidi@remidavarese.it')->send(new SchoolMail($contact));
+        } else {
+            Mail::to('scuole@remidavarese.it')->send(new SchoolMail($contact));
+        }
 
-        $contact = compact('name', 'email', 'phone', 'school', 'message', 'privacy');
-        Mail::to('info@remidavarese.it')->send(new SchoolMail($contact));
         return to_route('laboratories')->with('message', 'La mail è stata inviata correttamente');
     }
 
     public function contactGeneric(ContactGenericRequest $req) {
-        $name =$req->name;
-        $email = $req->email;
-        $phone = $req->phone;
-        $message = $req->message;
-        $privacy = $req->privacy;
-
-        $contact = compact('name', 'email', 'phone', 'message', 'privacy');
+        $contact = $this->getContactDataFromRequest($req);
         Mail::to('info@remidavarese.it')->send(new GenericMail($contact));
-        return to_route('contacts')->with('message', 'La mail è stata inviata correttamente');
+        return back()->with('message', 'La mail è stata inviata correttamente');
+    }
+
+    public function contactTraining(ContactTrainingRequest $req) {
+        $contact = $this->getContactDataFromRequest($req);
+        Mail::to('formazione@remidavarese.it')->send(new TrainingMail($contact));
+        return to_route('training')->with('message', 'La mail è stata inviata correttamente');
+    }
+
+    public function contactEmporium(ContactTrainingRequest $req) {
+        $contact = $this->getContactDataFromRequest($req);
+        Mail::to('emporio@remidavarese.it')->send(new EmporiumMail($contact));
+        return back()->with('message', 'La mail è stata inviata correttamente');
+    }
+
+    private function getContactDataFromRequest(Request $req, $includeSchool = false) {
+        $data = [
+            'name' => $req->name,
+            'email' => $req->email,
+            'phone' => $req->phone,
+            'message' => $req->message,
+            'privacy' => $req->privacy,
+        ];
+
+        if ($includeSchool) {
+            $data['school'] = $req->school;
+        }
+
+        return $data;
     }
 }

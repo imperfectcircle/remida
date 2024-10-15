@@ -3,7 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { variants } from '@/Constants';
 import PublicLayout from '@/Layouts/PublicLayout';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { IoIosMail } from 'react-icons/io';

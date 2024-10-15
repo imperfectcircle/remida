@@ -3,20 +3,21 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SchoolMail extends Mailable
+class TrainingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
+
     public $contact;
     
     public function __construct($contact)
@@ -34,7 +35,7 @@ class SchoolMail extends Mailable
             replyTo: [
                 new Address($this->contact['email']),
             ],
-            subject: 'Nuova mail Laboratori per le scuole',
+            subject: 'Nuova mail Formazione',
         );
     }
 
@@ -44,7 +45,7 @@ class SchoolMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.school',
+            view: 'mails.training',
         );
     }
 

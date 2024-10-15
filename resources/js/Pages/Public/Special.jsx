@@ -33,11 +33,11 @@ export default function Special() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('contact.schools'), {
+        post(route('contact.generic'), {
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {
-                reset('name', 'email', 'phone', 'school', 'message', 'privacy');
+                reset('name', 'email', 'phone', 'message', 'privacy');
                 clearErrors();
             },
         });

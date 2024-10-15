@@ -46,7 +46,7 @@ export default function About() {
                     </div>
                     <div className="col-span-2">
                         <img
-                            className="h-full w-full object-cover opacity-90"
+                            className="h-screen w-full object-cover opacity-90"
                             src="/images/about.webp"
                             alt=""
                         />

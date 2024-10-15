@@ -30,7 +30,7 @@ class GenericMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('info@remidavarese.it'),
+            from: new Address('postmaster@remidavarese.it'),
             replyTo: [
                 new Address($this->contact['email']),
             ],

@@ -29,6 +29,8 @@ Route::controller(PublicController::class)->group(function () {
 
     Route::post('/contact/schools', 'contactSchools')->name('contact.schools');
     Route::post('/contact/generic', 'contactGeneric')->name('contact.generic');
+    Route::post('/contact/training', 'contactTraining')->name('contact.training');
+    Route::post('/contact/emporium', 'contactEmporium')->name('contact.emporium');
 });
 
 Route::controller(AdminPanelController::class)->group(function () {
