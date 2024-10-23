@@ -244,9 +244,9 @@ export default function Home({ events }) {
                             <h2 className="mb-10 text-center text-6xl text-white">
                                 I Nostri Partner
                             </h2>
-                            <div className="grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2">
-                                <img src="https://picsum.photos/200" alt="" />
-                                <img src="https://picsum.photos/201" alt="" />
+                            <div className="grid grid-cols-1 place-items-center justify-items-center gap-5 p-10 md:grid-cols-2">
+                                <img src="/images/provincia.jpg" alt="" />
+                                <img src="/images/gavirate.jpg" alt="" />
                             </div>
                         </div>
                     </motion.section>

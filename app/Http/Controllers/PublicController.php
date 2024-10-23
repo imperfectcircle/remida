@@ -31,7 +31,7 @@ class PublicController extends Controller
     }
 
     public function events() {
-        $events = Event::all();
+        $events = Event::orderBy('updated_at', 'desc')->get();
         return Inertia::render('Public/Events', compact('events'));
     }
 
