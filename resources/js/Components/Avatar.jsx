@@ -21,7 +21,7 @@ export default function Avatar({
             )}
             {href && (
                 <a
-                    className="text-center underline"
+                    className="text-center underline dark:text-sky-400"
                     href={href}
                     target="_blank"
                 >
