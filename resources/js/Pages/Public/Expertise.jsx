@@ -3,6 +3,7 @@ import { variants } from '@/Constants';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { motion } from 'framer-motion';
 import ButtonLink from '@/Components/ButtonLink';
+import Avatar from '@/Components/Avatar';
 
 export default function Expertise() {
     return (
@@ -193,6 +194,50 @@ export default function Expertise() {
                         <h2 className="pb-10 text-6xl">
                             Riferimenti Culturali Pedagogici
                         </h2>
+                        <div className="grid max-w-7xl grid-cols-1 justify-items-center gap-10 md:grid-cols-4">
+                            <Avatar
+                                source="/images/JD.webp"
+                                href="https://it.wikipedia.org/wiki/John_Dewey"
+                                anchorText="John Dewey"
+                                className="border-slate-700"
+                                description="Considerato il fondatore del pragmatismo educativo, ha sviluppato una concezione dell'esperienza come rapporto tra uomo e ambiente, dove l'uomo non è uno spettatore passivo, ma interagisce con ciò che lo circonda. L'educazione deve aprire la via a nuove esperienze ed al potenziamento di tutte le opportunità per uno sviluppo ulteriore. Secondo lui la creatività è educabile, e contesti formativi nei quali sia prevista e promossa la divergenza, intesa anche solo come possibilità/necessità di non adeguarsi a comportamenti standardizzati e univoci, sono capaci di allenare e rinforzare atteggiamenti e comportamenti creativi. Ha coniato il concetto dell’”imparare facendo”."
+                            />
+                            <Avatar
+                                source="/images/VLS.webp"
+                                href="https://www.stateofmind.it/bibliography/vygotskij-lev-semenovic/"
+                                anchorText="Lev S. Vygotskij"
+                                className="border-slate-700"
+                                description="Psicologo e pedagogista russo, promuove l’idea che l’apprendimento è un processo sociale e collaborativo. Gli individui imparano attraverso l’interazione con gli altri, attraverso la discussione e la risoluzione dei problemi insieme. Afferma inoltre che l’Immaginazione e la creatività nell’età infantile si combinano in forme nuove di elementi provenienti dall’esperienza, ritrasformando i dati di realtà con una nuova forza attiva."
+                            />
+                            <Avatar
+                                source="/images/LM.webp"
+                                href="https://www.reggiochildren.it/reggio-emilia-approach/loris-malaguzzi/"
+                                anchorText="Loris Malaguzzi"
+                                className="border-slate-700"
+                                description="Ha creato la teoria del gioco dei bambini, che intende l'azione del gioco come un processo attraverso il quale si impara dall'ambiente e attraverso l'esperienza. La teoria afferma che il modo più efficace per gli educatori di aiutare i bambini a imparare è creare un ambiente in cui si sentano liberi di esplorare, sperimentare e giocare con diversi materiali quotidiani utilizzando un approccio creativo. Nel 1968 Loris Malaguzzi fonda il Reggio Emilia approach, che mette al centro il bambino stesso come elemento principale dell'educazione primaria. Il Reggio Emilia Approach afferma che i bambini sono attivamente coinvolti nel proprio processo di apprendimento e che questo può essere supportato dagli adulti che lavorano con loro. Lo scopo di questo metodo era quello di fornire un approccio più pratico e centrato sul bambino."
+                            />
+                            <Avatar
+                                source="/images/EG.webp"
+                                href="https://www.elinoreducare.org/elinor-goldschmied/"
+                                anchorText="Elinor Violet Sinnott Goldschmied"
+                                className="border-slate-700"
+                                description="Educatrice e pedagogista britannica che ha vissuto e lavorato anche in Italia, teorizza e definisce il “gioco euristico”: attività di esplorazione e ricerca che permette ai bambini del nido, in totale autonomia, attraverso prove ed errori, di sperimentare e mettere in relazione un insieme di materiali, indagando in questo modo le proprietà e le possibili combinazioni. Goldsmchied è teorica anche del noto “cestino dei tesori”, il naturale precursore del gioco euristico."
+                            />
+                            <Avatar
+                                source="/images/BM.webp"
+                                href="https://www.treccani.it/enciclopedia/bruno-munari/"
+                                anchorText="Bruno Munari"
+                                className="border-slate-700"
+                                description="Uno dei massimi protagonisti dell’arte, del design e della grafica del XX secolo che – come spiega l’enciclopedia Treccani nella voce a lui dedicata – ha mantenuto inalterata la sua estrosità creativa a sostegno dell’indagine costruttiva della forma attraverso sperimentazioni visive e tattili e, insieme, la sua grande capacità di comunicarla con parole, oggetti, giocattoli."
+                            />
+                            <Avatar
+                                source="/images/GR.webp"
+                                href="https://100giannirodari.com/"
+                                anchorText="Gianni Rodari"
+                                className="border-slate-700"
+                                description="Nel suo libro “La grammatica della fantasia” introduce ai processi della fantasia e delle regole della creazione per renderne l’uso accessibile a tutti. L’autore non consegna però un ricettario per costruire storie, ma offre materia prima, idee, occasioni, riflessioni utilissime per superare la muraglia della routine scolastica e per riconoscere il ruolo fondamentale della creatività all’interno del processo educativo."
+                            />
+                        </div>
                     </div>
                 </motion.section>
             </PublicLayout>

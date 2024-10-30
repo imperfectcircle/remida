@@ -426,8 +426,17 @@ export default function Laboratories() {
                             il riordino dei materiali riutilizzati:
                         </p>
                         <p className="mt-5">
-                            <strong>TERRE DI MEZZO</strong> – LOGICA,
-                            IMMAGINAZIONE E COOPERAZIONE – primo e secondo anno
+                            <strong>TERRE DI MEZZO</strong> – GIORNATA DI
+                            ACCOGLIENZA A INIZIO ANNO SCOLASTICO – primo anno
+                        </p>
+                        <p className="mt-5">
+                            Nella fase passaggio dalla Scuola dell’infanzia alla
+                            Scuola Primaria, il primo periodo di socializzazione
+                            e accoglienza permette di costruire un clima
+                            inclusivo e non discriminante. Proponiamo una
+                            giornata di attività creative di gruppo che
+                            sviluppano la cooperazione divertendosi,
+                            naturalmente con materiali non strutturati.
                         </p>
                         <p className="mt-5">
                             <strong>TANGRAM</strong> – LOGICA, IMMAGINAZIONE E
@@ -609,29 +618,38 @@ export default function Laboratories() {
                             <strong>CITTÁ SOSTENIBILE</strong> – MACRO
                             COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquennio
                         </p>
-                        <p className="mt-5"></p>
+                        <p className="mt-5">
+                            Utilizzando i linguaggi universali della creatività
+                            e della manualità, ogni gruppo di adolescenti
+                            progetta e realizza la propria città, concentrandosi
+                            sugli aspetti della sostenibilità ambientale e
+                            sociale.
+                        </p>
                         <p className="mt-5">
                             <strong>RITRATTI</strong> – CREATIVITÁ, COOPERAZIONE
                             E NARRAZIONE – tutto il quinquennio
                         </p>
-                        <p className="mt-5"></p>
+                        <p className="mt-5">
+                            L’auto ed etero rappresentazione offrono molti
+                            spunti, attraverso il filtro della creatività, per
+                            parlare di sé ed entrare in relazione con gli altri.
+                            Esprimere la personalità con l’utilizzo di materiali
+                            non strutturati su semplici basi di recupero non è
+                            solo divertimento, ma definizione divergente
+                            dell’identità.
+                        </p>
                         <p className="mt-5">
                             <strong>GIOCARE CON I SUONI</strong> – SONORITÁ E
                             COOPERAZIONE
                         </p>
                         <p className="mt-5">
-                            I materiali non strutturati nascondono svariate
-                            potenzialità sonore. Il laboratorio propone indagini
-                            attraverso la relazione tra il corpo, le mani, i
-                            gesti e le qualità sonore dei vari materiali, anche
-                            in combinazione tra loro: nascono così suoni e ritmi
-                            che scaturiscono dalla percussione, dallo
-                            scuotimento, dall’oscillamento degli oggetti messi a
-                            disposizione dei partecipanti. Guidati dal
-                            musicoterapista Antonio Testa il gruppo di
-                            partecipanti diviene una piccola orchestra
-                            attraverso l’ascolto degli altri, la concentrazione
-                            e la cooperazione.
+                            Attraverso l’uso dei materiali non strutturati, la
+                            creatività e la manualità si ottenere suoni di vario
+                            genere. Sperimentando ed analizzando i diversi suoni
+                            e timbri ricavabili da oggetti (metalli, plastica,
+                            carta e cartoni, legni, pietra ecc.), si eseguiranno
+                            semplici brani e sonorizzazioni, formando
+                            un’orchestra estemporanea.
                         </p>
                         <h2 className="my-10 text-3xl font-semibold">
                             LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE

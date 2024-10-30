@@ -280,14 +280,17 @@ export default function About() {
                             <Avatar
                                 source="/images/no-image.jpg"
                                 name="Marco Quilici"
-                            />
-                            <Avatar
-                                source="/images/no-image.jpg"
-                                name="Enrico Casmirri"
+                                role="Presidente"
                             />
                             <Avatar
                                 source="/images/no-image.jpg"
                                 name="Davide Quilici"
+                                role="Vice Presidente"
+                            />
+                            <Avatar
+                                source="/images/no-image.jpg"
+                                name="Enrico Casmirri"
+                                role="Segretario"
                             />
                         </div>
                         <h2 className="mt-10 text-center text-3xl font-semibold uppercase">
@@ -312,14 +315,6 @@ export default function About() {
                             />
                             <Avatar
                                 source="/images/no-image.jpg"
-                                name="Francesca Checchi"
-                            />
-                            <Avatar
-                                source="/images/no-image.jpg"
-                                name="Valentina Lotti"
-                            />
-                            <Avatar
-                                source="/images/no-image.jpg"
                                 name="Paola Bertaglia"
                             />
                             <Avatar
@@ -328,15 +323,11 @@ export default function About() {
                             />
                             <Avatar
                                 source="/images/no-image.jpg"
-                                name="Vice Patrini"
-                            />
-                            <Avatar
-                                source="/images/no-image.jpg"
                                 name="Barbara Parietti"
                             />
                             <Avatar
                                 source="/images/no-image.jpg"
-                                name="Luciano Filippi"
+                                name="Marta Bonomi"
                             />
                         </div>
                     </div>
