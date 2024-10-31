@@ -17,7 +17,19 @@ export const EVENT_STATUS_TEXT_MAP = {
 
 export const COLLABORATION_ARRAY = [
     {
-        title: 'Comune di varese',
+        title: 'Comune di Caronno Pertusella',
+        description: '2024.',
+    },
+    {
+        title: 'British College Gallarate e Fagnano',
+        description: '2024.',
+    },
+    {
+        title: 'bam',
+        description: 'Biblioteca degli Alberi di Milano 2024.',
+    },
+    {
+        title: 'Comune di vCarese',
         description: 'Manifestazione Reseed 2012.',
     },
     {

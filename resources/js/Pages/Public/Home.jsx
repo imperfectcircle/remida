@@ -258,7 +258,7 @@ export default function Home({ events }) {
                         className="flex min-h-fit flex-col items-center justify-center p-2 md:p-10 dark:bg-slate-600"
                     >
                         <h2 className="mb-10 text-center text-6xl text-black dark:text-white">
-                            Quanto abbiamo fatto
+                            Quanto Abbiamo Fatto
                         </h2>
                         <div className="max-w-6xl p-5">
                             <Timeline />
