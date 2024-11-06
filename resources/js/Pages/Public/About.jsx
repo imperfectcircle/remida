@@ -159,26 +159,21 @@ export default function About() {
                     </h2>
                     <div className="mb-10 max-w-6xl px-5 text-xl text-black md:px-0 md:text-2xl dark:text-white">
                         <p>
-                            ReMida Varese fa parte di un network internazionale,
-                            una rete che ad oggi si compone di 12 centri,
-                            ispirati alla stessa filosofia del riuso creativo
-                            dei materiali di recupero.
-                        </p>
-                        <p className="mt-5">
-                            Il progetto Remida nasce nel 1996 a Reggio Emilia da
-                            un’idea dell’Istituzione Nidi e Scuole dell’Infanzia
-                            di Reggio Emilia, Fondazione Reggio Children e Iren.
-                            Gli altri centri sono a: Bologna, Borgo San Lorenzo
-                            (Firenze), Genova, Milano, Napoli, Torino, Trondheim
-                            (Norvegia), Skillingaryd (Svezia), Buenos Aires
-                            (Argentina), Perth (Australia).
-                        </p>
-                        <p className="mt-5">
-                            Lo scambio e i contatti periodici tra i vari Centri
-                            Remida rafforzano il patto tra persone e
-                            organizzazioni che stanno costruendo un percorso di
-                            corresponsabilità nell’ambito dell’Educazione
-                            ambientale e della cultura in generale.
+                            "Remida Varese fa parte di una rete nazionale e
+                            internazionale che oggi si compone di 11 Centri
+                            coordinati dal Centro Remida di Reggio Emilia, che
+                            dal 1996 porta avanti il progetto grazie a un’idea
+                            dell’Istituzione Nidi e Scuole dell’Infanzia del
+                            Comune di Reggio Emilia, Fondazione Reggio Children
+                            e Iren. Per informazioni:{' '}
+                            <a
+                                className="underline"
+                                href="www.remida.org"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                www.remida.org
+                            </a>
                         </p>
                     </div>
                 </motion.section>

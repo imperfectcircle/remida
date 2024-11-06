@@ -1,27 +1,36 @@
-import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { Link, useForm, Head, usePage, createInertiaApp } from "@inertiajs/react";
+import { jsxs, jsx, Fragment } from "react/jsx-runtime";
+import { Link, useForm, Head, usePage, router, createInertiaApp } from "@inertiajs/react";
 import * as React from "react";
-import React__default, { forwardRef, useRef, useEffect, createContext, useState, useContext } from "react";
+import React__default, { forwardRef, useRef, useEffect, createContext, useState, useContext, memo } from "react";
 import { Transition, Dialog, TransitionChild, DialogPanel } from "@headlessui/react";
-import { FaFacebook, FaInstagram, FaSun, FaMoon } from "react-icons/fa";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
+import { FaFacebook, FaInstagram, FaSun, FaMoon, FaMapMarkerAlt } from "react-icons/fa";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Navbar } from "flowbite-react";
+import { Navbar, Timeline } from "flowbite-react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
+import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
+import { IoIosMail } from "react-icons/io";
+import DOMPurify from "dompurify";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { useMotionValue, useSpring, useInView, motion } from "framer-motion";
+import { HiCalendar } from "react-icons/hi";
 import createServer from "@inertiajs/react/server";
 import ReactDOMServer from "react-dom/server";
-function ApplicationLogo(props) {
-  return /* @__PURE__ */ jsx("svg", { ...props, viewBox: "0 0 316 316", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ jsx("path", { d: "M305.8 81.125C305.77 80.995 305.69 80.885 305.65 80.755C305.56 80.525 305.49 80.285 305.37 80.075C305.29 79.935 305.17 79.815 305.07 79.685C304.94 79.515 304.83 79.325 304.68 79.175C304.55 79.045 304.39 78.955 304.25 78.845C304.09 78.715 303.95 78.575 303.77 78.475L251.32 48.275C249.97 47.495 248.31 47.495 246.96 48.275L194.51 78.475C194.33 78.575 194.19 78.725 194.03 78.845C193.89 78.955 193.73 79.045 193.6 79.175C193.45 79.325 193.34 79.515 193.21 79.685C193.11 79.815 192.99 79.935 192.91 80.075C192.79 80.285 192.71 80.525 192.63 80.755C192.58 80.875 192.51 80.995 192.48 81.125C192.38 81.495 192.33 81.875 192.33 82.265V139.625L148.62 164.795V52.575C148.62 52.185 148.57 51.805 148.47 51.435C148.44 51.305 148.36 51.195 148.32 51.065C148.23 50.835 148.16 50.595 148.04 50.385C147.96 50.245 147.84 50.125 147.74 49.995C147.61 49.825 147.5 49.635 147.35 49.485C147.22 49.355 147.06 49.265 146.92 49.155C146.76 49.025 146.62 48.885 146.44 48.785L93.99 18.585C92.64 17.805 90.98 17.805 89.63 18.585L37.18 48.785C37 48.885 36.86 49.035 36.7 49.155C36.56 49.265 36.4 49.355 36.27 49.485C36.12 49.635 36.01 49.825 35.88 49.995C35.78 50.125 35.66 50.245 35.58 50.385C35.46 50.595 35.38 50.835 35.3 51.065C35.25 51.185 35.18 51.305 35.15 51.435C35.05 51.805 35 52.185 35 52.575V232.235C35 233.795 35.84 235.245 37.19 236.025L142.1 296.425C142.33 296.555 142.58 296.635 142.82 296.725C142.93 296.765 143.04 296.835 143.16 296.865C143.53 296.965 143.9 297.015 144.28 297.015C144.66 297.015 145.03 296.965 145.4 296.865C145.5 296.835 145.59 296.775 145.69 296.745C145.95 296.655 146.21 296.565 146.45 296.435L251.36 236.035C252.72 235.255 253.55 233.815 253.55 232.245V174.885L303.81 145.945C305.17 145.165 306 143.725 306 142.155V82.265C305.95 81.875 305.89 81.495 305.8 81.125ZM144.2 227.205L100.57 202.515L146.39 176.135L196.66 147.195L240.33 172.335L208.29 190.625L144.2 227.205ZM244.75 114.995V164.795L226.39 154.225L201.03 139.625V89.825L219.39 100.395L244.75 114.995ZM249.12 57.105L292.81 82.265L249.12 107.425L205.43 82.265L249.12 57.105ZM114.49 184.425L96.13 194.995V85.305L121.49 70.705L139.85 60.135V169.815L114.49 184.425ZM91.76 27.425L135.45 52.585L91.76 77.745L48.07 52.585L91.76 27.425ZM43.67 60.135L62.03 70.705L87.39 85.305V202.545V202.555V202.565C87.39 202.735 87.44 202.895 87.46 203.055C87.49 203.265 87.49 203.485 87.55 203.695V203.705C87.6 203.875 87.69 204.035 87.76 204.195C87.84 204.375 87.89 204.575 87.99 204.745C87.99 204.745 87.99 204.755 88 204.755C88.09 204.905 88.22 205.035 88.33 205.175C88.45 205.335 88.55 205.495 88.69 205.635L88.7 205.645C88.82 205.765 88.98 205.855 89.12 205.965C89.28 206.085 89.42 206.225 89.59 206.325C89.6 206.325 89.6 206.325 89.61 206.335C89.62 206.335 89.62 206.345 89.63 206.345L139.87 234.775V285.065L43.67 229.705V60.135ZM244.75 229.705L148.58 285.075V234.775L219.8 194.115L244.75 179.875V229.705ZM297.2 139.625L253.49 164.795V114.995L278.85 100.395L297.21 89.825V139.625H297.2Z" }) });
-}
 function Guest({ children }) {
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100", children: [
-    /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(Link, { href: "/", children: /* @__PURE__ */ jsx(ApplicationLogo, { className: "w-20 h-20 fill-current text-gray-500" }) }) }),
-    /* @__PURE__ */ jsx("div", { className: "w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg", children })
+  return /* @__PURE__ */ jsxs("div", { className: "flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0", children: [
+    /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(Link, { href: "/", children: /* @__PURE__ */ jsx(
+      "img",
+      {
+        src: "/images/remida_logo.webp",
+        className: "h-20 w-20 fill-current text-gray-500"
+      }
+    ) }) }),
+    /* @__PURE__ */ jsx("div", { className: "mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg", children })
   ] });
 }
 function InputError({ message, className = "", ...props }) {
@@ -218,108 +227,6 @@ const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.def
   __proto__: null,
   default: Login
 }, Symbol.toStringTag, { value: "Module" }));
-function Register() {
-  const { data, setData, post, processing, errors, reset } = useForm({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
-  });
-  const submit = (e) => {
-    e.preventDefault();
-    post(route("register"), {
-      onFinish: () => reset("password", "password_confirmation")
-    });
-  };
-  return /* @__PURE__ */ jsxs(Guest, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Register" }),
-    /* @__PURE__ */ jsxs("form", { onSubmit: submit, children: [
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "name", value: "Name" }),
-        /* @__PURE__ */ jsx(
-          TextInput,
-          {
-            id: "name",
-            name: "name",
-            value: data.name,
-            className: "mt-1 block w-full",
-            autoComplete: "name",
-            isFocused: true,
-            onChange: (e) => setData("name", e.target.value),
-            required: true
-          }
-        ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.name, className: "mt-2" })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "email", value: "Email" }),
-        /* @__PURE__ */ jsx(
-          TextInput,
-          {
-            id: "email",
-            type: "email",
-            name: "email",
-            value: data.email,
-            className: "mt-1 block w-full",
-            autoComplete: "username",
-            onChange: (e) => setData("email", e.target.value),
-            required: true
-          }
-        ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.email, className: "mt-2" })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "password", value: "Password" }),
-        /* @__PURE__ */ jsx(
-          TextInput,
-          {
-            id: "password",
-            type: "password",
-            name: "password",
-            value: data.password,
-            className: "mt-1 block w-full",
-            autoComplete: "new-password",
-            onChange: (e) => setData("password", e.target.value),
-            required: true
-          }
-        ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.password, className: "mt-2" })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "password_confirmation", value: "Confirm Password" }),
-        /* @__PURE__ */ jsx(
-          TextInput,
-          {
-            id: "password_confirmation",
-            type: "password",
-            name: "password_confirmation",
-            value: data.password_confirmation,
-            className: "mt-1 block w-full",
-            autoComplete: "new-password",
-            onChange: (e) => setData("password_confirmation", e.target.value),
-            required: true
-          }
-        ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.password_confirmation, className: "mt-2" })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-end mt-4", children: [
-        /* @__PURE__ */ jsx(
-          Link,
-          {
-            href: route("login"),
-            className: "underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-            children: "Already registered?"
-          }
-        ),
-        /* @__PURE__ */ jsx(PrimaryButton, { className: "ms-4", disabled: processing, children: "Register" })
-      ] })
-    ] })
-  ] });
-}
-const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: Register
-}, Symbol.toStringTag, { value: "Module" }));
 function ResetPassword({ token, email }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     token,
@@ -389,7 +296,7 @@ function ResetPassword({ token, email }) {
     ] })
   ] });
 }
-const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ResetPassword
 }, Symbol.toStringTag, { value: "Module" }));
@@ -418,10 +325,25 @@ function VerifyEmail({ status }) {
     ] }) })
   ] });
 }
-const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: VerifyEmail
 }, Symbol.toStringTag, { value: "Module" }));
+function ButtonLink({
+  children,
+  light = false,
+  className = "",
+  ...props
+}) {
+  return /* @__PURE__ */ jsx(
+    Link,
+    {
+      ...props,
+      className: `mt-5 inline-block rounded-3xl px-6 py-3 shadow-md transition-colors dark:bg-black dark:text-white dark:hover:bg-gray-900 ${light ? "bg-white text-black hover:bg-gray-200" : "bg-black text-white hover:bg-gray-900"} ${className}`,
+      children
+    }
+  );
+}
 const DropDownContext = createContext();
 const Dropdown = ({ children }) => {
   const [open, setOpen] = useState(false);
@@ -506,24 +428,53 @@ function ResponsiveNavLink({ active = false, className = "", children, ...props 
 function Authenticated({ user, header, children }) {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-gray-100", children: [
-    /* @__PURE__ */ jsxs("nav", { className: "bg-white border-b border-gray-100", children: [
-      /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "flex justify-between h-16", children: [
+    /* @__PURE__ */ jsxs("nav", { className: "border-b border-gray-100 bg-white", children: [
+      /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "flex h-16 justify-between", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex", children: [
-          /* @__PURE__ */ jsx("div", { className: "shrink-0 flex items-center", children: /* @__PURE__ */ jsx(Link, { href: "/", children: /* @__PURE__ */ jsx(ApplicationLogo, { className: "block h-9 w-auto fill-current text-gray-800" }) }) }),
-          /* @__PURE__ */ jsx("div", { className: "hidden space-x-8 sm:-my-px sm:ms-10 sm:flex", children: /* @__PURE__ */ jsx(NavLink, { href: route("dashboard"), active: route().current("dashboard"), children: "Dashboard" }) })
+          /* @__PURE__ */ jsx("div", { className: "flex shrink-0 items-center", children: /* @__PURE__ */ jsx(Link, { href: route("dashboard"), children: /* @__PURE__ */ jsx(
+            "img",
+            {
+              src: "/images/remida_logo.webp",
+              className: "h-16 w-16 fill-current p-2 text-gray-500"
+            }
+          ) }) }),
+          /* @__PURE__ */ jsx("div", { className: "hidden space-x-8 sm:-my-px sm:ms-10 sm:flex", children: /* @__PURE__ */ jsx(
+            NavLink,
+            {
+              href: route("dashboard"),
+              active: route().current("dashboard"),
+              children: "Dashboard"
+            }
+          ) }),
+          /* @__PURE__ */ jsx("div", { className: "hidden space-x-8 sm:-my-px sm:ms-10 sm:flex", children: /* @__PURE__ */ jsx(
+            NavLink,
+            {
+              href: route("event.index"),
+              active: route().current("event.index"),
+              children: "Eventi"
+            }
+          ) }),
+          /* @__PURE__ */ jsx("div", { className: "hidden space-x-8 sm:-my-px sm:ms-10 sm:flex", children: /* @__PURE__ */ jsx(
+            NavLink,
+            {
+              href: route("image.index"),
+              active: route().current("image.index"),
+              children: "Immagini"
+            }
+          ) })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "hidden sm:flex sm:items-center sm:ms-6", children: /* @__PURE__ */ jsx("div", { className: "ms-3 relative", children: /* @__PURE__ */ jsxs(Dropdown, { children: [
+        /* @__PURE__ */ jsx("div", { className: "hidden sm:ms-6 sm:flex sm:items-center", children: /* @__PURE__ */ jsx("div", { className: "relative ms-3", children: /* @__PURE__ */ jsxs(Dropdown, { children: [
           /* @__PURE__ */ jsx(Dropdown.Trigger, { children: /* @__PURE__ */ jsx("span", { className: "inline-flex rounded-md", children: /* @__PURE__ */ jsxs(
             "button",
             {
               type: "button",
-              className: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150",
+              className: "inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none",
               children: [
                 user.name,
                 /* @__PURE__ */ jsx(
                   "svg",
                   {
-                    className: "ms-2 -me-0.5 h-4 w-4",
+                    className: "-me-0.5 ms-2 h-4 w-4",
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: "0 0 20 20",
                     fill: "currentColor",
@@ -541,55 +492,101 @@ function Authenticated({ user, header, children }) {
             }
           ) }) }),
           /* @__PURE__ */ jsxs(Dropdown.Content, { children: [
-            /* @__PURE__ */ jsx(Dropdown.Link, { href: route("profile.edit"), children: "Profile" }),
-            /* @__PURE__ */ jsx(Dropdown.Link, { href: route("logout"), method: "post", as: "button", children: "Log Out" })
+            /* @__PURE__ */ jsx(
+              Dropdown.Link,
+              {
+                href: route("profile.edit"),
+                children: "Profile"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Dropdown.Link,
+              {
+                href: route("logout"),
+                method: "post",
+                as: "button",
+                children: "Log Out"
+              }
+            )
           ] })
         ] }) }) }),
         /* @__PURE__ */ jsx("div", { className: "-me-2 flex items-center sm:hidden", children: /* @__PURE__ */ jsx(
           "button",
           {
-            onClick: () => setShowingNavigationDropdown((previousState) => !previousState),
-            className: "inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out",
-            children: /* @__PURE__ */ jsxs("svg", { className: "h-6 w-6", stroke: "currentColor", fill: "none", viewBox: "0 0 24 24", children: [
-              /* @__PURE__ */ jsx(
-                "path",
-                {
-                  className: !showingNavigationDropdown ? "inline-flex" : "hidden",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  strokeWidth: "2",
-                  d: "M4 6h16M4 12h16M4 18h16"
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                "path",
-                {
-                  className: showingNavigationDropdown ? "inline-flex" : "hidden",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  strokeWidth: "2",
-                  d: "M6 18L18 6M6 6l12 12"
-                }
-              )
-            ] })
+            onClick: () => setShowingNavigationDropdown(
+              (previousState) => !previousState
+            ),
+            className: "inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none",
+            children: /* @__PURE__ */ jsxs(
+              "svg",
+              {
+                className: "h-6 w-6",
+                stroke: "currentColor",
+                fill: "none",
+                viewBox: "0 0 24 24",
+                children: [
+                  /* @__PURE__ */ jsx(
+                    "path",
+                    {
+                      className: !showingNavigationDropdown ? "inline-flex" : "hidden",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: "2",
+                      d: "M4 6h16M4 12h16M4 18h16"
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    "path",
+                    {
+                      className: showingNavigationDropdown ? "inline-flex" : "hidden",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: "2",
+                      d: "M6 18L18 6M6 6l12 12"
+                    }
+                  )
+                ]
+              }
+            )
           }
         ) })
       ] }) }),
-      /* @__PURE__ */ jsxs("div", { className: (showingNavigationDropdown ? "block" : "hidden") + " sm:hidden", children: [
-        /* @__PURE__ */ jsx("div", { className: "pt-2 pb-3 space-y-1", children: /* @__PURE__ */ jsx(ResponsiveNavLink, { href: route("dashboard"), active: route().current("dashboard"), children: "Dashboard" }) }),
-        /* @__PURE__ */ jsxs("div", { className: "pt-4 pb-1 border-t border-gray-200", children: [
-          /* @__PURE__ */ jsxs("div", { className: "px-4", children: [
-            /* @__PURE__ */ jsx("div", { className: "font-medium text-base text-gray-800", children: user.name }),
-            /* @__PURE__ */ jsx("div", { className: "font-medium text-sm text-gray-500", children: user.email })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "mt-3 space-y-1", children: [
-            /* @__PURE__ */ jsx(ResponsiveNavLink, { href: route("profile.edit"), children: "Profile" }),
-            /* @__PURE__ */ jsx(ResponsiveNavLink, { method: "post", href: route("logout"), as: "button", children: "Log Out" })
-          ] })
-        ] })
-      ] })
+      /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: (showingNavigationDropdown ? "block" : "hidden") + " sm:hidden",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "space-y-1 pb-3 pt-2", children: /* @__PURE__ */ jsx(
+              ResponsiveNavLink,
+              {
+                href: route("dashboard"),
+                active: route().current("dashboard"),
+                children: "Dashboard"
+              }
+            ) }),
+            /* @__PURE__ */ jsxs("div", { className: "border-t border-gray-200 pb-1 pt-4", children: [
+              /* @__PURE__ */ jsxs("div", { className: "px-4", children: [
+                /* @__PURE__ */ jsx("div", { className: "text-base font-medium text-gray-800", children: user.name }),
+                /* @__PURE__ */ jsx("div", { className: "text-sm font-medium text-gray-500", children: user.email })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-3 space-y-1", children: [
+                /* @__PURE__ */ jsx(ResponsiveNavLink, { href: route("profile.edit"), children: "Profile" }),
+                /* @__PURE__ */ jsx(
+                  ResponsiveNavLink,
+                  {
+                    method: "post",
+                    href: route("logout"),
+                    as: "button",
+                    children: "Log Out"
+                  }
+                )
+              ] })
+            ] })
+          ]
+        }
+      )
     ] }),
-    header && /* @__PURE__ */ jsx("header", { className: "bg-white shadow", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8", children: header }) }),
+    header && /* @__PURE__ */ jsx("header", { className: "bg-white shadow", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8", children: header }) }),
     /* @__PURE__ */ jsx("main", { children })
   ] });
 }
@@ -598,17 +595,1083 @@ function Dashboard({ auth }) {
     Authenticated,
     {
       user: auth.user,
-      header: /* @__PURE__ */ jsx("h2", { className: "font-semibold text-xl text-gray-800 leading-tight", children: "Dashboard" }),
+      header: /* @__PURE__ */ jsx("h2", { className: "text-xl font-semibold leading-tight text-gray-800", children: "Dashboard" }),
       children: [
         /* @__PURE__ */ jsx(Head, { title: "Dashboard" }),
-        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto sm:px-6 lg:px-8", children: /* @__PURE__ */ jsx("div", { className: "bg-white overflow-hidden shadow-sm sm:rounded-lg", children: /* @__PURE__ */ jsx("div", { className: "p-6 text-gray-900", children: "You're logged in!" }) }) }) })
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-5 overflow-hidden bg-white p-5 shadow-sm sm:rounded-lg", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-5 rounded-lg border border-gray-400 bg-gray-300 p-6 text-center text-gray-900 shadow-lg", children: [
+            /* @__PURE__ */ jsx("h2", { className: "text-2xl", children: "Eventi" }),
+            /* @__PURE__ */ jsx("p", { children: "Crea, Aggiorna ed Elimina Eventi" }),
+            /* @__PURE__ */ jsx(ButtonLink, { href: route("event.index"), children: "Vai" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-5 rounded-lg border border-gray-400 bg-gray-300 p-6 text-center text-gray-900 shadow-lg", children: [
+            /* @__PURE__ */ jsx("h2", { className: "text-2xl", children: "Gallery" }),
+            /* @__PURE__ */ jsx("p", { children: "Crea, Aggiorna ed Elimina Immagini dalla Gallery" }),
+            /* @__PURE__ */ jsx(ButtonLink, { href: route("image.index"), children: "Vai" })
+          ] })
+        ] }) }) })
+      ]
+    }
+  );
+}
+const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Dashboard
+}, Symbol.toStringTag, { value: "Module" }));
+const SelectInput = forwardRef(function SelectInput2({ className = "", children, ...props }, ref) {
+  const input = ref ? ref : useRef();
+  return /* @__PURE__ */ jsx(
+    "select",
+    {
+      ...props,
+      className: "rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 " + className,
+      ref: input,
+      children
+    }
+  );
+});
+function Create$3({ auth }) {
+  const { data, setData, post, errors, processing } = useForm({
+    image: "",
+    title: "",
+    status: "",
+    description: ""
+  });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    post(route("event.store"));
+  };
+  return /* @__PURE__ */ jsxs(
+    Authenticated,
+    {
+      user: auth.user,
+      header: /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between", children: /* @__PURE__ */ jsx("h2", { className: "text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200", children: "Crea un Nuovo Evento" }) }),
+      children: [
+        /* @__PURE__ */ jsx(Head, { title: "Creazione Evento" }),
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsx("div", { className: "overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800", children: /* @__PURE__ */ jsxs(
+          "form",
+          {
+            onSubmit,
+            className: "bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800",
+            encType: "multipart/form-data",
+            children: [
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_image_path",
+                    value: "Immagine Evento (Max 2MB)"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    id: "event_image_path",
+                    type: "file",
+                    name: "image",
+                    className: "mt-1 block w-full",
+                    onChange: (e) => setData("image", e.target.files[0])
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.image,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_title",
+                    value: "Titolo Evento"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    id: "event_title",
+                    type: "text",
+                    name: "name",
+                    value: data.title,
+                    className: "mt-1 block w-full",
+                    isFocused: true,
+                    onChange: (e) => setData("title", e.target.value)
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.title,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_description",
+                    value: "Descrizione Evento"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  CKEditor,
+                  {
+                    editor: ClassicEditor,
+                    data: data.description,
+                    onChange: (event, editor) => {
+                      const data2 = editor.getData();
+                      setData("description", data2);
+                    }
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.description,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_status",
+                    value: "Status Evento"
+                  }
+                ),
+                /* @__PURE__ */ jsxs(
+                  SelectInput,
+                  {
+                    name: "status",
+                    id: "event_status",
+                    className: "mt-1 block w-full",
+                    onChange: (e) => setData("status", e.target.value),
+                    children: [
+                      /* @__PURE__ */ jsx("option", { value: "", children: "Seleziona lo Stato" }),
+                      /* @__PURE__ */ jsx("option", { value: "published", children: "Pubblicato" }),
+                      /* @__PURE__ */ jsx("option", { value: "unpublished", children: "Non Pubblicato" })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.status,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4 text-right", children: [
+                /* @__PURE__ */ jsx(
+                  Link,
+                  {
+                    href: route("event.index"),
+                    className: "mr-2 rounded bg-gray-100 px-3 py-1 text-gray-800 shadow transition-all hover:bg-gray-200",
+                    children: "Annulla"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    disabled: processing,
+                    className: "rounded bg-emerald-500 px-3 py-1 text-white shadow transition-all hover:bg-emerald-600",
+                    children: "Crea"
+                  }
+                )
+              ] })
+            ]
+          }
+        ) }) }) })
       ]
     }
   );
 }
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: Dashboard
+  default: Create$3
+}, Symbol.toStringTag, { value: "Module" }));
+function Create$2({ auth, event }) {
+  const { data, setData, post, errors, processing, clearErrors } = useForm({
+    image: "",
+    title: event.data.title || "",
+    status: event.data.status || "",
+    description: event.data.description || "",
+    _method: "PUT"
+  });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    clearErrors();
+    post(route("event.update", event.data.id), {
+      ...data
+    });
+  };
+  return /* @__PURE__ */ jsxs(
+    Authenticated,
+    {
+      user: auth.user,
+      header: /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between", children: /* @__PURE__ */ jsxs("h2", { className: "text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200", children: [
+        `Modifica l'evento "`,
+        event.data.title,
+        '"'
+      ] }) }),
+      children: [
+        /* @__PURE__ */ jsx(Head, { title: "Creazione Evento" }),
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsx("div", { className: "overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800", children: /* @__PURE__ */ jsxs(
+          "form",
+          {
+            onSubmit,
+            className: "bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800",
+            encType: "multipart/form-data",
+            children: [
+              event.data.image_url && /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: event.data.image_url,
+                  alt: event.data.title,
+                  className: "mb-5 w-64 rounded-lg shadow-lg"
+                }
+              ) }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_image_path",
+                    value: "Immagine Evento (Max 2MB)"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    id: "event_image_path",
+                    type: "file",
+                    name: "image",
+                    className: "mt-1 block w-full",
+                    onChange: (e) => setData("image", e.target.files[0])
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.image,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_title",
+                    value: "Titolo Evento"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    id: "event_title",
+                    type: "text",
+                    name: "name",
+                    value: data.title,
+                    className: "mt-1 block w-full",
+                    isFocused: true,
+                    onChange: (e) => setData("title", e.target.value)
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.title,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_description",
+                    value: "Descrizione Evento"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  CKEditor,
+                  {
+                    editor: ClassicEditor,
+                    data: data.description,
+                    onChange: (event2, editor) => {
+                      const data2 = editor.getData();
+                      setData("description", data2);
+                    }
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.description,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_status",
+                    value: "Status Evento"
+                  }
+                ),
+                /* @__PURE__ */ jsxs(
+                  SelectInput,
+                  {
+                    name: "status",
+                    id: "event_status",
+                    className: "mt-1 block w-full",
+                    onChange: (e) => setData("status", e.target.value),
+                    children: [
+                      /* @__PURE__ */ jsx("option", { value: "", children: "Seleziona lo Stato" }),
+                      /* @__PURE__ */ jsx(
+                        "option",
+                        {
+                          selected: event.data.status === "published",
+                          value: "published",
+                          children: "Pubblicato"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "option",
+                        {
+                          selected: event.data.status === "unpublished",
+                          value: "unpublished",
+                          children: "Non Pubblicato"
+                        }
+                      )
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.status,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4 text-right", children: [
+                /* @__PURE__ */ jsx(
+                  Link,
+                  {
+                    href: route("event.index"),
+                    className: "mr-2 rounded bg-gray-100 px-3 py-1 text-gray-800 shadow transition-all hover:bg-gray-200",
+                    children: "Annulla"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    disabled: processing,
+                    className: "rounded bg-emerald-500 px-3 py-1 text-white shadow transition-all hover:bg-emerald-600",
+                    children: "Aggiorna"
+                  }
+                )
+              ] })
+            ]
+          }
+        ) }) }) })
+      ]
+    }
+  );
+}
+const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Create$2
+}, Symbol.toStringTag, { value: "Module" }));
+function Pagination({ links }) {
+  return /* @__PURE__ */ jsx("nav", { className: "mt-4 text-center", children: links.map((link, _) => /* @__PURE__ */ jsx(
+    Link,
+    {
+      preserveScroll: true,
+      href: link.url || "",
+      dangerouslySetInnerHTML: { __html: link.label },
+      className: `inline-block rounded-lg px-3 py-2 text-xs text-gray-700 ${link.active ? "bg-gray-950 text-white" : ""} ${!link.url ? "cursor-not-allowed !text-gray-300" : "transition-colors hover:bg-gray-600 hover:text-white"}`
+    },
+    _
+  )) });
+}
+const THeadSorting = memo(function THeadSorting2({
+  sortChanged = () => {
+  },
+  sortField = null,
+  sortDirection = null,
+  sortable = true,
+  name,
+  children
+}) {
+  const isSortedAsc = sortField === name && sortDirection === "asc";
+  const isSortedDesc = sortField === name && sortDirection === "desc";
+  return /* @__PURE__ */ jsx("th", { onClick: (e) => sortChanged(name), children: /* @__PURE__ */ jsxs(
+    "div",
+    {
+      className: `px-3 py-3 ${sortable && "flex cursor-pointer items-center justify-between gap-1"}`,
+      children: [
+        children,
+        sortable && /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx(
+            ChevronUpIcon,
+            {
+              className: `w-4 ${isSortedAsc ? "text-green-500" : "text-gray-400"}`
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            ChevronDownIcon,
+            {
+              className: `-mt-2 w-4 ${isSortedDesc ? "text-green-500" : "text-gray-400"}`
+            }
+          )
+        ] })
+      ]
+    }
+  ) });
+});
+const variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1.5 }
+  }
+};
+const EVENT_STATUS_CLASS_MAP = {
+  unpublished: "bg-red-500 ",
+  published: "bg-green-500"
+};
+const EVENT_STATUS_TEXT_MAP = {
+  unpublished: "Non Pubblicato",
+  published: "Pubblicato"
+};
+const COLLABORATION_ARRAY = [
+  {
+    title: "Comune di Caronno Pertusella",
+    description: "2024."
+  },
+  {
+    title: "British College Gallarate e Fagnano",
+    description: "2024."
+  },
+  {
+    title: "bam",
+    description: "Biblioteca degli Alberi di Milano 2024."
+  },
+  {
+    title: "Comune di vCarese",
+    description: "Manifestazione Reseed 2012."
+  },
+  {
+    title: "Comune di Busto Arsizio",
+    description: "Tappa del giro d'Italia 2012 e RiParty."
+  },
+  {
+    title: "Comune di Gazzada Schianno",
+    description: "Manifestazione InterKommunale 2012."
+  },
+  {
+    title: "Comune di Laveno Mombello",
+    description: "Museo Midec di Cerro"
+  },
+  {
+    title: "Comune di Albizzate",
+    description: "Manifestazione RiusiAMO Albizzate"
+  },
+  {
+    title: "Comune di Comerio",
+    description: "Festival di MicroCosmi"
+  },
+  {
+    title: "Comune di Oggiona Santo Stefano",
+    description: "Festival O.S.A."
+  },
+  {
+    title: "Comune di Cernobbio",
+    description: "Manifestazione Family@work 2013"
+  },
+  {
+    title: "Join Research Center UE di Ispra",
+    description: "Open Day 2013"
+  },
+  {
+    title: "Oratorio di Masnago - Varese",
+    description: "Palio dei Rioni 2012"
+  },
+  {
+    title: "Cascina Cuccagna - Milano",
+    description: "Fuori Salone del Mobile 2013 - Evento 'Oggi domani ieri'"
+  },
+  {
+    title: "e ancora:",
+    description: "Comune di Angera, Comune di Besozzo, Comune di Luino, Comune di Casale Litta, Comune di Leggiuno, Comune di Inarzo, Parco Regionale del Campo dei Fiori, Parco Regionale Pineta"
+  }
+];
+function Index$1({ auth, events, queryParams = null }) {
+  const { flash } = usePage().props;
+  queryParams = queryParams || {};
+  const searchFieldChanged = (title, value) => {
+    if (value) {
+      queryParams[title] = value;
+    } else {
+      delete queryParams[title];
+    }
+    router.get(route("event.index"), queryParams);
+  };
+  const onKeyPress = (name, e) => {
+    if (e.key !== "Enter") return;
+    searchFieldChanged(name, e.target.value);
+  };
+  const sortChanged = (name) => {
+    if (name === queryParams.sort_field) {
+      if (queryParams.sort_direction === "asc") {
+        queryParams.sort_direction = "desc";
+      } else {
+        queryParams.sort_direction = "asc";
+      }
+    } else {
+      queryParams.sort_field = name;
+      queryParams.sort_direction = "asc";
+    }
+    router.get(route("event.index"), queryParams);
+  };
+  const deleteEvent = (event) => {
+    if (!window.confirm("Sei sicuro di voler eliminare l'evento?")) {
+      return;
+    }
+    router.delete(route("event.destroy", event.id));
+  };
+  return /* @__PURE__ */ jsxs(
+    Authenticated,
+    {
+      user: auth.user,
+      header: /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200", children: "Eventi" }),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            href: route("event.create"),
+            className: "rounded bg-emerald-500 px-3 py-2 text-white shadow transition-all hover:bg-emerald-600",
+            children: "Crea Nuovo Evento"
+          }
+        )
+      ] }),
+      children: [
+        /* @__PURE__ */ jsx(Head, { title: "Eventi" }),
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800", children: [
+          flash.message && /* @__PURE__ */ jsx("div", { className: "m-5 rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+          /* @__PURE__ */ jsxs("div", { className: "p-6 text-gray-900 dark:text-gray-100", children: [
+            /* @__PURE__ */ jsx("div", { className: "overflow-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400", children: [
+              /* @__PURE__ */ jsx("thead", { className: "border-b-2 border-gray-500 bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400", children: /* @__PURE__ */ jsxs("tr", { className: "text-nowrap", children: [
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortChanged,
+                    sortField: queryParams.sort_field,
+                    name: "id",
+                    sortDirection: queryParams.sort_direction,
+                    children: "ID"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortChanged,
+                    sortField: queryParams.sort_field,
+                    name: "title",
+                    sortDirection: queryParams.sort_direction,
+                    children: "TITOLO"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortChanged,
+                    sortField: queryParams.sort_field,
+                    name: "description",
+                    sortDirection: queryParams.sort_direction,
+                    children: "DESCRIZIONE"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortChanged,
+                    sortField: queryParams.sort_field,
+                    name: "status",
+                    sortDirection: queryParams.sort_direction,
+                    children: "STATUS"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortChanged,
+                    sortField: queryParams.sort_field,
+                    name: "created_at",
+                    sortDirection: queryParams.sort_direction,
+                    children: "CREATO IL"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortable: false,
+                    className: "text-center",
+                    children: "AZIONI"
+                  }
+                )
+              ] }) }),
+              /* @__PURE__ */ jsx("thead", { className: "border-b-2 border-gray-500 bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400", children: /* @__PURE__ */ jsxs("tr", { className: "text-nowrap", children: [
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3" }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3" }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3", children: /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    className: "w-full",
+                    defaultValue: queryParams.title,
+                    placeholder: "Titolo Evento",
+                    onBlur: (e) => searchFieldChanged(
+                      "title",
+                      e.target.value
+                    ),
+                    onKeyPress: (e) => onKeyPress("title", e)
+                  }
+                ) }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3", children: /* @__PURE__ */ jsxs(
+                  SelectInput,
+                  {
+                    className: "w-full",
+                    defaultValue: queryParams.status,
+                    onChange: (e) => searchFieldChanged(
+                      "status",
+                      e.target.value
+                    ),
+                    children: [
+                      /* @__PURE__ */ jsx("option", { value: "", children: "Seleziona lo Status" }),
+                      /* @__PURE__ */ jsx("option", { value: "published", children: "Pubblicato" }),
+                      /* @__PURE__ */ jsx("option", { value: "unpublished", children: "Non Pubblicato" })
+                    ]
+                  }
+                ) }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3" }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3" }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-3" }),
+                /* @__PURE__ */ jsx("th", { className: "px-3 py-2" })
+              ] }) }),
+              events.data.length === 0 && /* @__PURE__ */ jsx("tbody", { children: /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx(
+                "td",
+                {
+                  colSpan: "7",
+                  className: "py-5 text-center text-xl",
+                  children: "Non Sono Ancora Presenti Eventi"
+                }
+              ) }) }),
+              events && /* @__PURE__ */ jsx("tbody", { children: events.data.map((event) => /* @__PURE__ */ jsxs(
+                "tr",
+                {
+                  className: "border-b bg-white dark:border-gray-700 dark:bg-gray-800",
+                  children: [
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: event.id }),
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: event.title }),
+                    /* @__PURE__ */ jsxs("td", { className: "px-3 py-3", children: [
+                      event.description.substring(
+                        0,
+                        50
+                      ),
+                      " ",
+                      "..."
+                    ] }),
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: /* @__PURE__ */ jsx(
+                      "span",
+                      {
+                        className: `rounded px-2 py-1 text-white ${EVENT_STATUS_CLASS_MAP[event.status]}`,
+                        children: EVENT_STATUS_TEXT_MAP[event.status]
+                      }
+                    ) }),
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: event.created_at }),
+                    /* @__PURE__ */ jsxs("td", { className: "text-nowrap px-3 py-3", children: [
+                      /* @__PURE__ */ jsx(
+                        Link,
+                        {
+                          href: route(
+                            "event.edit",
+                            event.id
+                          ),
+                          className: "mx-1 font-medium text-blue-600 hover:underline dark:text-blue-500",
+                          children: "Modifica"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "button",
+                        {
+                          onClick: (ev) => deleteEvent(
+                            event
+                          ),
+                          className: "mx-1 font-medium text-red-600 hover:underline dark:text-red-500",
+                          children: "Elimina"
+                        }
+                      )
+                    ] })
+                  ]
+                },
+                event.id
+              )) })
+            ] }) }),
+            /* @__PURE__ */ jsx(Pagination, { links: events.meta.links })
+          ] })
+        ] }) }) })
+      ]
+    }
+  );
+}
+const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Index$1
+}, Symbol.toStringTag, { value: "Module" }));
+function Create$1({ auth }) {
+  const { flash } = usePage().props;
+  const { data, setData, post, reset, errors, processing } = useForm({
+    image: "",
+    title: ""
+  });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    post(route("image.store"), {
+      onSuccess: () => {
+        reset("image", "title");
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(
+    Authenticated,
+    {
+      user: auth.user,
+      header: /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between", children: /* @__PURE__ */ jsx("h2", { className: "text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200", children: "Aggiungi una Nuova Immagine" }) }),
+      children: [
+        /* @__PURE__ */ jsx(Head, { title: "Creazione Immagine" }),
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800", children: [
+          flash.message && /* @__PURE__ */ jsx("div", { className: "m-5 rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+          /* @__PURE__ */ jsxs(
+            "form",
+            {
+              onSubmit,
+              className: "bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800",
+              encType: "multipart/form-data",
+              children: [
+                /* @__PURE__ */ jsxs("div", { children: [
+                  /* @__PURE__ */ jsx(
+                    InputLabel,
+                    {
+                      htmlFor: "image_path",
+                      value: "Immagine (Max 2MB)"
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    TextInput,
+                    {
+                      id: "image_path",
+                      type: "file",
+                      name: "image",
+                      className: "mt-1 block w-full",
+                      onChange: (e) => setData("image", e.target.files[0])
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    InputError,
+                    {
+                      message: errors.image,
+                      className: "mt-2"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                  /* @__PURE__ */ jsx(
+                    InputLabel,
+                    {
+                      htmlFor: "image_title",
+                      value: "Titolo"
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    TextInput,
+                    {
+                      id: "image_title",
+                      type: "text",
+                      name: "title",
+                      value: data.title,
+                      className: "mt-1 block w-full",
+                      isFocused: true,
+                      onChange: (e) => setData("title", e.target.value)
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    InputError,
+                    {
+                      message: errors.title,
+                      className: "mt-2"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "mt-4 text-right", children: [
+                  /* @__PURE__ */ jsx(
+                    Link,
+                    {
+                      href: route("image.index"),
+                      className: "mr-2 rounded bg-gray-100 px-3 py-1 text-gray-800 shadow transition-all hover:bg-gray-200",
+                      children: "Annulla"
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    "button",
+                    {
+                      disabled: processing,
+                      type: "submit",
+                      className: "rounded bg-emerald-500 px-3 py-1 text-white shadow transition-all hover:bg-emerald-600",
+                      children: "Crea"
+                    }
+                  )
+                ] })
+              ]
+            }
+          )
+        ] }) }) })
+      ]
+    }
+  );
+}
+const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Create$1
+}, Symbol.toStringTag, { value: "Module" }));
+function Create({ auth, image }) {
+  const { data, setData, post, errors, processing, clearErrors } = useForm({
+    image: "",
+    title: image.data.title || "",
+    _method: "PUT"
+  });
+  console.log(image);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    clearErrors();
+    post(route("image.update", image.data.id), {
+      ...data
+    });
+  };
+  return /* @__PURE__ */ jsxs(
+    Authenticated,
+    {
+      user: auth.user,
+      header: /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between", children: /* @__PURE__ */ jsxs("h2", { className: "text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200", children: [
+        `Modifica l'immagine "`,
+        image.data.title,
+        '"'
+      ] }) }),
+      children: [
+        /* @__PURE__ */ jsx(Head, { title: "Creazione Evento" }),
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsx("div", { className: "overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800", children: /* @__PURE__ */ jsxs(
+          "form",
+          {
+            onSubmit,
+            className: "bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800",
+            encType: "multipart/form-data",
+            children: [
+              image.data.src && /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: image.data.src,
+                  alt: image.data.title,
+                  className: "mb-5 w-64 rounded-lg shadow-lg"
+                }
+              ) }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx(
+                  InputLabel,
+                  {
+                    htmlFor: "event_image_path",
+                    value: "Immagine (Max 2MB)"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    id: "image_path",
+                    type: "file",
+                    name: "image",
+                    className: "mt-1 block w-full",
+                    onChange: (e) => setData("image", e.target.files[0])
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.image,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsx(InputLabel, { htmlFor: "title", value: "Titolo" }),
+                /* @__PURE__ */ jsx(
+                  TextInput,
+                  {
+                    id: "title",
+                    type: "text",
+                    name: "title",
+                    value: data.title,
+                    className: "mt-1 block w-full",
+                    isFocused: true,
+                    onChange: (e) => setData("title", e.target.value)
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  InputError,
+                  {
+                    message: errors.title,
+                    className: "mt-2"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-4 text-right", children: [
+                /* @__PURE__ */ jsx(
+                  Link,
+                  {
+                    href: route("image.index"),
+                    className: "mr-2 rounded bg-gray-100 px-3 py-1 text-gray-800 shadow transition-all hover:bg-gray-200",
+                    children: "Annulla"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    disabled: processing,
+                    className: "rounded bg-emerald-500 px-3 py-1 text-white shadow transition-all hover:bg-emerald-600",
+                    children: "Aggiorna"
+                  }
+                )
+              ] })
+            ]
+          }
+        ) }) }) })
+      ]
+    }
+  );
+}
+const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Create
+}, Symbol.toStringTag, { value: "Module" }));
+function Index({ auth, images }) {
+  const { flash } = usePage().props;
+  const deleteEvent = (image) => {
+    if (!window.confirm("Sei sicuro di voler eliminare l'immagine?")) {
+      return;
+    }
+    router.delete(route("image.destroy", image.id));
+  };
+  return /* @__PURE__ */ jsxs(
+    Authenticated,
+    {
+      user: auth.user,
+      header: /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200", children: "Immagini" }),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            href: route("image.create"),
+            className: "rounded bg-emerald-500 px-3 py-2 text-white shadow transition-all hover:bg-emerald-600",
+            children: "Aggiungi Nuova Immagine"
+          }
+        )
+      ] }),
+      children: [
+        /* @__PURE__ */ jsx(Head, { title: "Immagini" }),
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800", children: [
+          flash.message && /* @__PURE__ */ jsx("div", { className: "m-5 rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+          /* @__PURE__ */ jsxs("div", { className: "p-6 text-gray-900 dark:text-gray-100", children: [
+            /* @__PURE__ */ jsx("div", { className: "overflow-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400", children: [
+              /* @__PURE__ */ jsx("thead", { className: "border-b-2 border-gray-500 bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400", children: /* @__PURE__ */ jsxs("tr", { className: "text-nowrap", children: [
+                /* @__PURE__ */ jsx(THeadSorting, { sortable: false, children: "ID" }),
+                /* @__PURE__ */ jsx(THeadSorting, { sortable: false, children: "IMMAGINE" }),
+                /* @__PURE__ */ jsx(THeadSorting, { sortable: false, children: "TITOLO" }),
+                /* @__PURE__ */ jsx(THeadSorting, { sortable: false, children: "CREATO IL" }),
+                /* @__PURE__ */ jsx(
+                  THeadSorting,
+                  {
+                    sortable: false,
+                    className: "text-center",
+                    children: "AZIONI"
+                  }
+                )
+              ] }) }),
+              images.data.length === 0 && /* @__PURE__ */ jsx("tbody", { children: /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx(
+                "td",
+                {
+                  colSpan: "6",
+                  className: "py-5 text-center text-xl",
+                  children: "Non Sono Ancora Presenti Immagini"
+                }
+              ) }) }),
+              images && /* @__PURE__ */ jsx("tbody", { children: images.data.map((image) => /* @__PURE__ */ jsxs(
+                "tr",
+                {
+                  className: "border-b bg-white dark:border-gray-700 dark:bg-gray-800",
+                  children: [
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: image.id }),
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: /* @__PURE__ */ jsx(
+                      "img",
+                      {
+                        className: "h-20 w-20 object-cover",
+                        src: image.src
+                      }
+                    ) }),
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: image.title }),
+                    /* @__PURE__ */ jsx("td", { className: "px-3 py-3", children: image.created_at }),
+                    /* @__PURE__ */ jsxs("td", { className: "text-nowrap px-3 py-3", children: [
+                      /* @__PURE__ */ jsx(
+                        Link,
+                        {
+                          href: route(
+                            "image.edit",
+                            image.id
+                          ),
+                          className: "mx-1 font-medium text-blue-600 hover:underline dark:text-blue-500",
+                          children: "Modifica"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "button",
+                        {
+                          onClick: (ev) => deleteEvent(
+                            image
+                          ),
+                          className: "mx-1 font-medium text-red-600 hover:underline dark:text-red-500",
+                          children: "Elimina"
+                        }
+                      )
+                    ] })
+                  ]
+                },
+                image.id
+              )) })
+            ] }) }),
+            /* @__PURE__ */ jsx(Pagination, { links: images.meta.links })
+          ] })
+        ] }) }) })
+      ]
+    }
+  );
+}
+const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Index
 }, Symbol.toStringTag, { value: "Module" }));
 function DangerButton({ className = "", disabled, children, ...props }) {
   return /* @__PURE__ */ jsx(
@@ -720,15 +1783,22 @@ function DeleteUserForm({ className = "" }) {
   };
   return /* @__PURE__ */ jsxs("section", { className: `space-y-6 ${className}`, children: [
     /* @__PURE__ */ jsxs("header", { children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Delete Account" }),
-      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain." })
+      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Cancella Account" }),
+      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Una volta cancellato, tutti i tuoi dati e risorse verranno permanentemente cancellati. Prima di cancellare il tuo account, ti consigliamo di scaricare i dati o le informazioni che desideri conservare." })
     ] }),
-    /* @__PURE__ */ jsx(DangerButton, { onClick: confirmUserDeletion, children: "Delete Account" }),
+    /* @__PURE__ */ jsx(DangerButton, { onClick: confirmUserDeletion, children: "Cancella Account" }),
     /* @__PURE__ */ jsx(Modal, { show: confirmingUserDeletion, onClose: closeModal, children: /* @__PURE__ */ jsxs("form", { onSubmit: deleteUser, className: "p-6", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Are you sure you want to delete your account?" }),
-      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account." }),
+      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Sei sicuro di voler cancellare il tuo account?" }),
+      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Una volta cancellato, tutti i tuoi dati e risorse verranno permanentemente cancellati. Inserisci la tua password per confermare che desideri cancellare il tuo account permanentemente." }),
       /* @__PURE__ */ jsxs("div", { className: "mt-6", children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "password", value: "Password", className: "sr-only" }),
+        /* @__PURE__ */ jsx(
+          InputLabel,
+          {
+            htmlFor: "password",
+            value: "Password",
+            className: "sr-only"
+          }
+        ),
         /* @__PURE__ */ jsx(
           TextInput,
           {
@@ -743,23 +1813,37 @@ function DeleteUserForm({ className = "" }) {
             placeholder: "Password"
           }
         ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.password, className: "mt-2" })
+        /* @__PURE__ */ jsx(
+          InputError,
+          {
+            message: errors.password,
+            className: "mt-2"
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "mt-6 flex justify-end", children: [
-        /* @__PURE__ */ jsx(SecondaryButton, { onClick: closeModal, children: "Cancel" }),
-        /* @__PURE__ */ jsx(DangerButton, { className: "ms-3", disabled: processing, children: "Delete Account" })
+        /* @__PURE__ */ jsx(SecondaryButton, { onClick: closeModal, children: "Annulla" }),
+        /* @__PURE__ */ jsx(DangerButton, { className: "ms-3", disabled: processing, children: "Cancella Account" })
       ] })
     ] }) })
   ] });
 }
-const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: DeleteUserForm
 }, Symbol.toStringTag, { value: "Module" }));
 function UpdatePasswordForm({ className = "" }) {
   const passwordInput = useRef();
   const currentPasswordInput = useRef();
-  const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
+  const {
+    data,
+    setData,
+    errors,
+    put,
+    reset,
+    processing,
+    recentlySuccessful
+  } = useForm({
     current_password: "",
     password: "",
     password_confirmation: ""
@@ -783,12 +1867,18 @@ function UpdatePasswordForm({ className = "" }) {
   };
   return /* @__PURE__ */ jsxs("section", { className, children: [
     /* @__PURE__ */ jsxs("header", { children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Update Password" }),
-      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Ensure your account is using a long, random password to stay secure." })
+      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Aggiorna la Password" }),
+      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Assicurati di utilizzare una password lunga e casuale per mantenere la tua sicurezza." })
     ] }),
     /* @__PURE__ */ jsxs("form", { onSubmit: updatePassword, className: "mt-6 space-y-6", children: [
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "current_password", value: "Current Password" }),
+        /* @__PURE__ */ jsx(
+          InputLabel,
+          {
+            htmlFor: "current_password",
+            value: "Password Corrente"
+          }
+        ),
         /* @__PURE__ */ jsx(
           TextInput,
           {
@@ -801,10 +1891,16 @@ function UpdatePasswordForm({ className = "" }) {
             autoComplete: "current-password"
           }
         ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.current_password, className: "mt-2" })
+        /* @__PURE__ */ jsx(
+          InputError,
+          {
+            message: errors.current_password,
+            className: "mt-2"
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "password", value: "New Password" }),
+        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "password", value: "Nuova Password" }),
         /* @__PURE__ */ jsx(
           TextInput,
           {
@@ -820,7 +1916,13 @@ function UpdatePasswordForm({ className = "" }) {
         /* @__PURE__ */ jsx(InputError, { message: errors.password, className: "mt-2" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "password_confirmation", value: "Confirm Password" }),
+        /* @__PURE__ */ jsx(
+          InputLabel,
+          {
+            htmlFor: "password_confirmation",
+            value: "Conferma Password"
+          }
+        ),
         /* @__PURE__ */ jsx(
           TextInput,
           {
@@ -832,10 +1934,16 @@ function UpdatePasswordForm({ className = "" }) {
             autoComplete: "new-password"
           }
         ),
-        /* @__PURE__ */ jsx(InputError, { message: errors.password_confirmation, className: "mt-2" })
+        /* @__PURE__ */ jsx(
+          InputError,
+          {
+            message: errors.password_confirmation,
+            className: "mt-2"
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
-        /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Save" }),
+        /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Salva" }),
         /* @__PURE__ */ jsx(
           Transition,
           {
@@ -851,11 +1959,15 @@ function UpdatePasswordForm({ className = "" }) {
     ] })
   ] });
 }
-const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: UpdatePasswordForm
 }, Symbol.toStringTag, { value: "Module" }));
-function UpdateProfileInformation({ mustVerifyEmail, status, className = "" }) {
+function UpdateProfileInformation({
+  mustVerifyEmail,
+  status,
+  className = ""
+}) {
   const user = usePage().props.auth.user;
   const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
     name: user.name,
@@ -867,12 +1979,12 @@ function UpdateProfileInformation({ mustVerifyEmail, status, className = "" }) {
   };
   return /* @__PURE__ */ jsxs("section", { className, children: [
     /* @__PURE__ */ jsxs("header", { children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Profile Information" }),
-      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Update your account's profile information and email address." })
+      /* @__PURE__ */ jsx("h2", { className: "text-lg font-medium text-gray-900", children: "Informazioni del Profilo" }),
+      /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Aggiorna le informazioni del tuo profilo e la tua email." })
     ] }),
     /* @__PURE__ */ jsxs("form", { onSubmit: submit, className: "mt-6 space-y-6", children: [
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "name", value: "Name" }),
+        /* @__PURE__ */ jsx(InputLabel, { htmlFor: "name", value: "Nome" }),
         /* @__PURE__ */ jsx(
           TextInput,
           {
@@ -904,23 +2016,23 @@ function UpdateProfileInformation({ mustVerifyEmail, status, className = "" }) {
         /* @__PURE__ */ jsx(InputError, { className: "mt-2", message: errors.email })
       ] }),
       mustVerifyEmail && user.email_verified_at === null && /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsxs("p", { className: "text-sm mt-2 text-gray-800", children: [
-          "Your email address is unverified.",
+        /* @__PURE__ */ jsxs("p", { className: "mt-2 text-sm text-gray-800", children: [
+          "Il tuo indirizzo email non è verificato.",
           /* @__PURE__ */ jsx(
             Link,
             {
               href: route("verification.send"),
               method: "post",
               as: "button",
-              className: "underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-              children: "Click here to re-send the verification email."
+              className: "rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+              children: "Clicca qui per inviare di nuovo la mail di verifica."
             }
           )
         ] }),
-        status === "verification-link-sent" && /* @__PURE__ */ jsx("div", { className: "mt-2 font-medium text-sm text-green-600", children: "A new verification link has been sent to your email address." })
+        status === "verification-link-sent" && /* @__PURE__ */ jsx("div", { className: "mt-2 text-sm font-medium text-green-600", children: "Un nuovo link di verifica è stato inviato al tuo indirizzo email." })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
-        /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Save" }),
+        /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Salva" }),
         /* @__PURE__ */ jsx(
           Transition,
           {
@@ -929,14 +2041,14 @@ function UpdateProfileInformation({ mustVerifyEmail, status, className = "" }) {
             enterFrom: "opacity-0",
             leave: "transition ease-in-out",
             leaveTo: "opacity-0",
-            children: /* @__PURE__ */ jsx("p", { className: "text-sm text-gray-600", children: "Saved." })
+            children: /* @__PURE__ */ jsx("p", { className: "text-sm text-gray-600", children: "Salvato." })
           }
         )
       ] })
     ] })
   ] });
 }
-const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: UpdateProfileInformation
 }, Symbol.toStringTag, { value: "Module" }));
@@ -945,11 +2057,11 @@ function Edit({ auth, mustVerifyEmail, status }) {
     Authenticated,
     {
       user: auth.user,
-      header: /* @__PURE__ */ jsx("h2", { className: "font-semibold text-xl text-gray-800 leading-tight", children: "Profile" }),
+      header: /* @__PURE__ */ jsx("h2", { className: "text-xl font-semibold leading-tight text-gray-800", children: "Profile" }),
       children: [
         /* @__PURE__ */ jsx(Head, { title: "Profile" }),
-        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6", children: [
-          /* @__PURE__ */ jsx("div", { className: "p-4 sm:p-8 bg-white shadow sm:rounded-lg", children: /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx("div", { className: "py-12", children: /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8", children: [
+          /* @__PURE__ */ jsx("div", { className: "bg-white p-4 shadow sm:rounded-lg sm:p-8", children: /* @__PURE__ */ jsx(
             UpdateProfileInformation,
             {
               mustVerifyEmail,
@@ -957,70 +2069,136 @@ function Edit({ auth, mustVerifyEmail, status }) {
               className: "max-w-xl"
             }
           ) }),
-          /* @__PURE__ */ jsx("div", { className: "p-4 sm:p-8 bg-white shadow sm:rounded-lg", children: /* @__PURE__ */ jsx(UpdatePasswordForm, { className: "max-w-xl" }) }),
-          /* @__PURE__ */ jsx("div", { className: "p-4 sm:p-8 bg-white shadow sm:rounded-lg", children: /* @__PURE__ */ jsx(DeleteUserForm, { className: "max-w-xl" }) })
+          /* @__PURE__ */ jsx("div", { className: "bg-white p-4 shadow sm:rounded-lg sm:p-8", children: /* @__PURE__ */ jsx(UpdatePasswordForm, { className: "max-w-xl" }) })
         ] }) })
       ]
     }
   );
 }
-const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Edit
 }, Symbol.toStringTag, { value: "Module" }));
-function Footer() {
-  return /* @__PURE__ */ jsxs("footer", { className: "grid h-fit grid-cols-1 text-white md:grid-cols-3", children: [
-    /* @__PURE__ */ jsxs("div", { className: "grid place-items-center bg-red-800 p-10 dark:bg-red-900 md:block", children: [
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          src: "/images/remida_logo.webp",
-          className: "mr-3 h-12 md:h-16 lg:h-20",
-          alt: "ReMida Varese Logo"
-        }
-      ),
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          src: "/images/altrementi-logo.webp",
-          className: "mr-3 h-12 dark:hidden md:h-16 lg:h-20",
-          alt: "Altrementi Logo"
-        }
-      ),
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          src: "/images/altrementi-logo-light.webp",
-          className: "mr-3 hidden h-12 dark:inline-block md:h-16 lg:h-20",
-          alt: "Altrementi Logo"
-        }
-      ),
-      /* @__PURE__ */ jsx("p", { children: "c/o Chiostro di Voltorre" }),
-      /* @__PURE__ */ jsx("p", { children: " Gavirate - Varese" })
+function Avatar({
+  source,
+  name = "",
+  role = "",
+  href = "",
+  anchorText = "",
+  className = "",
+  description = ""
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: "mt-10 flex flex-col items-center", children: [
+    /* @__PURE__ */ jsx(
+      "img",
+      {
+        src: source,
+        className: `h-40 w-40 rounded-full border-4 border-red-700 object-cover ${className}`,
+        alt: name ? name : anchorText
+      }
+    ),
+    name && /* @__PURE__ */ jsxs("p", { className: "text-center", children: [
+      name,
+      " ",
+      /* @__PURE__ */ jsx("br", {}),
+      " ",
+      role
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 place-items-center bg-red-900 p-10 dark:bg-red-950 md:col-span-2 md:grid-cols-2", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col", children: [
-        /* @__PURE__ */ jsx("h2", { className: "text-lg font-semibold", children: "Menù" }),
-        /* @__PURE__ */ jsx(Link, { href: route("home"), children: "Home" }),
-        /* @__PURE__ */ jsx(Link, { href: route("about"), children: "Chi siamo" }),
-        /* @__PURE__ */ jsx(Link, { href: route("expertise"), children: "Cosa Facciamo" }),
-        /* @__PURE__ */ jsx(Link, { href: route("events"), children: "In Evidenza" }),
-        /* @__PURE__ */ jsx(Link, { href: route("contacts"), children: "Contatti" })
+    href && /* @__PURE__ */ jsx(
+      "a",
+      {
+        className: "text-center underline dark:text-sky-400",
+        href,
+        target: "_blank",
+        children: anchorText
+      }
+    ),
+    description && /* @__PURE__ */ jsx("p", { className: "mt-3 text-center text-sm", children: description })
+  ] });
+}
+function Footer() {
+  const year = /* @__PURE__ */ new Date();
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs("footer", { className: "grid h-fit grid-cols-1 text-white md:grid-cols-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid place-items-center bg-red-800 p-10 md:block dark:bg-red-900", children: [
+        /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: "/images/remida_logo.webp",
+            className: "mr-3 h-12 md:h-16 lg:h-20",
+            alt: "ReMida Varese Logo"
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: "/images/altrementi-logo.webp",
+            className: "mr-3 h-10 dark:hidden",
+            alt: "Altrementi Logo"
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: "/images/altrementi-logo-light.webp",
+            className: "mr-3 hidden h-10 dark:inline-block",
+            alt: "Altrementi Logo"
+          }
+        ),
+        /* @__PURE__ */ jsx("p", { children: "c/o Chiostro di Voltorre" }),
+        /* @__PURE__ */ jsx("p", { children: "Via S. Michele" }),
+        /* @__PURE__ */ jsx("p", { children: "21026 Gavirate - Varese" })
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col", children: [
-        /* @__PURE__ */ jsx("h2", { className: "mt-5 text-lg font-semibold md:mt-0", children: "Policies" }),
-        /* @__PURE__ */ jsx(Link, { href: route("home"), children: "Privacy Policy" }),
-        /* @__PURE__ */ jsx(Link, { href: route("home"), children: "Cookie Policy" }),
-        /* @__PURE__ */ jsx("h2", { className: "mb-3 mt-5 text-lg font-semibold", children: "Social" }),
-        /* @__PURE__ */ jsxs("div", { className: "flex space-x-5", children: [
-          /* @__PURE__ */ jsx(FaFacebook, { className: "text-3xl" }),
-          /* @__PURE__ */ jsx(FaInstagram, { className: "text-3xl" })
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 place-items-center bg-red-900 p-10 md:col-span-2 md:grid-cols-2 dark:bg-red-950", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-col", children: [
+          /* @__PURE__ */ jsx("h2", { className: "text-lg font-semibold", children: "Menù" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("home"), children: "Home" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("about"), children: "Chi siamo" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("expertise"), children: "Cosa Facciamo" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("gallery"), children: "Galleria" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("events"), children: "In Evidenza" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("contacts"), children: "Contatti" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-col", children: [
+          /* @__PURE__ */ jsx("h2", { className: "mt-5 text-lg font-semibold md:mt-0", children: "Policies" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("home"), children: "Privacy Policy" }),
+          /* @__PURE__ */ jsx(Link, { className: "text-white", href: route("home"), children: "Cookie Policy" }),
+          /* @__PURE__ */ jsx("h2", { className: "mb-3 mt-5 text-lg font-semibold", children: "Social" }),
+          /* @__PURE__ */ jsxs("div", { className: "flex space-x-5", children: [
+            /* @__PURE__ */ jsx(FaFacebook, { className: "text-3xl" }),
+            /* @__PURE__ */ jsx(FaInstagram, { className: "text-3xl" })
+          ] })
         ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "flex h-fit flex-col items-center bg-red-950 p-1 lg:flex-row lg:justify-around", children: [
+      /* @__PURE__ */ jsxs("p", { className: "text-lg text-gray-200", children: [
+        year.getFullYear(),
+        "© Remida Varese"
+      ] }),
+      /* @__PURE__ */ jsxs("p", { className: "mt-3 text-lg text-gray-200 lg:mt-0", children: [
+        "Made with",
+        " ",
+        /* @__PURE__ */ jsx("span", { role: "img", "aria-label": "dita", children: String.fromCodePoint(127535) }),
+        " ",
+        "by",
+        " ",
+        /* @__PURE__ */ jsx(
+          "a",
+          {
+            title: "Fabio Angelici",
+            target: "_blank",
+            href: "https://fabioangelici.com",
+            className: "text-white underline",
+            rel: "noreferrer",
+            children: "Fabio Angelici"
+          }
+        )
       ] })
     ] })
   ] });
 }
-function cn(...inputs) {
+function cn$1(...inputs) {
   return twMerge(clsx(inputs));
 }
 const ShimmerButton = React__default.forwardRef(({
@@ -1044,7 +2222,7 @@ const ShimmerButton = React__default.forwardRef(({
         "--cut": shimmerSize,
         "--bg": background
       },
-      className: cn(
+      className: cn$1(
         "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-gray-200 border-white/10 px-6 py-3 text-white [background:var(--bg)] [border-radius:var(--radius)] dark:text-black dark:border-gray-800",
         "transform-gpu transition-transform duration-300 ease-in-out active:translate-y-[1px]",
         className
@@ -1055,7 +2233,7 @@ const ShimmerButton = React__default.forwardRef(({
         /* @__PURE__ */ jsx(
           "div",
           {
-            className: cn(
+            className: cn$1(
               "-z-30 blur-[2px]",
               "absolute inset-0 overflow-visible [container-type:size]"
             ),
@@ -1077,7 +2255,7 @@ const ShimmerButton = React__default.forwardRef(({
         /* @__PURE__ */ jsx(
           "div",
           {
-            className: cn(
+            className: cn$1(
               "insert-0 absolute h-full w-full",
               "rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#ffffff1f]",
               // transition
@@ -1092,7 +2270,7 @@ const ShimmerButton = React__default.forwardRef(({
         /* @__PURE__ */ jsx(
           "div",
           {
-            className: cn(
+            className: cn$1(
               "absolute -z-20 [background:var(--bg)] [border-radius:var(--radius)] [inset:var(--cut)]"
             )
           }
@@ -1105,8 +2283,8 @@ ShimmerButton.displayName = "ShimmerButton";
 const Switch = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   SwitchPrimitives.Root,
   {
-    className: cn(
-      "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-gray-900 data-[state=unchecked]:bg-gray-200 dark:focus-visible:ring-gray-300 dark:focus-visible:ring-offset-gray-950 dark:data-[state=checked]:bg-gray-50 dark:data-[state=unchecked]:bg-gray-800",
+    className: cn$1(
+      "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=checked]:bg-gray-900 data-[state=unchecked]:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 dark:data-[state=checked]:bg-gray-50 dark:data-[state=unchecked]:bg-gray-800 dark:focus-visible:ring-gray-300 dark:focus-visible:ring-offset-gray-950",
       className
     ),
     ...props,
@@ -1114,7 +2292,7 @@ const Switch = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
     children: /* @__PURE__ */ jsx(
       SwitchPrimitives.Thumb,
       {
-        className: cn(
+        className: cn$1(
           "pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0 dark:bg-gray-950"
         )
       }
@@ -1144,17 +2322,23 @@ function ThemeSwitcher() {
   }, []);
   return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1", children: [
     /* @__PURE__ */ jsx(FaSun, { className: isDark ? "text-white" : "text-black" }),
-    /* @__PURE__ */ jsx(Switch, { onClick: handleThemeChange, checked: isDark }),
+    /* @__PURE__ */ jsx(
+      Switch,
+      {
+        onClick: handleThemeChange,
+        checked: isDark,
+        className: "data-[state=unchecked]:bg-gray-400"
+      }
+    ),
     /* @__PURE__ */ jsx(FaMoon, { className: isDark ? "text-white" : "text-black" })
   ] }) });
 }
 function NavbarLink({ active = false, children, ...props }) {
-  usePage();
   return /* @__PURE__ */ jsx(
     Link,
     {
       ...props,
-      className: `block py-2 pl-3 pr-4 font-bold text-black/90 transition-colors hover:text-white md:p-0 md:text-lg dark:text-slate-400 ${active ? "bg-red-700 font-bold text-white md:bg-transparent md:text-white dark:text-white" : ""}`,
+      className: `block py-2 pl-3 pr-4 font-bold text-black/90 transition-colors hover:text-gray-400 md:p-0 md:text-lg dark:text-slate-400 dark:hover:text-slate-500 ${active ? "bg-red-700 font-bold text-white md:bg-transparent md:text-red-700 md:hover:text-red-700 dark:text-white dark:hover:text-white" : ""}`,
       children
     }
   );
@@ -1167,7 +2351,7 @@ function NavbarComponent() {
       fluid: true,
       rounded: true,
       children: [
-        /* @__PURE__ */ jsx(Navbar.Brand, { href: "https://flowbite-react.com", children: /* @__PURE__ */ jsxs("div", { className: "md:flex", children: [
+        /* @__PURE__ */ jsx(Navbar.Brand, { href: route("home"), children: /* @__PURE__ */ jsxs("div", { className: "items-end md:flex", children: [
           /* @__PURE__ */ jsx(
             "img",
             {
@@ -1180,7 +2364,7 @@ function NavbarComponent() {
             "img",
             {
               src: "/images/altrementi-logo.webp",
-              className: "mr-3 h-9 md:h-16 lg:h-20 dark:hidden",
+              className: "mr-3 flex h-10 items-end dark:hidden",
               alt: "Altrementi Logo"
             }
           ),
@@ -1188,7 +2372,7 @@ function NavbarComponent() {
             "img",
             {
               src: "/images/altrementi-logo-light.webp",
-              className: "mr-3 hidden h-9 md:h-16 lg:h-20 dark:inline-block",
+              className: "mr-3 hidden h-10 dark:inline-block",
               alt: "Altrementi Logo"
             }
           )
@@ -1234,6 +2418,14 @@ function NavbarComponent() {
           /* @__PURE__ */ jsx(
             NavbarLink,
             {
+              href: route("gallery"),
+              active: route().current("gallery"),
+              children: "Galleria"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            NavbarLink,
+            {
               href: route("events"),
               active: route().current("events"),
               children: "In Evidenza"
@@ -1252,38 +2444,1706 @@ function PublicLayout({ children }) {
   ] });
 }
 function About() {
-  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx(PublicLayout, { children: "About" }) });
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Chi Siamo" }),
+      /* @__PURE__ */ jsx(
+        "meta",
+        {
+          name: "description",
+          content: "Remida Varese è un Centro di ricerca creativa attraverso il riutilizzo di materiali non strutturati di origine aziendale e artigianale"
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/chi-siamo"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Chi Siamo" }),
+              /* @__PURE__ */ jsx("br", {}),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5 text-xl md:text-2xl", children: [
+                "Remida Varese è un",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "Centro di ricerca creativa attraverso il riutilizzo di materiali non strutturati di origine aziendale e artigianale" }),
+                " ",
+                "(sottoprodotti, rimanenze di magazzino, ecc.) gestito dall’Associazione di Promozione Sociale Altrementi di Varese."
+              ] })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/about.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "flex min-h-fit flex-col items-center justify-center bg-slate-700 p-2 md:p-10",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-white", children: "Remida Varese" }),
+            /* @__PURE__ */ jsxs("div", { className: "mb-10 max-w-6xl px-5 text-xl text-white md:px-0 md:text-2xl", children: [
+              /* @__PURE__ */ jsxs("p", { children: [
+                "Nato nel 2012 grazie alla fondamentale collaborazione di",
+                " ",
+                /* @__PURE__ */ jsx(
+                  "a",
+                  {
+                    href: "http://www.modusriciclandi.info/",
+                    target: "_blank",
+                    rel: "noreferrer",
+                    className: "text-white underline",
+                    children: "Remida Reggio Emilia"
+                  }
+                ),
+                ", della Provincia di Varese - settore Ambiente e al finanziamento ottenuto dal progetto Interreg",
+                " ",
+                /* @__PURE__ */ jsx(
+                  "a",
+                  {
+                    href: "https://www.remida.org/",
+                    target: "_blank",
+                    rel: "noreferrer",
+                    className: "text-white underline",
+                    children: "ModusRiciclandi"
+                  }
+                ),
+                " ",
+                ", un Piano Integrato Transfrontaliero tra Provincia di Varese e Cantone Ticino, dalla sua nascita ha sede presso il",
+                " ",
+                /* @__PURE__ */ jsx(
+                  "a",
+                  {
+                    href: "https://it.wikipedia.org/wiki/Chiostro_di_Voltorre",
+                    target: "_blank",
+                    rel: "noreferrer",
+                    className: "text-white underline",
+                    children: "Chiostro di Voltorre"
+                  }
+                ),
+                ", attualmente attivo in convenzione con il Comune di Gavirate."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese è uno spazio nel quale chi entra trova svariati materiali di origine aziendale ed artigianale, ma anche suggerimenti, sensazioni, curiosità, divertimento, emozioni, possibili collaborazioni." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese è un’occasione per interagire con molteplici realtà, una predisposizione del pensiero che induce alla ricerca di diverse prospettive in un’ottica di sostenibilità e rispetto della materia, dell’ambiente, dell’uomo." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese si connota come una risorsa importante di riqualificazione ed arricchimento delle proposte educative, ambientali ed artistiche presenti sul territorio dando nuova vita e valore agli errori di produzione, attraverso riutilizzi innovati con le seguenti iniziative:" }),
+              /* @__PURE__ */ jsxs("ul", { className: "ml-5 mt-5", children: [
+                /* @__PURE__ */ jsx("li", { children: "Attività educative e didattiche per le scuole di ogni ordine e grado" }),
+                /* @__PURE__ */ jsx("li", { children: "Percorsi di Formazione per operatori socio-educativi e insegnanti" }),
+                /* @__PURE__ */ jsxs("li", { children: [
+                  "Raccolta e distribuzione del materiale non strutturato di origine aziendale e artigianale",
+                  " "
+                ] }),
+                /* @__PURE__ */ jsx("li", { children: "Collaborazioni con altri Enti del terzo settore ed aziende profit" }),
+                /* @__PURE__ */ jsx("li", { children: "Eventi e laboratori con Enti Locali e Pro Loco" }),
+                /* @__PURE__ */ jsx("li", { children: "Installazioni e workshop con artisti, stilisti, eco designer" })
+              ] })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "flex flex-col items-center justify-center bg-transparent p-5 py-10 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl text-black dark:text-gray-300", children: "Rete Remida" }),
+            /* @__PURE__ */ jsxs("div", { className: "mb-10 max-w-6xl px-5 text-xl text-black md:px-0 md:text-2xl dark:text-white", children: [
+              /* @__PURE__ */ jsx("p", { children: "ReMida Varese fa parte di un network internazionale, una rete che ad oggi si compone di 12 centri, ispirati alla stessa filosofia del riuso creativo dei materiali di recupero." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Il progetto Remida nasce nel 1996 a Reggio Emilia da un’idea dell’Istituzione Nidi e Scuole dell’Infanzia di Reggio Emilia, Fondazione Reggio Children e Iren. Gli altri centri sono a: Bologna, Borgo San Lorenzo (Firenze), Genova, Milano, Napoli, Torino, Trondheim (Norvegia), Skillingaryd (Svezia), Buenos Aires (Argentina), Perth (Australia)." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Lo scambio e i contatti periodici tra i vari Centri Remida rafforzano il patto tra persone e organizzazioni che stanno costruendo un percorso di corresponsabilità nell’ambito dell’Educazione ambientale e della cultura in generale." })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "flex min-h-fit flex-col items-center justify-center bg-slate-700 p-2 md:p-10",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-white", children: "Altrementi APS" }),
+            /* @__PURE__ */ jsxs("div", { className: "mb-10 max-w-6xl px-5 text-xl text-white md:px-0 md:text-2xl", children: [
+              /* @__PURE__ */ jsx("p", { children: "L’Associazione di Promozione Sociale AltreMenti nasce nel 2009 (ai sensi della legge 383/2000) grazie alla volontà di persone dalle capacità, competenze ed esperienze diverse. Animatori sociali, artisti, educatrici, pedagogiste, architetti e grafici si sono uniti con scopo di migliorare la tutela dell’ambiente attraverso la realizzazione di progetti, interventi inerenti soprattutto la tematica dello sviluppo sostenibile." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "AltreMenti realizza i propri fini istituzionali con le seguenti attività:" }),
+              /* @__PURE__ */ jsxs("ul", { className: "ml-5 mt-5", children: [
+                /* @__PURE__ */ jsx("li", { children: "progettazione e realizzazione di laboratori creativi attraverso l’uso dei materiali di scarto aziendale e di materiali naturali;" }),
+                /* @__PURE__ */ jsx("li", { children: "progettazione di percorsi educativi ed animativi, anche all’interno di programmi della Comunità Europea, Repubblica Italiana, Regione, Provincia, dei Comuni, Comunità Montane, Asl, ecc.;" }),
+                /* @__PURE__ */ jsx("li", { children: "consulenza per la gestione di spazi e attività, anche a seguito di convenzioni con Enti Locali, per il riuso creativo dei materiali di scarto aziendale e di materiali naturali;" }),
+                /* @__PURE__ */ jsx("li", { children: "progettazione e realizzazione di corsi di formazione;" }),
+                /* @__PURE__ */ jsx("li", { children: "promozione di attività sociali di carattere ambientale rivolte particolarmente a categorie svantaggiate;" }),
+                /* @__PURE__ */ jsx("li", { children: "Installazioni e workshop con artisti, stilisti, eco designer" })
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Nel 2012 ha inaugurato il Centro ReMida Varese presso il Chiostro di Voltorre a Gavirate in collaborazione con la Provincia di Varese ed altri partner italiani e ticinesi." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Associazione di Promozione Sociale Altrementi ha sede in Via Pagliano 18 21100 a Varese C.F. 95067980128 P.IVA 03289460127 ed è iscritta nel Registro Unico Nazionale del Terzo Settore con numero di Repertorio 86522" })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "flex flex-col items-center justify-center bg-transparent p-5 py-10 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl text-black dark:text-gray-300", children: "Associati" }),
+            /* @__PURE__ */ jsxs("div", { className: "mb-10 max-w-6xl px-5 text-xl text-black md:px-0 md:text-2xl dark:text-white", children: [
+              /* @__PURE__ */ jsx("p", { children: "L’equipe di Remida Varese è composta da professionisti in animazione sociale, arte, educazione, pedagogia, architettura, musica e grafica." }),
+              /* @__PURE__ */ jsx("h2", { className: "mt-5 text-center text-3xl font-semibold uppercase", children: "consiglio direttivo" }),
+              /* @__PURE__ */ jsxs("div", { className: "grid max-w-7xl grid-cols-1 justify-items-center md:grid-cols-3", children: [
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Marco Quilici",
+                    role: "Presidente"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Davide Quilici",
+                    role: "Vice Presidente"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Enrico Casmirri",
+                    role: "Segretario"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsx("h2", { className: "mt-10 text-center text-3xl font-semibold uppercase", children: "Associati Operativi" }),
+              /* @__PURE__ */ jsxs("div", { className: "grid max-w-7xl grid-cols-1 justify-items-center md:grid-cols-4", children: [
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Lorella Manzo"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Antonio Testa"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Stefania Miano"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Monica Sistu"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Paola Bertaglia"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Sara Dalla Pozza"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Barbara Parietti"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  Avatar,
+                  {
+                    source: "/images/no-image.jpg",
+                    name: "Marta Bonomi"
+                  }
+                )
+              ] })
+            ] })
+          ]
+        }
+      )
+    ] })
+  ] });
 }
-const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: About
 }, Symbol.toStringTag, { value: "Module" }));
-function Contacts() {
-  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx(PublicLayout, { children: "Contacts" }) });
+function Agency() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.emporium"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Aziende" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/aziende"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Aziende" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5 text-xl md:text-2xl", children: [
+                "Partecipare al progetto Remida Varese significa impegnarsi attivamente",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "nella riduzione degli sprechi e nella promozione di un'economia circolare" }),
+                ", dimostrando concretamente l’impegno per la sostenibilità d’impresa."
+              ] })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/agency.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsx(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "bg-transparent dark:bg-slate-500 dark:text-white",
+          children: /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-7xl px-5 py-10 text-2xl", children: [
+            /* @__PURE__ */ jsx("p", { children: "Con la nostra esperienza siamo in grado di trasformare gli scarti in strumenti educativi, didattici e artistici." }),
+            /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+              "Le aziende partner di Remida Varese beneficiano di una ",
+              /* @__PURE__ */ jsx("strong", { children: "maggiore visibilità" }),
+              " e aumentano la ",
+              /* @__PURE__ */ jsx("strong", { children: "reputazione aziendale" }),
+              ", associando il proprio marchio a un progetto innovativo e sostenibile riconosciuto a livello sia locale che internazionale."
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Un’azienda può fornire fornire i propri materiali e diventare partner del progetto Remida Varese con vari tipi di collaborazioni, per impattare positivamente sulla responsabilità socio-ambientale d’impresa e sulla sensibilizzazione dei cittadini del territorio." }),
+            /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Negli anni hanno aderito al progetto più di 45 tra aziende, artigiani, commercianti e singoli imprenditori." })
+          ] })
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Fornitura Materiali" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "Per aderire al progetto vi invitiamo a",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "contattarci per valutare" }),
+                " insieme quali materiali potrebbero esserci utili, escludendo quelli pericolosi all’utilizzo manuale o troppo sporchi."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "I nostri laboratori" }),
+                ", da concordare per tipologia con il committente, come sempre proposti attraverso il riutilizzo di materiali di scarto aziendale e artigianale,",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "hanno l'obiettivo" }),
+                " di far vivere ai partecipanti una",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "sensazione di soddisfazione" }),
+                " per l’opera prodotta ed un altrettanto fondamentale",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "senso di rilassamento e benessere" }),
+                " ",
+                "che il processo creativo è capace di indurre, oltre che la naturale propensione alla sostenibilità ambientale."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Effettueremo un ",
+                /* @__PURE__ */ jsx("strong", { children: "sopralluogo" }),
+                " per comprendere meglio la natura e la quantità dei materiali disponibili."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Stabiliremo le ",
+                /* @__PURE__ */ jsx("strong", { children: "modalità operative" }),
+                " ",
+                "di raccolta più efficienti, minimizzando ogni impatto logistico."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "Formalizzeremo" }),
+                " la nostra collaborazione con una ",
+                /* @__PURE__ */ jsx("strong", { children: "convenzione" }),
+                " ",
+                "che regolerà la fornitura dei materiali in modo chiaro e trasparente, rispettando le vostre esigenze e tempistiche."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Ci sarà un ",
+                /* @__PURE__ */ jsx("strong", { children: "monitoraggio continuo" }),
+                " ",
+                "della collaborazione, per apportare eventuali miglioramenti al processo."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "La",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "donazione dei materiali sarà gratuita" }),
+                " ",
+                "e il ",
+                /* @__PURE__ */ jsx("strong", { children: "trasporto a nostro carico" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "La ",
+                /* @__PURE__ */ jsx("strong", { children: "donazione dei materiali" }),
+                " da parte dell’azienda aderente al progetto Remida Varese",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "non è sottoposta alla normativa relativa alla gestione dei rifiuti" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Collaborare con Remida Varese è un’opportunità per trasformare gli scarti della vostra azienda in risorse utili per la comunità, contribuendo attivamente a un progetto di sostenibilità ambientale e sociale. Vi invitiamo a unirvi a noi in questa missione, per creare insieme un futuro più verde e creativo. Contattateci per ulteriori informazioni e per avviare una collaborazione." })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Partnership" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "Per un’impresa migliorare la sostenibilità è strettamente legato al",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "miglioramento della reputazione" }),
+                ", alla",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "soddisfazione delle aspettative dei dipendenti" }),
+                " ",
+                "e alla",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "maggiore efficienza e riduzione degli sprechi" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Divenire partner del progetto Remida Varese significa ",
+                /* @__PURE__ */ jsx("strong", { children: "condividere la missione" }),
+                " ",
+                "di migliorare la sostenibilità sociale e ambientale non solo della propria organizzazione,",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "ma dell'intera comunità a cui apparteniamo" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Vi proponiamo una prospettiva diversa nel guardare gli oggetti che apparentemente non hanno più valore, ma che possono “risorgere” grazie ad un riutilizzo creativo, progettando e realizzando insieme",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "iniziative sia interne all’azienda sia esterne" }),
+                ", coinvolgendo le scuole, le associazioni, le istituzioni e i cittadini del proprio territorio di riferimento."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Le proposte possono essere:" }),
+              /* @__PURE__ */ jsxs("ul", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("li", { children: "festa creativa con le famiglie dei dipendenti" }),
+                /* @__PURE__ */ jsx("li", { children: "installazioni o eventi artistici realizzati con scarti aziendali o naturali" }),
+                /* @__PURE__ */ jsx("li", { children: "team-building aziendale" }),
+                /* @__PURE__ */ jsx("li", { children: "laboratori con le scuole e le associazioni del territorio" }),
+                /* @__PURE__ */ jsx("li", { children: "festa di comunità insieme agli Enti Locali del territorio" })
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Hanno collaborato con noi, RCS Mediagroup Spa (Corriere della Sera e Gazzetta dello sport) Milano, AON Italia Spa Milano, Sole 24 Spa Milano, Avery Dennison Ris Italia Srl Cadorago, Sielco Srl Buguggiate" })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "bg-slate-600 text-white",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 pt-10 text-center text-6xl", children: "Aziende Fornitrici" }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto grid max-w-7xl grid-cols-1 py-10 text-2xl md:grid-cols-3 md:gap-10", children: [
+              /* @__PURE__ */ jsxs("div", { className: "", children: [
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Almar Snc - Gavirate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Bel-Go Briko Srl Varese" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Colorificio Papotti Srl Buguggiate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Crs maglieria Srl Varese" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "D&S Srl Galliate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Elmec informatica Spa Brunello" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Eurofilm Srl Vedano Olona" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Grossoni Legno Srl Somma Lombardo" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Ilma Plastica Srl Oltrona di Gavirate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "IPL Spa Besozzo" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Lati Spa Vedano Olona" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "LC Sas Cassano Magnago" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Limenta Srl Busto Arsizio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Link.it Srl Buguggiate" })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "", children: [
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Maglificio Elisa Srl Varese" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Mascioni Spa Cuvio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Merlett Spa Daverio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Mirage Spa Venegono Inferiore" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Miroglio Gruppo Spa Alba" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Montplast Srl Arese" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Nice Srl Albizzate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Nuova DIBI Snc Besozzo" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "ODB Magneti Srl Cuveglio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Polinelli srl Daverio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Pusterla 1880 Spa Venegono Inferiore" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Radice Gomma Srl Origgio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Rivestimenti speciali Srl Varese" }),
+                /* @__PURE__ */ jsxs("p", { className: "mb-3", children: [
+                  "Stamperia di Magnago Srl Magnago",
+                  " "
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "", children: [
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Scenica Srl Rescaldina" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Seprio Plast Srl Tradate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Servi Grafiche Spa Busto Arsizio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Tacchificio Villa Cortese Srl Villa Cortese" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Tessitura Arnetta Srl Gazzada Schianno" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Tessitura Denna Srl Busto Arsizio" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Tessitura Vignetta Srl Bodio Lomnago" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Traflex plastic Srl Casale Litta" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Tre60 Snc Milano" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Verve Spa Venegono Superiore" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Virex gomma Srl Somma Lombardo" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Yamamay Spa Gallarate" }),
+                /* @__PURE__ */ jsx("p", { className: "mb-3", children: "Zago Sas Crosio della Valle" })
+              ] })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Contattaci" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-5/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
+                {
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          value: "Nome Contatto",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          value: "Indirizzo Email",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          value: "Numero di Telefono",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          value: "Il Tuo Messaggio",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
+                }
+              )
+            ] })
+          ]
+        }
+      )
+    ] })
+  ] });
 }
-const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Agency
+}, Symbol.toStringTag, { value: "Module" }));
+function Contacts() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.generic"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Contatti" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/contatti"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          animate: "visible",
+          variants,
+          className: "mt-[100px] grid min-h-fit grid-cols-1 bg-black/60 p-2 md:grid-cols-2 md:p-20 lg:mt-20",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center justify-center p-10 text-white", children: [
+              /* @__PURE__ */ jsxs("h1", { className: "w-9/12 text-3xl md:text-6xl", children: [
+                /* @__PURE__ */ jsx("span", { className: "font-bold", children: "REMIDA VARESE" }),
+                /* @__PURE__ */ jsx("br", {})
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5 text-xl text-white md:w-5/6", children: [
+                "Il",
+                " ",
+                /* @__PURE__ */ jsx(
+                  "a",
+                  {
+                    href: "https://it.wikipedia.org/wiki/Chiostro_di_Voltorre",
+                    target: "_blank",
+                    rel: "noreferrer",
+                    className: "text-white underline",
+                    children: "Chiostro di Voltorre"
+                  }
+                ),
+                " ",
+                "a Gavirate (VA) è un monastero benedettino del XII secolo in stile romanico. Ospita da oltre dieci anni i contesti ludici di apprendimento di ReMida Varese."
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-10 grid grid-cols-2 gap-10 text-6xl text-red-500", children: [
+                /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center justify-center", children: [
+                  /* @__PURE__ */ jsx(FaMapMarkerAlt, {}),
+                  /* @__PURE__ */ jsxs("p", { className: "mt-5 text-lg text-white", children: [
+                    "c/o Chiostro di Voltorre ",
+                    /* @__PURE__ */ jsx("br", {}),
+                    " Via S. Michele ",
+                    /* @__PURE__ */ jsx("br", {}),
+                    "21026 Gavirate (VA)"
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center justify-items-start", children: [
+                  /* @__PURE__ */ jsx(IoIosMail, {}),
+                  /* @__PURE__ */ jsx(
+                    "a",
+                    {
+                      href: "mailto:info@remidavarese.it",
+                      className: "mt-5 text-lg text-white underline",
+                      children: "info@remidavarese.it"
+                    }
+                  )
+                ] })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "mt-20", children: /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-10/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
+                {
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          className: "mb-2 text-xl dark:text-white",
+                          children: "Nome Contatto"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          className: "mb-2 text-xl dark:text-white",
+                          children: "Indirizzo Email"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          className: "mb-2 text-xl dark:text-white",
+                          children: "Numero di Telefono"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          className: "mb-2 text-xl dark:text-white",
+                          children: "Il Tuo Messaggio"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
+                }
+              )
+            ] }) })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        motion.section,
+        {
+          initial: "hidden",
+          animate: "visible",
+          variants,
+          children: /* @__PURE__ */ jsx("div", { className: "h-[65vh] w-full", children: /* @__PURE__ */ jsx(
+            "iframe",
+            {
+              className: "h-[65vh] w-full",
+              src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3297.5070175352453!2d8.731766776622383!3d45.833361408731534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786792be1c69103%3A0x343281f25d94a7ca!2sChiostro%20di%20Voltorre!5e1!3m2!1sit!2sit!4v1724407744334!5m2!1sit!2sit"
+            }
+          ) })
+        }
+      )
+    ] })
+  ] });
+}
+const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Contacts
 }, Symbol.toStringTag, { value: "Module" }));
-function Events() {
-  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx(PublicLayout, { children: "Events" }) });
+function Emporium() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.emporium"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Emporio dei Materiali" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/emporio-dei-materiali"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Emporio" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5 text-xl md:text-2xl", children: "Remida Varese recupera dalle aziende, da artigiani, da commercianti materiali in eccedenza e/o destinati allo smaltimento, li espone nell’emporio dei materiali per metterli a disposizione di scuole, associazioni ed enti non a scopo di lucro per attività e progetti socio-educativi o culturali." })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/emporium.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Emporio dei Materiali" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "In uno spazio apposito presso il Chiostro di Voltorre è stato allestito l’Emporio dei materiali, dove esponiamo con cura",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "diverse tipologie di scarti" }),
+                ": stoffe e filati (cotone, lana, seta, cordame sintetico, pizzi, nastri, passamaneria), plastica e derivati (rocchetti, tubi di varie dimensioni, plexiglass, policarbonati, nylon, acetati, prestrusi, gomma piuma, profilati in gomma spugna, imballaggi, contenitori), carta e cartone (fogli di varie dimensioni, rotoli, ritagli, prove di stampa), legno (profili, rimanenze di taglio al laser, pannelli, assi, telai)."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Sono disponibili anche",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "accessori di supporto alle attività educative e creative" }),
+                ", come moquette in agugliato recuperate dopo l’uso, tavoli luminosi di varie dimensioni realizzati da scarti di imballaggi in legno, strutture per travasi, pannelli magnetici da parete, pedane, ecc.."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "Possono prelevare materiali dall’emporio solo associati" }),
+                ", previa iscrizione ad Altrementi aps (vedi form di domanda di iscrizione)"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5 uppercase", children: /* @__PURE__ */ jsx("strong", { children: "Modalità di Prelievo" }) }),
+              /* @__PURE__ */ jsxs("ul", { className: "mt-5", children: [
+                /* @__PURE__ */ jsxs("li", { children: [
+                  "Gli associati possono prelevare i diversi materiali presenti dopo aver prenotato una visita scrivendo a",
+                  " ",
+                  /* @__PURE__ */ jsx("a", { href: "mailto:emporio@remidavarese.it", children: "emporio@remidavarese.it" }),
+                  " ",
+                  ",",
+                  " ",
+                  /* @__PURE__ */ jsx("strong", { children: "condividendo il progetto che sta alla base della richiesta di prelievo" }),
+                  "."
+                ] }),
+                /* @__PURE__ */ jsx("li", { children: "Si concorda a grandi linee tipo e quantità di materiali da asportare, visto che le disponibilità variano da periodo a periodo." }),
+                /* @__PURE__ */ jsx("li", { children: "Per il trasporto dei materiali è necessario dotarsi di contenitori idonei." }),
+                /* @__PURE__ */ jsx("li", { children: "Si richiede un contributo economico per ogni prelievo di materiali." })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Materiali non Strutturati e Materiali Destrutturati" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "Il ruolo fondamentale dei materiali sta nella",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "crescita cognitiva, sociale ed emotiva" }),
+                " ",
+                "che il bambino vive nella partecipazione ad attività creative, inseriti in contesti ludico/educativi adeguati."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Spazi, o meglio ",
+                /* @__PURE__ */ jsx("strong", { children: "contesti" }),
+                ", articolati in ",
+                /* @__PURE__ */ jsx("strong", { children: "centri di interesse" }),
+                " ",
+                "per sostenere l’incontro a piccolo gruppo e per offrire plurime e diversificate possibilità di esplorazione e scoperta nell’incontro con diversi linguaggi, permettendo così ai bambini di esprimersi attraverso le proprie competenze uniche e soggettive."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Nell’ampio spettro dei materiali, si distinguono i",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "materiali" }),
+                " strutturati da quelli",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "non strutturati" }),
+                ": i primi sono costituiti da elementi legati tra loro da una precisa rete di relazioni, i secondi sono",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "quelli che permettono di spaziare, fantasticare e immaginare, in quanto non rimandano ad un singolo significato o a funzioni specifiche" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "A questa distinzione si aggiunge il",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "materiale di scarto industriale" }),
+                ", che ha diverse caratteristiche aggiuntive per le quali si parla di ",
+                /* @__PURE__ */ jsx("strong", { children: "destrutturazione" }),
+                ", ovvero",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "l’assenza di un’accezione precedente a quella che può essere data, il non essere mai stati usati e la grande quantità con cui vengono proposti" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Chiara Todeschini e Roberta Vercesi (2017),",
+                " ",
+                /* @__PURE__ */ jsx("em", { children: "Materiali inusuali e creatività" }),
+                ", in Monica Guerra (a cura di) Materie Intelligenti, Ed. Junior, Parma"
+              ] })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Contattaci" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-5/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
+                {
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          value: "Nome Contatto",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          value: "Indirizzo Email",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          value: "Numero di Telefono",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          value: "Il Tuo Messaggio",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
+                }
+              )
+            ] })
+          ]
+        }
+      )
+    ] })
+  ] });
 }
-const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Emporium
+}, Symbol.toStringTag, { value: "Module" }));
+function EventShow({ event }) {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: `REMIDA VARESE - Innoviamo con creatività | ${event.title}` }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: `https://remidavarese.it/${event.slug}`
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx(PublicLayout, { children: /* @__PURE__ */ jsx("section", { className: "my-[150px] grid grid-cols-1 place-items-center gap-10 p-5", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl rounded-lg bg-gray-200 shadow-lg dark:bg-gray-600 dark:text-white", children: [
+      /* @__PURE__ */ jsx("div", { className: "flex justify-center p-5", children: /* @__PURE__ */ jsx(
+        "img",
+        {
+          className: "w-full rounded-lg object-cover shadow-lg",
+          src: event.image_url,
+          alt: event.title
+        }
+      ) }),
+      /* @__PURE__ */ jsx("div", { className: "p-5 text-center", children: /* @__PURE__ */ jsx("h2", { className: "text-4xl font-bold uppercase", children: event.title }) }),
+      /* @__PURE__ */ jsx(
+        "div",
+        {
+          className: "px-5 py-10 text-xl md:px-16",
+          dangerouslySetInnerHTML: {
+            __html: DOMPurify.sanitize(event.description)
+          }
+        }
+      )
+    ] }) }) })
+  ] });
+}
+const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: EventShow
+}, Symbol.toStringTag, { value: "Module" }));
+function Events({ events }) {
+  console.log(events);
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Eventi" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/eventi"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      events.length == 0 && /* @__PURE__ */ jsx("div", { className: "grid h-screen w-full place-items-center dark:bg-slate-900 dark:text-white", children: /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "Non sono ancora presenti Eventi." }) }),
+      events.length > 0 && /* @__PURE__ */ jsx("section", { className: "grid grid-cols-1 gap-5 bg-gray-300 p-5 py-[150px] md:grid-cols-5 dark:bg-slate-900 dark:text-white", children: events.map((event) => /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "rounded-lg bg-gray-200 shadow-lg dark:bg-gray-700",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+              "img",
+              {
+                className: "w-full rounded-lg object-cover",
+                src: event.image_url,
+                alt: event.title
+              }
+            ) }),
+            /* @__PURE__ */ jsx("div", { className: "text-center", children: /* @__PURE__ */ jsx("h2", { className: "pt-5 text-2xl font-bold uppercase", children: event.title }) }),
+            /* @__PURE__ */ jsx(
+              "div",
+              {
+                className: "py-5 text-center text-xl",
+                dangerouslySetInnerHTML: {
+                  __html: DOMPurify.sanitize(
+                    event.description.substring(0, 100)
+                  )
+                }
+              }
+            ),
+            /* @__PURE__ */ jsx("div", { className: "grid place-items-center pb-5", children: /* @__PURE__ */ jsx(
+              Link,
+              {
+                href: route(
+                  "public.event.show",
+                  event.slug
+                ),
+                className: "rounded-3xl bg-red-800 px-5 py-2 text-white transition-colors hover:bg-red-900",
+                children: "Continua a Leggere"
+              }
+            ) })
+          ]
+        },
+        event.id
+      )) })
+    ] })
+  ] });
+}
+const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Events
 }, Symbol.toStringTag, { value: "Module" }));
 function Expertise() {
-  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx(PublicLayout, { children: "Expertise" }) });
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Cosa Facciamo" }),
+      /* @__PURE__ */ jsx(
+        "meta",
+        {
+          name: "description",
+          content: "Remida Varese connette con le proprie attività mondi differenti quali la scuola, l’imprenditoria, il terzo settore, le istituzioni locali, la cultura."
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/cosa-facciamo"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Cosa Facciamo" }),
+              /* @__PURE__ */ jsx("br", {}),
+              /* @__PURE__ */ jsx("p", { className: "mt-5 text-xl md:text-2xl", children: "Remida Varese connette con le proprie attività mondi differenti quali la scuola, l’imprenditoria, il terzo settore, le istituzioni locali, la cultura. Abbiamo progetti da proporre, vogliamo accogliere nuove idee e collaborazioni." })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/expertise.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-center text-white", children: [
+              /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: "/images/Nero.png",
+                  alt: "Fantasmino Nero",
+                  className: "mx-auto mb-5 w-20"
+                }
+              ),
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Laboratori per Scuole" }),
+              /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "I laboratori di Remida Varese non sono solo spazi fisici, ma anche spazi mentali dove è possibile un’educazione alla creatività intesa come capacità di liberarsi dai condizionamenti per stabilire nuove relazioni con le cose che si conoscono, dove si sposta l’attenzione sui processi realizzativi piuttosto che sui prodotti che vengono creati." }),
+              /* @__PURE__ */ jsx(ButtonLink, { light: true, href: route("laboratories"), children: "Scopri di più" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-center text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: "/images/Grigio.png",
+                  alt: "Fantasmino Grigio",
+                  className: "mx-auto mb-5 w-20"
+                }
+              ),
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Formazione" }),
+              /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "Per Remida Varese è una priorità la condivisione delle conoscenze e delle competenze acquisite negli anni di attività in dialogo con il territorio e la comunità che lo vive." }),
+              /* @__PURE__ */ jsx(ButtonLink, { href: route("training"), children: "Scopri di più" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-center text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: "/images/Blu.png",
+                  alt: "Fantasmino Blu",
+                  className: "mx-auto mb-5 w-20"
+                }
+              ),
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Emporio dei Materiali" }),
+              /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "Remida Varese recupera dalle aziende, da artigiani, da commercianti materiali in eccedenza e/o destinati allo smaltimento, li espone nell’emporio dei materiali per metterli a disposizione di scuole, associazioni ed enti non a scopo di lucro per attività e progetti socio-educativi o culturali." }),
+              /* @__PURE__ */ jsx(ButtonLink, { href: route("emporium"), children: "Scopri di più" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-center text-white", children: [
+              /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: "/images/Verde.png",
+                  alt: "Fantasmino Verde",
+                  className: "mx-auto mb-5 w-20"
+                }
+              ),
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Laboratori per Altri Enti" }),
+              /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "I nostri laboratori creativi di sensibilizzazione alla sostenibilità ambientale per famiglie si possono realizzare durante manifestazioni ed eventi pubblici organizzati da Enti Locali, Pro Loco, Associazioni ecc. e presso le sedi di organizzazioni come Comunità, Centri diurni, RSA, Fondazioni ecc. per ospiti con disabilità, anziani, minori ecc.." }),
+              /* @__PURE__ */ jsx(ButtonLink, { light: true, href: route("other"), children: "Scopri di più" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-center text-white", children: [
+              /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: "/images/Viola.png",
+                  alt: "Fantasmino Viola",
+                  className: "mx-auto mb-5 w-20"
+                }
+              ),
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Aziende" }),
+              /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "La fonte delle nostre proposte sono i materiali che recuperiamo gratuitamente dalle realtà industriali, artigianali e commerciali del territorio. Siamo sempre alla ricerca di nuove collaborazioni per trasformare insieme gli scarti di produzione, le rimanenze di magazzino, le eccedenze e altri materiali esclusi dalla commercializzazione in preziose risorse per la comunità, senza fini di lucro." }),
+              /* @__PURE__ */ jsx(ButtonLink, { light: true, href: route("agency"), children: "Scopri di più" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-center text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx(
+                "img",
+                {
+                  src: "/images/Arancio.png",
+                  alt: "Fantasmino Arancio",
+                  className: "mx-auto mb-5 w-20"
+                }
+              ),
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Progetti Speciali" }),
+              /* @__PURE__ */ jsx("p", { className: "text-2xl", children: "Installazioni interattive, creazioni artistiche e laboratori creati su misura, in collaborazione con vari Enti, per rendere unico l’evento a cui partecipiamo e promuovere contemporaneamente la sostenibilità ambientale, in quanto il materiale utilizzato è esclusivamente scarto aziendale o artigianale." }),
+              /* @__PURE__ */ jsx(ButtonLink, { href: route("special"), children: "Scopri di più" })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "bg-transparent py-10 dark:bg-slate-600",
+          children: /* @__PURE__ */ jsxs("div", { className: "mx-auto flex max-w-7xl flex-col items-center justify-center text-2xl dark:text-white", children: [
+            /* @__PURE__ */ jsx("h2", { className: "pb-10 text-6xl", children: "Riferimenti Culturali Pedagogici" }),
+            /* @__PURE__ */ jsxs("div", { className: "grid max-w-7xl grid-cols-1 justify-items-center gap-10 md:grid-cols-4", children: [
+              /* @__PURE__ */ jsx(
+                Avatar,
+                {
+                  source: "/images/JD.webp",
+                  href: "https://it.wikipedia.org/wiki/John_Dewey",
+                  anchorText: "John Dewey",
+                  className: "border-slate-700",
+                  description: "Considerato il fondatore del pragmatismo educativo, ha sviluppato una concezione dell'esperienza come rapporto tra uomo e ambiente, dove l'uomo non è uno spettatore passivo, ma interagisce con ciò che lo circonda. L'educazione deve aprire la via a nuove esperienze ed al potenziamento di tutte le opportunità per uno sviluppo ulteriore. Secondo lui la creatività è educabile, e contesti formativi nei quali sia prevista e promossa la divergenza, intesa anche solo come possibilità/necessità di non adeguarsi a comportamenti standardizzati e univoci, sono capaci di allenare e rinforzare atteggiamenti e comportamenti creativi. Ha coniato il concetto dell’”imparare facendo”."
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                Avatar,
+                {
+                  source: "/images/VLS.webp",
+                  href: "https://www.stateofmind.it/bibliography/vygotskij-lev-semenovic/",
+                  anchorText: "Lev S. Vygotskij",
+                  className: "border-slate-700",
+                  description: "Psicologo e pedagogista russo, promuove l’idea che l’apprendimento è un processo sociale e collaborativo. Gli individui imparano attraverso l’interazione con gli altri, attraverso la discussione e la risoluzione dei problemi insieme. Afferma inoltre che l’Immaginazione e la creatività nell’età infantile si combinano in forme nuove di elementi provenienti dall’esperienza, ritrasformando i dati di realtà con una nuova forza attiva."
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                Avatar,
+                {
+                  source: "/images/LM.webp",
+                  href: "https://www.reggiochildren.it/reggio-emilia-approach/loris-malaguzzi/",
+                  anchorText: "Loris Malaguzzi",
+                  className: "border-slate-700",
+                  description: "Ha creato la teoria del gioco dei bambini, che intende l'azione del gioco come un processo attraverso il quale si impara dall'ambiente e attraverso l'esperienza. La teoria afferma che il modo più efficace per gli educatori di aiutare i bambini a imparare è creare un ambiente in cui si sentano liberi di esplorare, sperimentare e giocare con diversi materiali quotidiani utilizzando un approccio creativo. Nel 1968 Loris Malaguzzi fonda il Reggio Emilia approach, che mette al centro il bambino stesso come elemento principale dell'educazione primaria. Il Reggio Emilia Approach afferma che i bambini sono attivamente coinvolti nel proprio processo di apprendimento e che questo può essere supportato dagli adulti che lavorano con loro. Lo scopo di questo metodo era quello di fornire un approccio più pratico e centrato sul bambino."
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                Avatar,
+                {
+                  source: "/images/EG.webp",
+                  href: "https://www.elinoreducare.org/elinor-goldschmied/",
+                  anchorText: "Elinor Violet Sinnott Goldschmied",
+                  className: "border-slate-700",
+                  description: "Educatrice e pedagogista britannica che ha vissuto e lavorato anche in Italia, teorizza e definisce il “gioco euristico”: attività di esplorazione e ricerca che permette ai bambini del nido, in totale autonomia, attraverso prove ed errori, di sperimentare e mettere in relazione un insieme di materiali, indagando in questo modo le proprietà e le possibili combinazioni. Goldsmchied è teorica anche del noto “cestino dei tesori”, il naturale precursore del gioco euristico."
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                Avatar,
+                {
+                  source: "/images/BM.webp",
+                  href: "https://www.treccani.it/enciclopedia/bruno-munari/",
+                  anchorText: "Bruno Munari",
+                  className: "border-slate-700",
+                  description: "Uno dei massimi protagonisti dell’arte, del design e della grafica del XX secolo che – come spiega l’enciclopedia Treccani nella voce a lui dedicata – ha mantenuto inalterata la sua estrosità creativa a sostegno dell’indagine costruttiva della forma attraverso sperimentazioni visive e tattili e, insieme, la sua grande capacità di comunicarla con parole, oggetti, giocattoli."
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                Avatar,
+                {
+                  source: "/images/GR.webp",
+                  href: "https://100giannirodari.com/",
+                  anchorText: "Gianni Rodari",
+                  className: "border-slate-700",
+                  description: "Nel suo libro “La grammatica della fantasia” introduce ai processi della fantasia e delle regole della creazione per renderne l’uso accessibile a tutti. L’autore non consegna però un ricettario per costruire storie, ma offre materia prima, idee, occasioni, riflessioni utilissime per superare la muraglia della routine scolastica e per riconoscere il ruolo fondamentale della creatività all’interno del processo educativo."
+                }
+              )
+            ] })
+          ] })
+        }
+      )
+    ] })
+  ] });
 }
-const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Expertise
+}, Symbol.toStringTag, { value: "Module" }));
+function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+const Card$1 = memo(({ card, index, hovered, setHovered }) => /* @__PURE__ */ jsxs(
+  "div",
+  {
+    onMouseEnter: () => setHovered(index),
+    onMouseLeave: () => setHovered(null),
+    className: cn(
+      "relative h-60 w-full overflow-hidden rounded-lg bg-gray-100 transition-all duration-300 ease-out md:h-96 dark:bg-neutral-900",
+      hovered !== null && hovered !== index && "scale-[0.98] blur-sm"
+    ),
+    children: [
+      /* @__PURE__ */ jsx(
+        "img",
+        {
+          src: card.src,
+          alt: card.title,
+          className: "absolute inset-0 object-cover"
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "div",
+        {
+          className: cn(
+            "absolute inset-0 flex items-end bg-black/50 px-4 py-8 transition-opacity duration-300",
+            hovered === index ? "opacity-100" : "opacity-0"
+          ),
+          children: /* @__PURE__ */ jsx("div", { className: "bg-gradient-to-b from-neutral-50 to-neutral-200 bg-clip-text text-xl font-medium text-transparent md:text-2xl", children: card.title })
+        }
+      )
+    ]
+  }
+));
+Card$1.displayName = "Card";
+function FocusCards({ cards }) {
+  const [hovered, setHovered] = useState(null);
+  return /* @__PURE__ */ jsx("div", { className: "mx-auto grid w-full max-w-5xl grid-cols-1 gap-10 md:grid-cols-3 md:px-8", children: cards.map((card, index) => /* @__PURE__ */ jsx(
+    Card$1,
+    {
+      card,
+      index,
+      hovered,
+      setHovered
+    },
+    card.id
+  )) });
+}
+function Gallery({ images }) {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Gallery" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/gallery"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx(PublicLayout, { children: /* @__PURE__ */ jsx("section", { className: "grid place-items-center bg-gray-400 py-[150px] dark:bg-slate-700", children: /* @__PURE__ */ jsx(FocusCards, { cards: images }) }) })
+  ] });
+}
+const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Gallery
 }, Symbol.toStringTag, { value: "Module" }));
 const Card = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "div",
   {
     ref,
-    className: cn(
+    className: cn$1(
       "rounded-lg border border-gray-200 bg-white text-gray-950 shadow-sm dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50",
       className
     ),
@@ -1295,7 +4155,7 @@ const CardHeader = React.forwardRef(({ className, ...props }, ref) => /* @__PURE
   "div",
   {
     ref,
-    className: cn("flex flex-col space-y-1.5 p-6", className),
+    className: cn$1("flex flex-col space-y-1.5 p-6", className),
     ...props
   }
 ));
@@ -1304,7 +4164,7 @@ const CardTitle = React.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   "h3",
   {
     ref,
-    className: cn("text-2xl font-semibold leading-none tracking-tight", className),
+    className: cn$1("text-2xl font-semibold leading-none tracking-tight", className),
     ...props
   }
 ));
@@ -1313,18 +4173,18 @@ const CardDescription = React.forwardRef(({ className, ...props }, ref) => /* @_
   "p",
   {
     ref,
-    className: cn("text-sm text-gray-500 dark:text-gray-400", className),
+    className: cn$1("text-sm text-gray-500 dark:text-gray-400", className),
     ...props
   }
 ));
 CardDescription.displayName = "CardDescription";
-const CardContent = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { ref, className: cn("p-6 pt-0", className), ...props }));
+const CardContent = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { ref, className: cn$1("p-6 pt-0", className), ...props }));
 CardContent.displayName = "CardContent";
 const CardFooter = React.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "div",
   {
     ref,
-    className: cn("flex items-center p-6 pt-0", className),
+    className: cn$1("flex items-center p-6 pt-0", className),
     ...props
   }
 ));
@@ -1359,7 +4219,7 @@ const Button = React.forwardRef(({ className, variant, size, asChild = false, ..
   return /* @__PURE__ */ jsx(
     Comp,
     {
-      className: cn(buttonVariants({ variant, size, className })),
+      className: cn$1(buttonVariants({ variant, size, className })),
       ref,
       ...props
     }
@@ -1374,88 +4234,96 @@ function useCarousel() {
   }
   return context;
 }
-const Carousel = React.forwardRef(({
-  orientation = "horizontal",
-  opts,
-  setApi,
-  plugins,
-  className,
-  children,
-  ...props
-}, ref) => {
-  const [carouselRef, api] = useEmblaCarousel({
-    ...opts,
-    axis: orientation === "horizontal" ? "x" : "y"
-  }, plugins);
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-  const [canScrollNext, setCanScrollNext] = React.useState(false);
-  const onSelect = React.useCallback((api2) => {
-    if (!api2) {
-      return;
-    }
-    setCanScrollPrev(api2.canScrollPrev());
-    setCanScrollNext(api2.canScrollNext());
-  }, []);
-  const scrollPrev = React.useCallback(() => {
-    api == null ? void 0 : api.scrollPrev();
-  }, [api]);
-  const scrollNext = React.useCallback(() => {
-    api == null ? void 0 : api.scrollNext();
-  }, [api]);
-  const handleKeyDown = React.useCallback((event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      scrollPrev();
-    } else if (event.key === "ArrowRight") {
-      event.preventDefault();
-      scrollNext();
-    }
-  }, [scrollPrev, scrollNext]);
-  React.useEffect(() => {
-    if (!api || !setApi) {
-      return;
-    }
-    setApi(api);
-  }, [api, setApi]);
-  React.useEffect(() => {
-    if (!api) {
-      return;
-    }
-    onSelect(api);
-    api.on("reInit", onSelect);
-    api.on("select", onSelect);
-    return () => {
-      api == null ? void 0 : api.off("select", onSelect);
-    };
-  }, [api, onSelect]);
-  return /* @__PURE__ */ jsx(
-    CarouselContext.Provider,
-    {
-      value: {
-        carouselRef,
-        api,
-        opts,
-        orientation: orientation || ((opts == null ? void 0 : opts.axis) === "y" ? "vertical" : "horizontal"),
-        scrollPrev,
-        scrollNext,
-        canScrollPrev,
-        canScrollNext
+const Carousel = React.forwardRef(
+  ({
+    orientation = "horizontal",
+    opts,
+    setApi,
+    plugins,
+    className,
+    children,
+    ...props
+  }, ref) => {
+    const [carouselRef, api] = useEmblaCarousel(
+      {
+        ...opts,
+        axis: orientation === "horizontal" ? "x" : "y"
       },
-      children: /* @__PURE__ */ jsx(
-        "div",
-        {
-          ref,
-          onKeyDownCapture: handleKeyDown,
-          className: cn("relative", className),
-          role: "region",
-          "aria-roledescription": "carousel",
-          ...props,
-          children
+      plugins
+    );
+    const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+    const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const onSelect = React.useCallback((api2) => {
+      if (!api2) {
+        return;
+      }
+      setCanScrollPrev(api2.canScrollPrev());
+      setCanScrollNext(api2.canScrollNext());
+    }, []);
+    const scrollPrev = React.useCallback(() => {
+      api == null ? void 0 : api.scrollPrev();
+    }, [api]);
+    const scrollNext = React.useCallback(() => {
+      api == null ? void 0 : api.scrollNext();
+    }, [api]);
+    const handleKeyDown = React.useCallback(
+      (event) => {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          scrollPrev();
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          scrollNext();
         }
-      )
-    }
-  );
-});
+      },
+      [scrollPrev, scrollNext]
+    );
+    React.useEffect(() => {
+      if (!api || !setApi) {
+        return;
+      }
+      setApi(api);
+    }, [api, setApi]);
+    React.useEffect(() => {
+      if (!api) {
+        return;
+      }
+      onSelect(api);
+      api.on("reInit", onSelect);
+      api.on("select", onSelect);
+      return () => {
+        api == null ? void 0 : api.off("select", onSelect);
+      };
+    }, [api, onSelect]);
+    return /* @__PURE__ */ jsx(
+      CarouselContext.Provider,
+      {
+        value: {
+          carouselRef,
+          api,
+          opts,
+          orientation: orientation || ((opts == null ? void 0 : opts.axis) === "y" ? "vertical" : "horizontal"),
+          scrollPrev,
+          scrollNext,
+          canScrollPrev,
+          canScrollNext
+        },
+        children: /* @__PURE__ */ jsx(
+          "div",
+          {
+            ref,
+            onKeyDownCapture: handleKeyDown,
+            className: cn$1("relative", className),
+            role: "region",
+            "aria-roledescription": "carousel",
+            ...props,
+            children
+          }
+        )
+      }
+    );
+  }
+);
 Carousel.displayName = "Carousel";
 const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel();
@@ -1463,9 +4331,9 @@ const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
     "div",
     {
       ref,
-      className: cn(
+      className: cn$1(
         "flex",
-        orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+        orientation === "horizontal" ? "-ml-4 flex items-center" : "-mt-4 flex-col",
         className
       ),
       ...props
@@ -1481,7 +4349,7 @@ const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
       ref,
       role: "group",
       "aria-roledescription": "slide",
-      className: cn(
+      className: cn$1(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
@@ -1491,47 +4359,59 @@ const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
   );
 });
 CarouselItem.displayName = "CarouselItem";
-const CarouselPrevious = React.forwardRef(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
-  return /* @__PURE__ */ jsxs(
-    Button,
-    {
-      ref,
-      variant,
-      size,
-      className: cn("absolute  h-8 w-8 rounded-full", orientation === "horizontal" ? "-left-12 top-1/2 -translate-y-1/2" : "-top-12 left-1/2 -translate-x-1/2 rotate-90", className),
-      disabled: !canScrollPrev,
-      onClick: scrollPrev,
-      ...props,
-      children: [
-        /* @__PURE__ */ jsx(ArrowLeft, { className: "h-4 w-4" }),
-        /* @__PURE__ */ jsx("span", { className: "sr-only", children: "Previous slide" })
-      ]
-    }
-  );
-});
+const CarouselPrevious = React.forwardRef(
+  ({ className, variant = "outline", size = "icon", ...props }, ref) => {
+    const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+    return /* @__PURE__ */ jsxs(
+      Button,
+      {
+        ref,
+        variant,
+        size,
+        className: cn$1(
+          "absolute h-8 w-8 rounded-full",
+          orientation === "horizontal" ? "-left-12 top-1/2 -translate-y-1/2" : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+          className
+        ),
+        disabled: !canScrollPrev,
+        onClick: scrollPrev,
+        ...props,
+        children: [
+          /* @__PURE__ */ jsx(ArrowLeft, { className: "h-4 w-4" }),
+          /* @__PURE__ */ jsx("span", { className: "sr-only", children: "Previous slide" })
+        ]
+      }
+    );
+  }
+);
 CarouselPrevious.displayName = "CarouselPrevious";
-const CarouselNext = React.forwardRef(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
-  return /* @__PURE__ */ jsxs(
-    Button,
-    {
-      ref,
-      variant,
-      size,
-      className: cn("absolute h-8 w-8 rounded-full", orientation === "horizontal" ? "-right-12 top-1/2 -translate-y-1/2" : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90", className),
-      disabled: !canScrollNext,
-      onClick: scrollNext,
-      ...props,
-      children: [
-        /* @__PURE__ */ jsx(ArrowRight, { className: "h-4 w-4" }),
-        /* @__PURE__ */ jsx("span", { className: "sr-only", children: "Next slide" })
-      ]
-    }
-  );
-});
+const CarouselNext = React.forwardRef(
+  ({ className, variant = "outline", size = "icon", ...props }, ref) => {
+    const { orientation, scrollNext, canScrollNext } = useCarousel();
+    return /* @__PURE__ */ jsxs(
+      Button,
+      {
+        ref,
+        variant,
+        size,
+        className: cn$1(
+          "absolute h-8 w-8 rounded-full",
+          orientation === "horizontal" ? "-right-12 top-1/2 -translate-y-1/2" : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+          className
+        ),
+        disabled: !canScrollNext,
+        onClick: scrollNext,
+        ...props,
+        children: [
+          /* @__PURE__ */ jsx(ArrowRight, { className: "h-4 w-4" }),
+          /* @__PURE__ */ jsx("span", { className: "sr-only", children: "Next slide" })
+        ]
+      }
+    );
+  }
+);
 CarouselNext.displayName = "CarouselNext";
-function CardCarousel() {
+function CardCarousel({ events }) {
   const [isVisible, setIsVisible] = useState(window.innerWidth >= 768);
   useEffect(() => {
     const handleResize = () => {
@@ -1550,27 +4430,82 @@ function CardCarousel() {
       },
       className: "w-full max-w-7xl",
       children: [
-        /* @__PURE__ */ jsx(CarouselContent, { children: Array.from({ length: 5 }).map((_, index) => /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx(CarouselContent, { children: events.map((event, index) => /* @__PURE__ */ jsx(
           CarouselItem,
           {
             className: "md:basis-1/2 lg:basis-1/3",
-            children: /* @__PURE__ */ jsx("div", { className: "p-1", children: /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(CardContent, { className: "flex aspect-square items-center justify-center p-6", children: /* @__PURE__ */ jsx(
-              "img",
+            children: /* @__PURE__ */ jsx("div", { className: "p-1", children: /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(
+              Link,
               {
-                src: `https://picsum.photos/40${index}`,
-                alt: ""
+                href: route(
+                  "public.event.show",
+                  event.slug
+                ),
+                children: /* @__PURE__ */ jsxs(CardContent, { className: "card flex aspect-square items-center justify-center p-6", children: [
+                  /* @__PURE__ */ jsx("img", { src: event.image_url, alt: "" }),
+                  /* @__PURE__ */ jsxs("div", { className: "card-content p-5 text-white", children: [
+                    /* @__PURE__ */ jsx("h2", { className: "mb-2 text-lg font-bold uppercase tracking-tight text-white dark:text-white", children: event.title }),
+                    /* @__PURE__ */ jsx(
+                      "div",
+                      {
+                        className: "mb-3 font-normal text-white dark:text-gray-400",
+                        dangerouslySetInnerHTML: {
+                          __html: DOMPurify.sanitize(
+                            event.description.substring(
+                              0,
+                              400
+                            )
+                          )
+                        }
+                      }
+                    )
+                  ] })
+                ] })
               }
-            ) }) }) })
+            ) }) })
           },
           index
         )) }),
         isVisible && /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx(CarouselPrevious, {}),
-          /* @__PURE__ */ jsx(CarouselNext, {})
+          /* @__PURE__ */ jsx(CarouselPrevious, { className: "dark:text-white" }),
+          /* @__PURE__ */ jsx(CarouselNext, { className: "dark:text-white" })
         ] })
       ]
     }
   );
+}
+function Ghost({ source, alternative, title, href }) {
+  return /* @__PURE__ */ jsxs(
+    Link,
+    {
+      href,
+      className: "flex flex-col items-center transition-all hover:scale-105",
+      children: [
+        /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: source,
+            alt: alternative,
+            className: "size-28 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]"
+          }
+        ),
+        /* @__PURE__ */ jsx("div", { className: "-mt-[50px] flex h-32 w-48 items-end justify-center rounded-bl-[50px] rounded-tr-[50px] bg-white p-5 shadow-md dark:bg-slate-400", children: /* @__PURE__ */ jsx("h2", { className: "text-center text-xl text-black dark:text-white", children: title }) })
+      ]
+    }
+  );
+}
+function SplashScreen() {
+  return /* @__PURE__ */ jsx("div", { className: "flex h-screen w-full items-center justify-center", children: /* @__PURE__ */ jsx(
+    motion.img,
+    {
+      initial: "hidden",
+      animate: "visible",
+      variants,
+      className: "inline-block w-full object-contain",
+      src: "/images/splash.gif",
+      alt: "Splash Screen"
+    }
+  ) });
 }
 function NumberTicker({
   value,
@@ -1590,62 +4525,151 @@ function NumberTicker({
       motionValue.set(direction === "down" ? 0 : value);
     }, delay * 1e3);
   }, [motionValue, isInView, delay, value, direction]);
-  useEffect(() => springValue.on("change", (latest) => {
-    if (ref.current) {
-      ref.current.textContent = Intl.NumberFormat("en-US").format(latest.toFixed(0));
-    }
-  }), [springValue]);
+  useEffect(
+    () => springValue.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = Intl.NumberFormat("it-IT").format(
+          latest.toFixed(0)
+        );
+      }
+    }),
+    [springValue]
+  );
   return /* @__PURE__ */ jsx(
     "span",
     {
-      className: cn(
-        "inline-block tabular-nums text-black dark:text-white tracking-wider",
+      className: cn$1(
+        "inline-block tabular-nums tracking-wider text-black dark:text-white",
         className
       ),
       ref
     }
   );
 }
-function CardTicker({ title, text, value }) {
-  return /* @__PURE__ */ jsx("div", { className: "w-full", children: /* @__PURE__ */ jsxs("div", { className: "flex h-fit flex-col items-center justify-center space-y-5 rounded-lg border-2 border-slate-200 p-5 shadow-lg dark:border-slate-700 dark:text-gray-300", children: [
-    /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold", children: title }),
-    /* @__PURE__ */ jsx("p", { className: "font-semibold", children: text }),
-    /* @__PURE__ */ jsx("p", { className: "my-10 text-5xl font-bold", children: /* @__PURE__ */ jsx(
-      NumberTicker,
-      {
-        value,
-        className: "text-black dark:text-gray-300"
-      }
-    ) })
-  ] }) });
-}
-function Ghost({ source, alternative, title }) {
-  return /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center", children: [
-    /* @__PURE__ */ jsx(
-      "img",
-      {
-        src: source,
-        alt: alternative,
-        className: "size-28 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]"
-      }
-    ),
-    /* @__PURE__ */ jsx("div", { className: "-mt-[50px] flex h-32 w-48 items-end justify-center rounded-bl-[50px] rounded-tr-[50px] bg-white p-5 shadow-md dark:bg-slate-400", children: /* @__PURE__ */ jsx("h2", { className: "text-xl text-black dark:text-white", children: title }) })
+function TimelineComponent() {
+  return /* @__PURE__ */ jsxs(Timeline, { children: [
+    /* @__PURE__ */ jsxs(Timeline.Item, { children: [
+      /* @__PURE__ */ jsx(Timeline.Point, { icon: HiCalendar }),
+      /* @__PURE__ */ jsxs(Timeline.Content, { children: [
+        /* @__PURE__ */ jsx(Timeline.Title, { children: "LABORATORI SCOLASTICI" }),
+        /* @__PURE__ */ jsxs(Timeline.Body, { children: [
+          "Attività creative, di apprendimento e di socializzazione con gruppi di bambini di Asilo Nido, Scuole d’Infanzia, Scuola Primaria, ragazzi di Scuola Secondaria di Primo e Secondo Grado, svolti al Chiostro di Voltorre o itineranti presso le sedi dei committenti.",
+          /* @__PURE__ */ jsx(
+            NumberTicker,
+            {
+              value: "454",
+              className: "ml-10 text-3xl font-bold text-black"
+            }
+          )
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs(Timeline.Item, { children: [
+      /* @__PURE__ */ jsx(Timeline.Point, { icon: HiCalendar }),
+      /* @__PURE__ */ jsxs(Timeline.Content, { children: [
+        /* @__PURE__ */ jsx(Timeline.Title, { children: "CORSI DI FORMAZIONE" }),
+        /* @__PURE__ */ jsxs(Timeline.Body, { children: [
+          "Percorsi sulla promozione della creatività con materiali non strutturati, interventi sull’organizzazione di attività e contesti di apprendimento per Asili e Scuole, sia Pubbliche che Paritarie e Private",
+          /* @__PURE__ */ jsx(
+            NumberTicker,
+            {
+              value: "58",
+              className: "ml-10 text-3xl font-bold text-black"
+            }
+          )
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs(Timeline.Item, { children: [
+      /* @__PURE__ */ jsx(Timeline.Point, { icon: HiCalendar }),
+      /* @__PURE__ */ jsxs(Timeline.Content, { children: [
+        /* @__PURE__ */ jsx(Timeline.Title, { children: "MATERIALE NON STRUTTURATO RECUPERATO DA AZIENDE E ARTIGIANI" }),
+        /* @__PURE__ */ jsxs(Timeline.Body, { children: [
+          "Legni, corde, plastiche di vario genere, cartoni, carta, metalli, stoffe, spugne, feltro, magneti, sughero, pizzi, valorizzato in Quintali",
+          /* @__PURE__ */ jsx(
+            NumberTicker,
+            {
+              value: "45",
+              className: "ml-10 text-3xl font-bold text-black"
+            }
+          )
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs(Timeline.Item, { children: [
+      /* @__PURE__ */ jsx(Timeline.Point, { icon: HiCalendar }),
+      /* @__PURE__ */ jsxs(Timeline.Content, { children: [
+        /* @__PURE__ */ jsx(Timeline.Title, { children: "AZIENDE" }),
+        /* @__PURE__ */ jsxs(Timeline.Body, { children: [
+          "Realtà grandi e piccole, multinazionali e singoli artigiani della nostra zona che devolvono gratuitamente i loro scarti, le loro rimanenze di magazzino, i loro sottoprodotti a Remida Varese",
+          /* @__PURE__ */ jsx(
+            NumberTicker,
+            {
+              value: "35",
+              className: "ml-10 text-3xl font-bold text-black"
+            }
+          )
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs(Timeline.Item, { children: [
+      /* @__PURE__ */ jsx(Timeline.Point, { icon: HiCalendar }),
+      /* @__PURE__ */ jsxs(Timeline.Content, { children: [
+        /* @__PURE__ */ jsx(Timeline.Title, { children: "PARTECIPANTI ATTIVI" }),
+        /* @__PURE__ */ jsxs(Timeline.Body, { children: [
+          "Bambini, adulti, anziani, famiglie intere che hanno frequentato la nostra sede o hanno partecipato alle nostre attività itineranti in piazze, parchi e altri luoghi comunitari nel 2023",
+          /* @__PURE__ */ jsx(
+            NumberTicker,
+            {
+              value: "3650",
+              className: "ml-10 text-3xl font-bold text-black"
+            }
+          )
+        ] })
+      ] })
+    ] })
   ] });
 }
-function SplashScreen({ variants }) {
-  return /* @__PURE__ */ jsx("div", { className: "flex h-screen w-full items-center justify-center", children: /* @__PURE__ */ jsx(
-    motion.img,
+function CollaborationCarousel({ array }) {
+  const [isVisible, setIsVisible] = useState(window.innerWidth >= 768);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsVisible(window.innerWidth >= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  return /* @__PURE__ */ jsxs(
+    Carousel,
     {
-      initial: "hidden",
-      animate: "visible",
-      variants,
-      className: "inline-block w-full object-contain",
-      src: "/images/splash.gif",
-      alt: "Splash Screen"
+      opts: {
+        align: "start",
+        loop: true
+      },
+      className: "w-full max-w-7xl",
+      children: [
+        /* @__PURE__ */ jsx(CarouselContent, { children: COLLABORATION_ARRAY.map((el, index) => /* @__PURE__ */ jsx(
+          CarouselItem,
+          {
+            className: "md:basis-1/2 lg:basis-1/3",
+            children: /* @__PURE__ */ jsx("div", { className: "p-1", children: /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(CardContent, { className: "flex h-fit items-center justify-center p-6", children: /* @__PURE__ */ jsxs("div", { className: "p-5", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-2 text-2xl font-bold uppercase tracking-tight", children: el.title }),
+              /* @__PURE__ */ jsx("div", { className: "mb-3 text-xl font-normal dark:text-gray-400", children: /* @__PURE__ */ jsx("p", { children: el.description }) })
+            ] }) }) }) })
+          },
+          index
+        )) }),
+        isVisible && /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx(CarouselPrevious, { className: "dark:text-white" }),
+          /* @__PURE__ */ jsx(CarouselNext, { className: "dark:text-white" })
+        ] })
+      ]
     }
-  ) });
+  );
 }
-function Home() {
+function Home({ events }) {
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     const hasVisited = sessionStorage.getItem("hasVisited");
@@ -1658,21 +4682,20 @@ function Home() {
       setLoader(false);
     }
   }, []);
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 1.5 }
-    }
-  };
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsxs(Head, { children: [
       /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Home " }),
-      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "meta",
+        {
+          name: "description",
+          content: "Centro di ricerca creativa che promuove il riutilizzo di materiali non strutturati di origine aziendale artigianale e naturale con finalità educative, ambientali ed artistiche."
+        }
+      ),
       /* @__PURE__ */ jsx("link", { rel: "canonical", href: "https://remidavarese.it/" })
     ] }),
-    loader ? /* @__PURE__ */ jsx(SplashScreen, { variants }) : /* @__PURE__ */ jsxs(PublicLayout, { children: [
-      /* @__PURE__ */ jsxs("section", { className: "grid h-screen grid-cols-1 bg-black/60 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0", children: [
+    loader ? /* @__PURE__ */ jsx(SplashScreen, {}) : /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "grid min-h-screen grid-cols-1 bg-[#1a759f]/40 p-5 md:mt-[100px] md:grid-cols-2 md:p-0 lg:mt-0", children: [
         /* @__PURE__ */ jsx(
           motion.div,
           {
@@ -1690,26 +4713,38 @@ function Home() {
             )
           }
         ),
-        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
-          motion.h1,
-          {
-            initial: "hidden",
-            animate: "visible",
-            variants,
-            className: "w-9/12 text-3xl md:text-6xl",
-            children: [
-              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "REMIDA VARESE" }),
-              /* @__PURE__ */ jsx("br", {}),
-              /* @__PURE__ */ jsx("span", { className: "font-semibold text-gray-400", children: "Innoviamo con creatività." }),
-              /* @__PURE__ */ jsx("br", {}),
-              /* @__PURE__ */ jsxs("span", { className: "text-xl md:text-2xl", children: [
-                "Laboratori, formazione e tanto altro con riutilizzo di materiale di scarto aziendale per un futuro sostenibile.",
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center justify-center text-white", children: [
+          /* @__PURE__ */ jsxs(
+            motion.h1,
+            {
+              initial: "hidden",
+              animate: "visible",
+              variants,
+              className: "w-9/12 text-3xl md:text-6xl",
+              children: [
+                /* @__PURE__ */ jsx("span", { className: "font-bold", children: "REMIDA VARESE" }),
                 /* @__PURE__ */ jsx("br", {}),
-                "Siamo la tua destinazione per la creatività e il riutilizzo di materiali non strutturati."
-              ] })
-            ]
-          }
-        ) })
+                /* @__PURE__ */ jsxs("span", { className: "mt-2 text-xl md:text-2xl", children: [
+                  "Centro di ricerca creativa che promuove il riutilizzo di materiali non strutturati di origine aziendale artigianale e naturale con finalità educative, ambientali ed artistiche. ",
+                  /* @__PURE__ */ jsx("br", {}),
+                  " Remida Varese attinge al metodo pedagogico ”",
+                  /* @__PURE__ */ jsx(
+                    "a",
+                    {
+                      href: "https://www.reggiochildren.it/reggio-emilia-approach/",
+                      target: "_blank",
+                      rel: "noreferrer",
+                      className: "text-white underline",
+                      children: "Reggio Emilia Approach"
+                    }
+                  ),
+                  "”."
+                ] })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsx(Link, { href: route("about"), children: /* @__PURE__ */ jsx("button", { className: "mt-10 w-full rounded-3xl bg-white px-6 py-2 text-lg font-semibold text-black shadow-lg transition-colors hover:bg-gray-200 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700", children: "Scopri di più" }) })
+        ] })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "grid min-h-[65vh] grid-cols-1 place-items-center gap-5 bg-slate-300 p-5 pb-10 md:grid-cols-3 dark:bg-slate-600", children: [
         /* @__PURE__ */ jsx(
@@ -1717,7 +4752,8 @@ function Home() {
           {
             source: "/images/Nero.png",
             alternative: "Fantasma Nero",
-            title: "Titolo Nero"
+            title: "Laboratori per Scuole",
+            href: route("laboratories")
           }
         ),
         /* @__PURE__ */ jsx(
@@ -1725,7 +4761,8 @@ function Home() {
           {
             source: "/images/Grigio.png",
             alternative: "Fantasma Grigio",
-            title: "Titolo Grigio"
+            title: "Formazione",
+            href: route("training")
           }
         ),
         /* @__PURE__ */ jsx(
@@ -1733,7 +4770,8 @@ function Home() {
           {
             source: "/images/Blu.png",
             alternative: "Fantasma Blu",
-            title: "Titolo Blu"
+            title: "Emporio dei Materiali",
+            href: route("emporium")
           }
         ),
         /* @__PURE__ */ jsx(
@@ -1741,7 +4779,8 @@ function Home() {
           {
             source: "/images/Verde.png",
             alternative: "Fantasma Verde",
-            title: "Titolo Verde"
+            title: "Laboratori per Altri Enti",
+            href: route("other")
           }
         ),
         /* @__PURE__ */ jsx(
@@ -1749,7 +4788,8 @@ function Home() {
           {
             source: "/images/Viola.png",
             alternative: "Fantasma Viola",
-            title: "Titolo Viola"
+            title: "Aziende",
+            href: route("agency")
           }
         ),
         /* @__PURE__ */ jsx(
@@ -1757,7 +4797,8 @@ function Home() {
           {
             source: "/images/Arancio.png",
             alternative: "Fantasma Arancio",
-            title: "Titolo Arancio"
+            title: "Laboratori Speciali",
+            href: route("special")
           }
         )
       ] }),
@@ -1790,9 +4831,22 @@ function Home() {
                 variants,
                 className: "text-4xl",
                 children: [
-                  "Il chiostro di Voltorre è un monastero benedettino del XII secolo di stile romanico.",
+                  "Il",
+                  " ",
+                  /* @__PURE__ */ jsx(
+                    "a",
+                    {
+                      href: "https://it.wikipedia.org/wiki/Chiostro_di_Voltorre",
+                      target: "_blank",
+                      rel: "noreferrer",
+                      className: "text-white underline",
+                      children: "Chiostro di Voltorre"
+                    }
+                  ),
+                  " ",
+                  "è un monastero benedettino del XII secolo in stile romanico.",
                   /* @__PURE__ */ jsx("br", {}),
-                  "Ospita al piano superiore i contesti ludici di apprendimento di ReMida Varese"
+                  "Ospita nei suoi locali i contesti ludici di apprendimento di ReMida Varese"
                 ]
               }
             ),
@@ -1827,8 +4881,9 @@ function Home() {
           variants,
           className: "flex flex-col items-center justify-center bg-transparent p-5 py-10 dark:bg-slate-600",
           children: [
-            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl text-black dark:text-gray-300", children: "In Evidenza" }),
-            /* @__PURE__ */ jsx(CardCarousel, {})
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl text-black dark:text-gray-200", children: "In Evidenza" }),
+            events.length == 0 && /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("p", { className: "min-h-[25vh] text-2xl dark:text-white", children: "Non Sono Ancora Presenti Eventi" }) }),
+            /* @__PURE__ */ jsx(CardCarousel, { events })
           ]
         }
       ),
@@ -1842,14 +4897,37 @@ function Home() {
           className: "grid min-h-fit grid-cols-1 bg-slate-400 md:grid-cols-2",
           children: [
             /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center justify-center bg-slate-500 p-10", children: [
-              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Aperture" }),
-              /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2" })
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-white", children: "Aperture" }),
+              /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 justify-items-center p-2 md:p-10", children: /* @__PURE__ */ jsxs("p", { className: "text-2xl text-white md:text-4xl", children: [
+                "Remida Varese apre solo su prenotazione per i",
+                " ",
+                /* @__PURE__ */ jsx(
+                  Link,
+                  {
+                    href: route("laboratories"),
+                    className: "text-white underline",
+                    children: "Laboratori per scuole"
+                  }
+                ),
+                " ",
+                "e per il prelievo di materiale non strutturato dall’Emporio dei Materiali. I Laboratori creativi per famiglie aprono con calendario stagionale (vedere le",
+                " ",
+                /* @__PURE__ */ jsx(
+                  Link,
+                  {
+                    href: route("events"),
+                    className: "text-white underline",
+                    children: "notizie in Evidenza"
+                  }
+                ),
+                "). Tutte le attività sono riservate agli Associati di Altrementi aps."
+              ] }) })
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center justify-center p-5 md:p-10", children: [
-              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "I Nostri Partner" }),
-              /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 justify-items-center gap-5 p-10 md:grid-cols-2", children: [
-                /* @__PURE__ */ jsx("img", { src: "https://picsum.photos/200", alt: "" }),
-                /* @__PURE__ */ jsx("img", { src: "https://picsum.photos/201", alt: "" })
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-white", children: "I Nostri Partner" }),
+              /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 place-items-center justify-items-center gap-5 p-10 md:grid-cols-2", children: [
+                /* @__PURE__ */ jsx("img", { src: "/images/provincia.jpg", alt: "" }),
+                /* @__PURE__ */ jsx("img", { src: "/images/gavirate.jpg", alt: "" })
               ] })
             ] })
           ]
@@ -1864,30 +4942,527 @@ function Home() {
           variants,
           className: "flex min-h-fit flex-col items-center justify-center p-2 md:p-10 dark:bg-slate-600",
           children: [
-            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-black dark:text-white", children: "Quanto abbiamo fatto" }),
-            /* @__PURE__ */ jsxs("div", { className: "grid w-full grid-cols-1 justify-items-center gap-5 p-2 md:p-10 lg:grid-cols-3", children: [
-              /* @__PURE__ */ jsx(
-                CardTicker,
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-black dark:text-white", children: "Quanto Abbiamo Fatto" }),
+            /* @__PURE__ */ jsx("div", { className: "max-w-6xl p-5", children: /* @__PURE__ */ jsx(TimelineComponent, {}) })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "flex min-h-fit flex-col items-center justify-center bg-slate-600 p-2 md:p-10",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl text-white", children: "Collaborazioni" }),
+            /* @__PURE__ */ jsx(CollaborationCarousel, {})
+          ]
+        }
+      )
+    ] })
+  ] });
+}
+const __vite_glob_0_24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Home
+}, Symbol.toStringTag, { value: "Module" }));
+function Laboratories() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    school: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.schools"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "school", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Laboratori per Scuole" }),
+      /* @__PURE__ */ jsx(
+        "meta",
+        {
+          name: "description",
+          content: "I laboratori proposti si basano su approcci\n                                pedagogici che permettono di fare scoperte, di\n                                provare e sperimentare, di conoscere, di\n                                sbagliare e di apprendere."
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/laboratori-per-scuole"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Laboratori per Scuole" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5 text-xl md:text-2xl", children: "I laboratori proposti si basano su approcci pedagogici che permettono di fare scoperte, di provare e sperimentare, di conoscere, di sbagliare e di apprendere." })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/laboratories.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsx(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "bg-transparent dark:bg-slate-500 dark:text-white",
+          children: /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-7xl px-5 py-10 text-2xl", children: [
+            /* @__PURE__ */ jsx("p", { children: "Le idee e la loro realizzazione nascono spontanee nei nostri laboratori, che prevedono la manipolazione attiva dei materiali non strutturati messi a disposizione in contesti appropriati, dove divengono mediatori di apprendimento e strumenti d’indagine per il singolo e per il gruppo che interagisce." }),
+            /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+              /* @__PURE__ */ jsx("strong", { children: "Le proposte" }),
+              " tengono in considerazione le conoscenze e le abilità dei partecipanti, le esigenze di gioco e le tematiche,",
+              " ",
+              /* @__PURE__ */ jsx("strong", { children: "differenziate per fasce d’età" }),
+              " e congruenti con le programmazioni scolastiche."
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+              "Remida Varese offre laboratori",
+              " ",
+              /* @__PURE__ */ jsx("strong", { children: "permanenti presso il Chiostro di Voltorre" }),
+              " ",
+              "o ",
+              /* @__PURE__ */ jsx("strong", { children: "itineranti presso la vostra sede" }),
+              ", con la possibilità di programmare più incontri in modo da avere più tempo nell’esplorazione delle potenzialità dei materiali non strutturati."
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "mt-5", children: "IMPORTANTE: per quanto riguarda le attività permanenti presso il Chiostro di Voltorre, diamo la possibilità di consumare un pranzo al sacco in autonomia al termine dei laboratori, nei pressi del Chiostro se bel tempo o in spazi coperti in caso di maltempo." }),
+            /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Di seguito le proposte educativo/didattiche per l'anno scolastico 2024-2025:" })
+          ] })
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Asilo Nido e Sezione Primavera" }),
+              /* @__PURE__ */ jsx("p", { children: "Il bambino da 1 a 3 anni si interessa spontaneamente all’ambiente che lo circonda, scopre e conosce attraverso i sensi e tutto il suo corpo: come un esploratore si muove alla ricerca di ciò che è nuovo, che attira la sua attenzione e, grazie alla ripetizione instancabile, conosce e diventa abile. Sperimentare, scoprire e ripetere sono le azioni attraverso cui il bambino affina le proprie abilità cognitive, manuali, emotive." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Il materiale non strutturato, per le sue caratteristiche, offre infinite possibilità al bambino di questa età: concetti come pieno e vuoto, dentro e fuori, alto e basso, luce e ombra, l’equilibrio e la caduta (ecc.) sono conosciuti e acquisiti da esperienze dirette che egli fa con le mani e con il corpo, per la sua mente." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "È possibile",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "organizzare i seguenti laboratori con la presenza dei genitori, per la festa finale dell’anno scolastico e/o per la promozione del proprio Asilo" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese ha allestito presso la sua sede dei contesti ludici, pronti ad accogliere fino a 25 bambini per ognuna delle seguenti attività:" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "TAPPETO DI TESORI" }),
+                " – ESPLORAZIONE SENSORIALE POLIMATERICA – 12/18 mesi"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Luogo di scoperte e ricerche sensoriali dove i bimbi entrano in relazione con i diversi materiali per toccarli, allinearli, impilarli, scuoterli, infilarli l’uno dentro l’altro. Il tatto, la vista, l’udito indagano e scoprono le potenzialità infinite dei materiali presenti, in un’armonia che genera nuove combinazioni e possibilità costruttive." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CHE COMBINAZIONE!" }),
+                " – GIOCO EURISTICO – 12/24 mesi"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "“Cosa posso fare con questo oggetto? Come funziona? “" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Il laboratorio euristico è uno spazio dedicato di libera sperimentazione e scoperta, di materiali non consueti: il materiale non strutturato è classificato per categorie di oggetti, selezionati accuratamente in quantità e qualità per offrire al bambino la possibilità di raggiungere nuove mete e scoperte autonome (Eureka!)." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Una proposta educativa che offre agli educatori la possibilità di trovare un nuovo sguardo sui bambini, al loro desiderio di sperimentazione e scoperta, per comprendere e conoscere il bambino in tutta la sua totalità: emotiva, corporea, cognitiva." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "EQUILIBRI" }),
+                " – MOVIMENTO E SCOPERTA – 12/24 mesi"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Questo contesto con gioco a terra permette di coniugare il desiderio di fare grandi spostamenti, sperimentare e ricercare l’equilibrio degli oggetti e del loro corpo. Esperienze di gioco in movimento come: impilare, costruire torri e farle cadere, allineare, costruire camminamenti per provare equilibri con il corpo, trasportare e sperimentare il peso, la leggerezza, la stabilità." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CANTIERE" }),
+                " – MACRO COSTRUTTIVITÁ – 12/24 mesi, Sezione Primavera"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Il materiale non strutturato induce esplorazioni di equilibri, piani inclinati, incastri per la costruzione di architetture fantastiche per forma, dimensione, colore. Si sviluppa un processo in continua trasformazione dove abilità fisiche e matematiche si mettono alla prova, favorendo la collaborazione e la cooperazione tra i partecipanti." }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Gli stessi laboratori si possono realizzare nelle vostre sedi, in spazi idonei. Una sola attività o una serie di esperienze evitando la trasferta verso il Chiostro di Voltorre,",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "con o senza genitori" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: /* @__PURE__ */ jsx("strong", { children: "Compilate il form sottostante per ricevere una proposta ad hoc." }) })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Scuola dell'infanzia" }),
+              /* @__PURE__ */ jsx("p", { children: /* @__PURE__ */ jsx("strong", { children: "“non sono sicuro di aver vissuto, dopo l’infanzia” A. de Saint-Exupéry" }) }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "I laboratori pensati per l’infanzia facilitano attività espressive come quelle di simbolizzazione e narrazione, suggeriscono domande e fanno nascere suggestioni." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Fruizione di stimoli e informazioni provenienti dai materiali, dallo spazio e dalle loro interazioni, rielaborazione e produzione creativa sono le attività che prendono vita nei laboratori per l’infanzia di Remida Varese, verso l’obiettivo ultimo del potenziamento del pensiero divergente, contraddistinto da flessibilità, fluidità, originalità, elaborazione, valutazione, cambiamento e innovazione." }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese ha allestito presso la sua sede dei contesti ludici di apprendimento per ognuna delle seguenti attività, che una volta terminate prevedono il riordino dei materiali riutilizzati:" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CANTIERE" }),
+                " – MACRO COSTRUTTIVITÁ – primo, secondo e terzo anno"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Il materiale non strutturato induce esplorazioni di equilibri, piani inclinati, incastri per la costruzione di architetture fantastiche per forma, dimensione, colore. Si sviluppa un processo in continua trasformazione dove abilità fisiche e matematiche si mettono alla prova, favorendo la collaborazione e la cooperazione tra i partecipanti." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CORNICI MATERICHE" }),
+                " – MICRO CREATIVITÁ – primo, secondo e terzo anno"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Propone un percorso creativo e immaginativo attraverso il riuso di piccoli materiali non strutturati. La varietà per tipologia, forma, colore dei materiali messi a disposizione dei bambini stimola l’espressività insita in ognuno. Si privilegia il processo creativo piuttosto che il prodotto finale, si induce la riflessione su quello che si sta facendo, si manifesta la voglia di condividere il significato dell’opera realizzata." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "LUCI E OMBRE" }),
+                " – ESPLORAZIONE E CREATIVITÁ – primo, secondo e terzo anno"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "In un ambiente oscurato si esplorano le potenzialità dei materiali non strutturati in relazione alla luce, diffusa dal basso o proiettata verso una parete. In un continuo gioco individuale o di gruppo si apprendono mutazioni di tonalità, di grandezza, di combinazione cromatica interagendo con le ombre che si possono creare. La percezione degli oggetti varia permettendo apprendimenti in relazione anche al corpo e al movimento." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "GIOCARE CON I SUONI" }),
+                " – SONORITÁ E COOPERAZIONE – secondo e terzo anno"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Tutto suona, i corpi, gli ambienti, la natura e i materiali che ci circondano. Il laboratorio propone giochi con cui imparare a riconoscere e riprodurre i diversi suoni e ritmi che scaturiscono dalla percussione, dallo scuotimento, dall’oscillamento degli oggetti messi a disposizione dei partecipanti. Guidati dal musicoterapista Antonio Testa il gruppo di partecipanti diviene una piccola orchestra attraverso l’ascolto degli altri, la concentrazione e la cooperazione." }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "La stessa tipologia di laboratori può giungere nelle vostre sedi. Un solo laboratorio o una serie di esperienze senza la trasferta verso il Chiostro di Voltorre. Siamo in grado di trasportare materiali e attrezzature in spazi idonei, visionati in precedenza." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: /* @__PURE__ */ jsx("strong", { children: "Compilate il form sottostante per ricevere una proposta ad hoc." }) })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Scuola Primaria" }),
+              /* @__PURE__ */ jsx("p", { children: "I nostri laboratori sono un luogo di esplorazione e di creatività, sono una pratica del fare, dove lo studente diventa protagonista di un processo di costruzione di conoscenze che gli permettono di essere coinvolto in una situazione collettiva di scambio comunicativo tra pari, di costruzione di apprendimenti significativi." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese per la scuola primaria adotta un metodo pedagogico rigoroso e mirato a mantenere un atteggiamento al contempo aperto e analitico nei confronti delle cose, di quelle sconosciute, ma soprattutto di quelle conosciute." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Remida Varese offre laboratori",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "permanenti presso il Chiostro di Voltorre a Gavirate" }),
+                ", che toccano anche",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "argomenti storici" }),
+                " (le origini del Monastero) e ",
+                /* @__PURE__ */ jsx("strong", { children: "ambientali " }),
+                "(con una eventuale passeggiata in sicurezza sulle sponde del lago di Varese)"
+              ] }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese ha allestito presso la sua sede dei contesti ludici di apprendimento per ognuna delle seguenti attività, che una volta terminate prevedono il riordino dei materiali riutilizzati:" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "TERRE DI MEZZO" }),
+                " – GIORNATA DI ACCOGLIENZA A INIZIO ANNO SCOLASTICO – primo anno"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Nella fase passaggio dalla Scuola dell’infanzia alla Scuola Primaria, il primo periodo di socializzazione e accoglienza permette di costruire un clima inclusivo e non discriminante. Proponiamo una giornata di attività creative di gruppo che sviluppano la cooperazione divertendosi, naturalmente con materiali non strutturati." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "TANGRAM" }),
+                " – LOGICA, IMMAGINAZIONE E COOPERAZIONE – primo e secondo anno"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Il Tangram è un gioco-rompicapo antichissimo di origine orientale, costituito da sette tavole il cui scopo è formare una figura utilizzando tutti i pezzi senza sovrapposizioni. Sviluppa l’immaginazione e la fantasia per creare sagome di uomini, animali, case, ecc.." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "È un importante esercizio di concentrazione e conoscenza delle forme geometriche, della loro visione e composizione nello spazio. Nelle scuole primarie del nord Europa è inserito nella programmazione didattica di geometria e di altre discipline." }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese riutilizza materiali non strutturati sia per costruire i tangram di varie dimensioni, sia per personalizzare le configurazioni realizzate." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CITTÁ INFINITA" }),
+                " – MACRO COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquennio"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Un’esperienza collettiva di creazione e costruzione di spazi urbani sempre nuovi e unici. La città diventa il luogo delle relazioni e del dialogo. Partendo dalla propria casa, ogni partecipante incrementa il valore della cooperazione realizzando insieme ad altri spazi ed edifici condivisi." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "ANIMALIAMO" }),
+                " – CREATIVITÁ, COOPERAZIONE E NARRAZIONE – tutto il quinquennio"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Partendo dalla visione dell’albo illustrato “Bestiario universale”, gli studenti sono stimolati a progettare e realizzare in coppia un animale fantastico, riutilizzando piccoli materiali da combinare tra loro. Successivamente le superbestie si presentano al resto del gruppo, specificando caratteristiche fisiche ed etologiche uniche e irripetibili!" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "LUCI E OMBRE" }),
+                " – ESPLORAZIONE E CREATIVITÁ – tutto il quinquennio"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "In un ambiente oscurato si esplorano le potenzialità dei materiali non strutturati in relazione alla luce, diffusa dal basso o proiettata verso una parete. In un continuo gioco individuale o di gruppo si apprendono mutazioni di tonalità, di grandezza, di combinazione cromatica interagendo con le ombre che si possono creare. La percezione degli oggetti varia permettendo apprendimenti in relazione anche al corpo e al movimento. Si potranno infine comprendere fenomeni come l’eclissi e l’alternanza delle stagioni" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "GIOCARE CON I SUONI" }),
+                " – SONORITÁ E COOPERAZIONE – tutto il quinquennio"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "I materiali non strutturati nascondono svariate potenzialità sonore. Il laboratorio propone indagini attraverso la relazione tra il corpo, le mani, i gesti e le qualità sonore dei vari materiali, anche in combinazione tra loro: nascono così suoni e ritmi che scaturiscono dalla percussione, dallo scuotimento, dall’oscillamento degli oggetti messi a disposizione dei partecipanti. Guidati dal musicoterapista Antonio Testa il gruppo di partecipanti diviene una piccola orchestra attraverso l’ascolto degli altri, la concentrazione e la cooperazione." }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Gli stessi laboratori si possono realizzare nelle vostre sedi, in spazi idonei. Una sola attività o una serie di esperienze evitando la trasferta verso il Chiostro di Voltorre,",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "con o senza genitori" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: /* @__PURE__ */ jsx("strong", { children: "Compilate il form sottostante per ricevere una proposta ad hoc." }) })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Scuola Secondaria" }),
+              /* @__PURE__ */ jsxs("p", { className: "text-2xl", children: [
+                "Per le scuole secondarie privilegiamo: un",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "metodo esperienziale e socializzante" }),
+                " ",
+                "per stimolare la curiosità e l’interesse, consolidare le conoscenze e migliorare il coinvolgimento di tutti i partecipanti in ottica inclusiva; ",
+                /* @__PURE__ */ jsx("strong", { children: "l’interdisciplinarità" }),
+                " ",
+                "per allenarsi a stabilire connessioni in modo da acquisire un atteggiamento mentale aperto e consapevole;",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "l’imparare divertendosi" }),
+                " in cui le attività assecondano la naturale inclinazione degli studenti verso il gioco, predisponendoli ad un atteggiamento positivo e propositivo. Per questi ordini di scuola siamo in grado di",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "personalizzare i laboratori a seconda delle vostre richiesta didattiche e curricolari" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI PERMANENTI PRESSO IL CHIOSTRO DI VOLTORRE" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Remida Varese ha allestito presso la sua sede dei contesti ludici di apprendimento per ognuna delle seguenti attività, che una volta terminate prevedono il riordino dei materiali riutilizzati:" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "GIORNATA DI ACCOGLIENZA A INIZIO ANNO SCOLASTICO" }),
+                " ",
+                "– classi di 1° secondaria di primo e secondo grado"
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Gli obiettivi primari del",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "periodo di accoglienza" }),
+                " nel nuovo istituto di scuola secondaria sono di disporre l’allievo/a ad un",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "approccio collaborativo con gli insegnanti e con i nuovi compagni/e di classe" }),
+                " ",
+                "e di consolidare una seria motivazione all’apprendimento e allo studio. Per concorrere alla migliore riuscita dell’accoglienza proponiamo una serie di attività creative e di gruppo per un’intera giornata, compreso un pranzo al sacco condiviso."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CORPO ALLE EMOZIONI" }),
+                " – CREATIVITÁ E CONSAPEVOLEZZA – tutte le classi"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Laboratorio creativo in piccoli gruppi adattabile, a livelli diversi, a tutte le classi della Scuola secondaria. Stimoliamo gli studenti in piccoli gruppi a scegliere un’emozione e a rappresentarla tridimensionalmente con i materiali non strutturati a disposizione. Rabbia, paura, tristezza, ansia, vergogna, felicità e altre emozioni offrono un'esperienza unica e coinvolgente per esprimere e scoprire nuove sfumature del proprio mondo interiore." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "CITTÁ SOSTENIBILE" }),
+                " – MACRO COSTRUTTIVITÁ E COOPERAZIONE – tutto il quinquennio"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Utilizzando i linguaggi universali della creatività e della manualità, ogni gruppo di adolescenti progetta e realizza la propria città, concentrandosi sugli aspetti della sostenibilità ambientale e sociale." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "RITRATTI" }),
+                " – CREATIVITÁ, COOPERAZIONE E NARRAZIONE – tutto il quinquennio"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "L’auto ed etero rappresentazione offrono molti spunti, attraverso il filtro della creatività, per parlare di sé ed entrare in relazione con gli altri. Esprimere la personalità con l’utilizzo di materiali non strutturati su semplici basi di recupero non è solo divertimento, ma definizione divergente dell’identità." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "GIOCARE CON I SUONI" }),
+                " – SONORITÁ E COOPERAZIONE"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Attraverso l’uso dei materiali non strutturati, la creatività e la manualità si ottenere suoni di vario genere. Sperimentando ed analizzando i diversi suoni e timbri ricavabili da oggetti (metalli, plastica, carta e cartoni, legni, pietra ecc.), si eseguiranno semplici brani e sonorizzazioni, formando un’orchestra estemporanea." }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: "LABORATORI ITINERANTI PRESSO LA SEDE DELLE SCUOLE" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Gli stessi laboratori si possono realizzare nelle vostre sedi, in spazi idonei. Una sola attività o una serie di esperienze evitando la trasferta verso il Chiostro di Voltorre,",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "con o senza genitori" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: /* @__PURE__ */ jsx("strong", { children: "Compilate il form sottostante per ricevere una proposta ad hoc." }) })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Contattaci" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-5/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
                 {
-                  title: "Lorem Ipsum",
-                  text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus.",
-                  value: 2500
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                CardTicker,
-                {
-                  title: "Lorem Ipsum",
-                  text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus.",
-                  value: 150
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                CardTicker,
-                {
-                  title: "Lorem Ipsum",
-                  text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aperiam saepe, numquam veritatis omnis tenetur, corporis minus, dolorum nam rerum provident laudantium labore fugit consectetur. Eius voluptate quidem optio accusamus.",
-                  value: 625
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          value: "Nome Contatto",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          value: "Indirizzo Email",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          value: "Numero di Telefono",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "school",
+                          value: "Seleziona il tipo di Scuola",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "select",
+                        {
+                          id: "school",
+                          name: "school",
+                          required: true,
+                          value: data.school,
+                          onChange: (e) => setData("school", e.target.value),
+                          className: `mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm ${errors.school && "border-red-500"}`,
+                          children: [
+                            /* @__PURE__ */ jsx("option", { value: "", children: "Seleziona il tipo di scuola" }),
+                            /* @__PURE__ */ jsx("option", { value: "nido", children: "Nido" }),
+                            /* @__PURE__ */ jsx("option", { value: "scuola_dell_infanzia", children: "Scuola dell'infanzia" }),
+                            /* @__PURE__ */ jsx("option", { value: "scuola_primaria", children: "Scuola primaria" }),
+                            /* @__PURE__ */ jsx("option", { value: "scuola_secondaria", children: "Scuola secondaria" })
+                          ]
+                        }
+                      ),
+                      errors.school && /* @__PURE__ */ jsx(InputError, { message: errors.school })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          value: "Il Tuo Messaggio",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
                 }
               )
             ] })
@@ -1897,9 +5472,951 @@ function Home() {
     ] })
   ] });
 }
-const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: Home
+  default: Laboratories
+}, Symbol.toStringTag, { value: "Module" }));
+function Other() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.generic"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Laboratori per Atri Enti" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/laboratori-per-altri-enti"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Laboratori per Altri Enti" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5 text-xl md:text-2xl", children: [
+                /* @__PURE__ */ jsx("strong", { children: "I nostri laboratori" }),
+                " creativi di sensibilizzazione alla sostenibilità ambientale",
+                /* @__PURE__ */ jsx("strong", { children: "per famiglie" }),
+                " si possono realizzare",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "durante manifestazioni ed eventi pubblici" }),
+                " ",
+                "organizzati da Enti Locali, Pro Loco, Associazioni ecc. e",
+                /* @__PURE__ */ jsx("strong", { children: "presso le sedi di organizzazioni" }),
+                " ",
+                "come Comunità, Centri diurni, RSA, Fondazioni ecc.",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "per ospiti con disabilità, anziani, minori ecc." })
+              ] })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/other.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Comunità, Centri Diurni, RSA, Fondazioni" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                /* @__PURE__ */ jsx("strong", { children: "L'arte e la creatività sono linguaggi" }),
+                " ",
+                "estremamente forti che mettono a disposizione di ciascuna persona di",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "qualsiasi età, con o senza disabilità" }),
+                ", uno strumento di comunicazione universale, immediato, diretto, spontaneo, istintivo, privo di filtri. ",
+                /* @__PURE__ */ jsx("strong", { children: "Il processo creativo" }),
+                ", coinvolgendo le funzioni percettive, attentive e cognitive di una persona, è infatti un esercizio complesso che",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "spinge a sviluppare un comportamento coordinato, frutto dell'integrazione di tutte le funzioni psichiche e motorie" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                /* @__PURE__ */ jsx("strong", { children: "I nostri laboratori" }),
+                ", da concordare per tipologia con il committente, come sempre proposti attraverso il riutilizzo di materiali di scarto aziendale e artigianale,",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "hanno l'obiettivo" }),
+                " di far vivere ai partecipanti una",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "sensazione di soddisfazione" }),
+                " per l’opera prodotta ed un altrettanto fondamentale",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "senso di rilassamento e benessere" }),
+                " ",
+                "che il processo creativo è capace di indurre, oltre che la naturale propensione alla sostenibilità ambientale."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Hanno collaborato con noi: Fondazione Renato Piatti Onlus di Varese, Il Millepiedi Onlus Coop. Soc. di Varese, RSA Bernacchi di Gavirate" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Enti Locali, Pro Loco, Associazioni" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                /* @__PURE__ */ jsx("strong", { children: "Piazze, parchi, aree verdi e tensostrutture" }),
+                " ",
+                "sono solo alcuni luoghi dove vari Enti organizzano eventi e dove le famiglie con bambini si ritrovano per passare del buon tempo assieme. Sono punti di aggregazione in cui si sviluppano dei rapporti umani, sociali e dunque di intrattenimento.",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "L'obiettivo delle nostre proposte" }),
+                ", uniche per la loro originalità, è quello di",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "promuovere la creatività" }),
+                " con i materiali non strutturati e",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "sensibilizzare i partecipanti alla sostenibilità ambientale" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Hanno collaborato con noi: Comuni di Varese Busto Arsizio, Gazzada Schianno, Laveno Mombello, Albizzate, Angera, Besozzo, Gorla Maggiore, Sangiano, Pro Loco di Brenta, Oratorio di Travedona Monate, Parco Regionale Campo dei Fiori." })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Contattaci" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-5/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
+                {
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          value: "Nome Contatto",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          value: "Indirizzo Email",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          value: "Numero di Telefono",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          value: "Il Tuo Messaggio",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
+                }
+              )
+            ] })
+          ]
+        }
+      )
+    ] })
+  ] });
+}
+const __vite_glob_0_26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Other
+}, Symbol.toStringTag, { value: "Module" }));
+function Special() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.generic"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Progetti Speciali" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/laboratori-speciali"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Progetti Speciali" }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5 text-xl md:text-2xl", children: [
+                "Installazioni interattive, creazioni artistiche e laboratori creati su misura, in collaborazione con vari Enti, per",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "rendere unico l’evento" }),
+                " a cui partecipiamo e promuovere contemporaneamente la sostenibilità ambientale, in quanto il materiale utilizzato è esclusivamente scarto aziendale o artigianale."
+              ] })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/special.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsx(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "bg-transparent dark:bg-slate-500 dark:text-white",
+          children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl px-5 py-10 text-2xl", children: /* @__PURE__ */ jsx("p", { children: "Hanno collaborato con noi BAM Milano, Fuori Salone del Mobile Milano, Mandala Experience, Design week Varese, Comune di Germignaga, Comune di Besozzo, Camera di Commercio Varese, Comune di Gavirate, Festival Microcosmi di Comerio, IBSA Lugano, Alzheimer Fest aps" }) })
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Contattaci" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-5/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
+                {
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          value: "Nome Contatto",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          value: "Indirizzo Email",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          value: "Numero di Telefono",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          value: "Il Tuo Messaggio",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
+                }
+              )
+            ] })
+          ]
+        }
+      )
+    ] })
+  ] });
+}
+const __vite_glob_0_27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Special
+}, Symbol.toStringTag, { value: "Module" }));
+function Training() {
+  const { flash } = usePage().props;
+  const {
+    data,
+    setData,
+    post,
+    processing,
+    errors,
+    wasSuccessful,
+    clearErrors,
+    reset
+  } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false
+  });
+  const submit = (e) => {
+    e.preventDefault();
+    post(route("contact.training"), {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        reset("name", "email", "phone", "message", "privacy");
+        clearErrors();
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Head, { children: [
+      /* @__PURE__ */ jsx("title", { children: "REMIDA VARESE - Innoviamo con creatività | Formazione" }),
+      /* @__PURE__ */ jsx("meta", { name: "description", content: "" }),
+      /* @__PURE__ */ jsx(
+        "link",
+        {
+          rel: "canonical",
+          href: "https://remidavarese.it/formazione"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs(PublicLayout, { children: [
+      /* @__PURE__ */ jsxs("section", { className: "mt-[110px] grid h-screen grid-cols-1 bg-black/60 p-5 md:grid-cols-3 md:p-0 lg:mt-0", children: [
+        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxs(
+          motion.h1,
+          {
+            initial: "hidden",
+            animate: "visible",
+            variants,
+            className: "w-9/12 py-5 text-3xl md:text-6xl",
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold", children: "Formazione" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5 text-xl md:text-2xl", children: "I percorsi ideati si concentrano non solo sulla conoscenza del metodo per la progettazione e realizzazione di attività ma si indirizzano anche verso l’arte, la logica, l’estetica e la documentazione." })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "col-span-2", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            className: "h-screen w-full object-cover opacity-90",
+            src: "/images/training.webp",
+            alt: ""
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsx(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "bg-transparent dark:bg-slate-500 dark:text-white",
+          children: /* @__PURE__ */ jsx("div", { className: "mx-auto max-w-7xl px-5 py-10 text-2xl", children: /* @__PURE__ */ jsxs("p", { children: [
+            "Proponiamo corsi di",
+            " ",
+            /* @__PURE__ */ jsx("strong", { children: "formazione, consulenze, supervisioni metodologiche e incontri" }),
+            " ",
+            "rivolti direttamente a equipe educative di Asilo Nido, Scuola dell’Infanzia, insegnanti di Scuola Primaria e Secondaria, RSA, Cooperative, Imprese Sociali, Associazioni, Enti Pubblici e Privati, gruppi di adulti intenzionati ad approcciarsi alla metodologia del “Reggio Emilia Approach” o indirettamente attraverso collaborazioni con Associazioni di categoria come Ascom e Agenzie di servizi per le imprese."
+          ] }) })
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid grid-cols-1 bg-transparent md:grid-cols-2 dark:bg-slate-600",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Formazione" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "I nostri apprezzati percorsi formativi “",
+                /* @__PURE__ */ jsx("strong", { children: "Materiali non strutturati di origine aziendale e artigianale per la promozione della creatività" }),
+                "” e “",
+                /* @__PURE__ */ jsx("strong", { children: "Materiali naturali come risorsa educativa" }),
+                "” sono",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "rivolti all’intera equipe educativa" }),
+                " ",
+                "di un’organizzazione 0 – 6 anni, che sia un Asilo Nido, una Scuola dell’Infanzia o un sistema integrato e si svolge interamente in presenza, inizialmente presso i nostri spazi al Chiostro di Voltorre e successivamente presso la struttura della committenza."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "La formazione è un",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "percorso di costruzione" }),
+                ", continua e graduale, di pratiche esperienziali, riflessioni e condivisioni che porta il gruppo educativo ad",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "attuare nuove pratiche pedagogiche" }),
+                ", adattandole alla propria realtà professionale."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Consulenza" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "Al",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "termine dei nostri percorsi formativi" }),
+                " ",
+                "è possibile attivare",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "consulenze progettuali e pedagogiche" }),
+                ", fortemente interconnesse alla formazione, dedicati al ripensamento, alla riorganizzazione ed eventualmente alla ristrutturazione di",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "spazi interni o esterni" }),
+                " agli Asili Nido e Scuole dell’Infanzia, in modo da riflettere la voglia di apprendimento dei bambini che li abitano."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Spazi, o meglio ",
+                /* @__PURE__ */ jsx("strong", { children: "contesti" }),
+                ", articolati in ",
+                /* @__PURE__ */ jsx("strong", { children: "centri di interesse" }),
+                " ",
+                "per sostenere l’incontro a piccolo gruppo e per offrire plurime e diversificate possibilità di esplorazione e scoperta nell’incontro con diversi linguaggi, permettendo così ai bambini di esprimersi attraverso le proprie competenze uniche e soggettive."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: /* @__PURE__ */ jsx("strong", { children: "Spazi Interni" }) }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Per gli spazi interni si deve tendere ad un miglioramento in ricchezza e creatività dei contesti ludici di apprendimento, dove sono fondamentali i",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "materiali non strutturati e gli allestimenti" }),
+                "."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Favorire una",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "ricerca tattile e sonora dei materiali" }),
+                " ",
+                "in una esplorazione multisensoriale totale, proporre",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "fonti luminose" }),
+                " che amplificano le caratteristiche degli oggetti, sostenere",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "i processi creativi e costruttivi" }),
+                " ",
+                "in spazi idonei per dare valore alle loro esperienze conoscitive complesse, sono solo alcune tracce di ricerca che si traducono in concrete riorganizzazioni degli spazi."
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: /* @__PURE__ */ jsx("strong", { children: "Spazi Esterni" }) }),
+              /* @__PURE__ */ jsx("p", { className: "mt-5", children: "Gli spazi esterni sono luoghi estremamente ricchi di opportunità educative e formative, alcune più intenzionali se pensate dall’adulto, altre più spontanee se guidate direttamente dall’esplorazione e dalla manipolazione da parte dei bambini." }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Pensare a ",
+                /* @__PURE__ */ jsx("strong", { children: "zone di quiete" }),
+                " con angoli di tranquillità dedicate anche alla relazione tra pari, a ",
+                /* @__PURE__ */ jsx("strong", { children: "zone di movimento" }),
+                " per l’esercizio di abilità attraverso percorsi sensoriali, a ",
+                /* @__PURE__ */ jsx("strong", { children: "zone di gioco" }),
+                " ",
+                "costruttivo e simbolico è l’inizio di una progettazione che diviene concreta implementazione delle strutture più adatte a tali scopi."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-300 p-10 text-2xl text-black dark:bg-slate-400", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Supervisione Metodologica" }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                /* @__PURE__ */ jsx("strong", { children: "Breve percorso" }),
+                " periodico",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "di confronto e rielaborazione" }),
+                " in cui i gruppi di lavoro vengono accompagnati nel valutare le metodologie applicate nella propria realtà professionale."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Altrimenti detto",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "Team Working (fare gruppo)" }),
+                ", la supervisione ha l’obiettivo di consolidare un gruppo di lavoro, creare sinergie che consentano di collaborare per la realizzazione dello scopo comune (mission educativa/professionale)."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "rounded-lg border-2 border-red-200 bg-slate-600 p-10 text-2xl text-white", children: [
+              /* @__PURE__ */ jsx("h2", { className: "mb-10 text-center text-6xl", children: "Incontri" }),
+              /* @__PURE__ */ jsx("h2", { className: "my-10 text-3xl font-semibold", children: 'Genitori "in gioco"' }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Grazie al gioco e nel gioco è possibile",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "riscoprire il mondo infantile" }),
+                ", il proprio e dei propri bambini del Nido e dell’Infanzia, per comprenderlo e conoscerlo",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "in tutta la sua totalità" }),
+                ": emotiva, corporea e cognitiva."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "ReMida Varese propone uno spazio ludico e laboratoriale per i genitori e per genitori/figli che ha lo scopo di essere un’esperienza simbolica, che consente di",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: '"accorciare" le distanze tra il mondo adulto e l’infanzia' }),
+                ", per ritrovare uno sguardo nuovo e rinnovato, da cui è più semplice fare fiorire riflessioni e condivisioni."
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "mt-5", children: [
+                "Gli ",
+                /* @__PURE__ */ jsx("strong", { children: "incontri sono quattro" }),
+                " tra cui",
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "uno dedicato solo ai padri" }),
+                "."
+              ] })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        motion.section,
+        {
+          initial: "hidden",
+          whileInView: "visible",
+          viewport: { once: true },
+          variants,
+          className: "grid place-items-center p-2 md:p-10 dark:bg-slate-500 dark:text-white",
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "", children: /* @__PURE__ */ jsx("h2", { className: "mb-10 text-6xl", children: "Contattaci" }) }),
+            /* @__PURE__ */ jsxs("div", { className: "mx-auto w-full p-5 md:w-5/12 md:p-0", children: [
+              wasSuccessful && /* @__PURE__ */ jsx("div", { className: "mb-5 w-full rounded-lg bg-emerald-500 p-5 text-center text-white", children: flash.message }),
+              /* @__PURE__ */ jsxs(
+                "form",
+                {
+                  className: "space-y-3 rounded-xl bg-gray-200 p-10 text-black shadow-lg dark:bg-slate-600",
+                  onSubmit: submit,
+                  children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "name",
+                          value: "Nome Contatto",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "name",
+                          id: "name",
+                          required: true,
+                          placeholder: "Nome Contatto",
+                          value: data.name,
+                          onChange: (e) => setData("name", e.target.value),
+                          className: `w-full ${errors.name && "border-red-500"}`
+                        }
+                      ),
+                      errors.name && /* @__PURE__ */ jsx(InputError, { message: errors.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "email",
+                          value: "Indirizzo Email",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          required: true,
+                          placeholder: "Indirizzo Email",
+                          value: data.email,
+                          onChange: (e) => setData("email", e.target.value),
+                          className: `w-full ${errors.email && "border-red-500"}`
+                        }
+                      ),
+                      errors.email && /* @__PURE__ */ jsx(InputError, { message: errors.email })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "phone",
+                          value: "Numero di Telefono",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TextInput,
+                        {
+                          type: "text",
+                          name: "phone",
+                          id: "phone",
+                          required: true,
+                          placeholder: "Numero di Telefono",
+                          value: data.phone,
+                          onChange: (e) => setData("phone", e.target.value),
+                          className: `w-full ${errors.phone && "border-red-500"}`
+                        }
+                      ),
+                      errors.phone && /* @__PURE__ */ jsx(InputError, { message: errors.phone })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx(
+                        InputLabel,
+                        {
+                          htmlFor: "message",
+                          value: "Il Tuo Messaggio",
+                          className: "mb-2 text-xl dark:text-white"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        "textarea",
+                        {
+                          id: "message",
+                          name: "message",
+                          required: true,
+                          placeholder: "Scrivi il tuo messaggio qui...",
+                          value: data.message,
+                          onChange: (e) => setData("message", e.target.value),
+                          className: `mt-1 block w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm ${errors.message && "border-red-500"}`,
+                          rows: "4"
+                        }
+                      ),
+                      errors.message && /* @__PURE__ */ jsx(InputError, { message: errors.message })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center text-black dark:text-white", children: [
+                      /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          required: true,
+                          checked: data.privacy,
+                          onChange: (e) => setData("privacy", e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxs(
+                        "p",
+                        {
+                          className: `${errors.privacy && "text-red-500"}`,
+                          children: [
+                            "Dichiaro di aver preso visione della",
+                            " ",
+                            /* @__PURE__ */ jsx(
+                              "a",
+                              {
+                                href: "#",
+                                className: "inline text-red-500 underline",
+                                children: "Privacy Policy"
+                              }
+                            ),
+                            ", pertanto presto il mio consenso al trattamento dei dati per ricevere le informazioni richieste."
+                          ]
+                        }
+                      ),
+                      errors.privacy && /* @__PURE__ */ jsx(InputError, { children: errors.privacy })
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        className: "mt-2 w-full rounded-3xl bg-red-800 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-red-900",
+                        disabled: processing,
+                        children: "Invia"
+                      }
+                    ) })
+                  ]
+                }
+              )
+            ] })
+          ]
+        }
+      )
+    ] })
+  ] });
+}
+const __vite_glob_0_28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Training
 }, Symbol.toStringTag, { value: "Module" }));
 function Welcome({ auth, laravelVersion, phpVersion }) {
   const handleImageError = () => {
@@ -2280,7 +6797,7 @@ function Welcome({ auth, laravelVersion, phpVersion }) {
     ] })
   ] });
 }
-const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Welcome
 }, Symbol.toStringTag, { value: "Module" }));
@@ -2289,7 +6806,7 @@ createServer(
     page,
     render: ReactDOMServer.renderToString,
     resolve: (name) => {
-      const pages = /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.jsx": __vite_glob_0_0, "./Pages/Auth/ForgotPassword.jsx": __vite_glob_0_1, "./Pages/Auth/Login.jsx": __vite_glob_0_2, "./Pages/Auth/Register.jsx": __vite_glob_0_3, "./Pages/Auth/ResetPassword.jsx": __vite_glob_0_4, "./Pages/Auth/VerifyEmail.jsx": __vite_glob_0_5, "./Pages/Dashboard.jsx": __vite_glob_0_6, "./Pages/Profile/Edit.jsx": __vite_glob_0_7, "./Pages/Profile/Partials/DeleteUserForm.jsx": __vite_glob_0_8, "./Pages/Profile/Partials/UpdatePasswordForm.jsx": __vite_glob_0_9, "./Pages/Profile/Partials/UpdateProfileInformationForm.jsx": __vite_glob_0_10, "./Pages/Public/About.jsx": __vite_glob_0_11, "./Pages/Public/Contacts.jsx": __vite_glob_0_12, "./Pages/Public/Events.jsx": __vite_glob_0_13, "./Pages/Public/Expertise.jsx": __vite_glob_0_14, "./Pages/Public/Home.jsx": __vite_glob_0_15, "./Pages/Welcome.jsx": __vite_glob_0_16 });
+      const pages = /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.jsx": __vite_glob_0_0, "./Pages/Auth/ForgotPassword.jsx": __vite_glob_0_1, "./Pages/Auth/Login.jsx": __vite_glob_0_2, "./Pages/Auth/ResetPassword.jsx": __vite_glob_0_3, "./Pages/Auth/VerifyEmail.jsx": __vite_glob_0_4, "./Pages/Dashboard.jsx": __vite_glob_0_5, "./Pages/Events/Create.jsx": __vite_glob_0_6, "./Pages/Events/Edit.jsx": __vite_glob_0_7, "./Pages/Events/Index.jsx": __vite_glob_0_8, "./Pages/Images/Create.jsx": __vite_glob_0_9, "./Pages/Images/Edit.jsx": __vite_glob_0_10, "./Pages/Images/Index.jsx": __vite_glob_0_11, "./Pages/Profile/Edit.jsx": __vite_glob_0_12, "./Pages/Profile/Partials/DeleteUserForm.jsx": __vite_glob_0_13, "./Pages/Profile/Partials/UpdatePasswordForm.jsx": __vite_glob_0_14, "./Pages/Profile/Partials/UpdateProfileInformationForm.jsx": __vite_glob_0_15, "./Pages/Public/About.jsx": __vite_glob_0_16, "./Pages/Public/Agency.jsx": __vite_glob_0_17, "./Pages/Public/Contacts.jsx": __vite_glob_0_18, "./Pages/Public/Emporium.jsx": __vite_glob_0_19, "./Pages/Public/EventShow.jsx": __vite_glob_0_20, "./Pages/Public/Events.jsx": __vite_glob_0_21, "./Pages/Public/Expertise.jsx": __vite_glob_0_22, "./Pages/Public/Gallery.jsx": __vite_glob_0_23, "./Pages/Public/Home.jsx": __vite_glob_0_24, "./Pages/Public/Laboratories.jsx": __vite_glob_0_25, "./Pages/Public/Other.jsx": __vite_glob_0_26, "./Pages/Public/Special.jsx": __vite_glob_0_27, "./Pages/Public/Training.jsx": __vite_glob_0_28, "./Pages/Welcome.jsx": __vite_glob_0_29 });
       return pages[`./Pages/${name}.jsx`];
     },
     setup: ({ App, props }) => /* @__PURE__ */ jsx(App, { ...props })
