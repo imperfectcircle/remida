@@ -25,6 +25,23 @@ export default function Footer() {
                     <p>c/o Chiostro di Voltorre</p>
                     <p>Via S. Michele</p>
                     <p>21026 Gavirate - Varese</p>
+                    <p className="mt-5">
+                        Remida Varese fa parte di una rete nazionale e
+                        internazionale che oggi si compone di 11 Centri
+                        coordinati dal Centro Remida di Reggio Emilia, che dal
+                        1996 porta avanti il progetto grazie a un’idea
+                        dell’Istituzione Nidi e Scuole dell’Infanzia del Comune
+                        di Reggio Emilia, Fondazione Reggio Children e Iren. Per
+                        informazioni:{' '}
+                        <a
+                            className="text-white underline"
+                            href="www.remida.org"
+                            rel="noreferrer"
+                            target="_blank"
+                        >
+                            www.remida.org
+                        </a>
+                    </p>
                 </div>
                 <div className="grid grid-cols-1 place-items-center bg-red-900 p-10 md:col-span-2 md:grid-cols-2 dark:bg-red-950">
                     <div className="flex flex-col">

@@ -165,15 +165,23 @@ export default function About() {
                             dal 1996 porta avanti il progetto grazie a un’idea
                             dell’Istituzione Nidi e Scuole dell’Infanzia del
                             Comune di Reggio Emilia, Fondazione Reggio Children
-                            e Iren. Per informazioni:{' '}
-                            <a
-                                className="underline"
-                                href="www.remida.org"
-                                rel="noreferrer"
-                                target="_blank"
-                            >
-                                www.remida.org
-                            </a>
+                            e Iren. Per informazioni:
+                        </p>
+                        <p className="mt-5">
+                            Il progetto Remida nasce nel 1996 a Reggio Emilia da
+                            un’idea dell’Istituzione Nidi e Scuole dell’Infanzia
+                            di Reggio Emilia, Fondazione Reggio Children e Iren.
+                            Gli altri centri sono a: Bologna, Borgo San Lorenzo
+                            (Firenze), Genova, Milano, Napoli, Torino, Trondheim
+                            (Norvegia), Skillingaryd (Svezia), Buenos Aires
+                            (Argentina), Perth (Australia).
+                        </p>
+                        <p className="mt-5">
+                            Lo scambio e i contatti periodici tra i vari Centri
+                            Remida rafforzano il patto tra persone e
+                            organizzazioni che stanno costruendo un percorso di
+                            corresponsabilità nell’ambito dell’Educazione
+                            ambientale e della cultura in generale.
                         </p>
                     </div>
                 </motion.section>
