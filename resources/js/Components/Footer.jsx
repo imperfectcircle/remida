@@ -79,8 +79,20 @@ export default function Footer() {
                             Social
                         </h2>
                         <div className="flex space-x-5">
-                            <FaFacebook className="text-3xl" />
-                            <FaInstagram className="text-3xl" />
+                            <a
+                                className="text-white"
+                                href="https://www.facebook.com/p/Progetto-ReMida-Varese-100064274185987/"
+                                target="_blank"
+                            >
+                                <FaFacebook className="text-3xl" />
+                            </a>
+                            <a
+                                className="text-white"
+                                href="https://www.instagram.com/progettoremida_varese/"
+                                target="_blank"
+                            >
+                                <FaInstagram className="text-3xl" />
+                            </a>
                         </div>
                     </div>
                 </div>
