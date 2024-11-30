@@ -92,9 +92,6 @@ export function CardCarousel({ events = '', images = '' }) {
                                             <h2 className="mb-2 text-lg font-bold uppercase tracking-tight text-white dark:text-white">
                                                 {image.title}
                                             </h2>
-                                            <div className="mb-3 font-normal text-white dark:text-gray-400">
-                                                <p>{image.title}</p>
-                                            </div>
                                         </div>
                                     </CardContent>
                                 </Card>
