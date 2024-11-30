@@ -128,8 +128,17 @@ export default function Emporium() {
                                 Possono prelevare materiali dall’emporio solo
                                 associati
                             </strong>
-                            , previa iscrizione ad Altrementi aps (vedi form di
-                            domanda di iscrizione)
+                            , previa iscrizione ad Altrementi aps compilando il{' '}
+                            <a
+                                target="_blank"
+                                href="/modules/domanda_iscrizione_enti_altrementi_2025.pdf"
+                            >
+                                Modulo di Iscrizione
+                            </a>{' '}
+                            e inviandolo all'indirizzo email{' '}
+                            <a href="mailto: emporio@remidavarese.it">
+                                emporio@remidavarese.it
+                            </a>
                         </p>
                         <p className="mt-5 uppercase">
                             <strong>Modalità di Prelievo</strong>
