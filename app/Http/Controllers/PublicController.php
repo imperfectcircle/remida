@@ -19,7 +19,8 @@ class PublicController extends Controller
 {
     public function home() {
         $events = Event::where('status', 'published')->latest()->take(5)->get();
-        return Inertia::render('Public/Home', compact('events'));
+        $collaborations = Image::all();
+        return Inertia::render('Public/Home', compact('events', 'collaborations'));
     }
 
     public function about() {

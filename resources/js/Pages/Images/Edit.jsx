@@ -30,7 +30,7 @@ export default function Create({ auth, image }) {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                        Modifica l'immagine "{image.data.title}"
+                        Modifica la Collaborazione "{image.data.title}"
                     </h2>
                 </div>
             }
@@ -57,7 +57,7 @@ export default function Create({ auth, image }) {
                             <div>
                                 <InputLabel
                                     htmlFor="event_image_path"
-                                    value="Immagine (Max 2MB)"
+                                    value="Immagine Collaborazione (Max 2MB)"
                                 />
                                 <TextInput
                                     id="image_path"
@@ -74,7 +74,10 @@ export default function Create({ auth, image }) {
                                 />
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="title" value="Titolo" />
+                                <InputLabel
+                                    htmlFor="title"
+                                    value="Titolo Collaborazione"
+                                />
 
                                 <TextInput
                                     id="title"

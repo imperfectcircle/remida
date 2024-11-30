@@ -237,6 +237,13 @@ export default function Expertise() {
                                 className="border-slate-700"
                                 description="Nel suo libro “La grammatica della fantasia” introduce ai processi della fantasia e delle regole della creazione per renderne l’uso accessibile a tutti. L’autore non consegna però un ricettario per costruire storie, ma offre materia prima, idee, occasioni, riflessioni utilissime per superare la muraglia della routine scolastica e per riconoscere il ruolo fondamentale della creatività all’interno del processo educativo."
                             />
+                            <Avatar
+                                source="/images/MG.webp"
+                                href="https://bambinienatura.it/tipi-b-e-n/monica/"
+                                anchorText="Monica Guerra"
+                                className="border-slate-700"
+                                description="È professoressa ordinaria di Pedagogia generale e sociale e docente di Pedagogia dell'infanzia e di Coordinamento dei servizi educativi presso il Dipartimento di Scienze Umane per la Formazione dell'Università di Milano-Bicocca, dove coordina il Master in Educazione e Natura. La sua ricerca si occupa di modelli di innovazione scolastica e di esperienze educative in e outdoor."
+                            />
                         </div>
                     </div>
                 </motion.section>

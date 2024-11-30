@@ -67,10 +67,10 @@ export default function NavbarComponent() {
                     Cosa Facciamo
                 </NavbarLink>
                 <NavbarLink
-                    href={route('gallery')}
-                    active={route().current('gallery')}
+                    href={route('collaborations')}
+                    active={route().current('collaborations')}
                 >
-                    Galleria
+                    Collaborazioni
                 </NavbarLink>
                 <NavbarLink
                     href={route('events')}

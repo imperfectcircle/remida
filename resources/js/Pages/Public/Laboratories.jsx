@@ -6,33 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import { useState } from 'react';
-
-const Modal = ({ isOpen, onClose, content, title }) => {
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div
-                className="fixed inset-0 bg-black opacity-50"
-                onClick={onClose}
-            ></div>
-            <div className="relative z-50 max-h-[80vh] w-[80vw] overflow-y-auto rounded-lg bg-white p-8 dark:bg-slate-700">
-                <h2 className="mb-4 text-3xl font-bold">{title}</h2>
-                <div
-                    className="text-lg"
-                    dangerouslySetInnerHTML={{ __html: content }}
-                />
-
-                <button
-                    onClick={onClose}
-                    className="mt-4 rounded bg-red-800 px-4 py-2 text-white hover:bg-red-900"
-                >
-                    Chiudi
-                </button>
-            </div>
-        </div>
-    );
-};
+import CustomModal from '@/Components/CustomModal';
 
 export default function Laboratories() {
     const { flash } = usePage().props;
@@ -488,7 +462,7 @@ export default function Laboratories() {
                         </form>
                     </div>
                 </motion.section>
-                <Modal
+                <CustomModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     title={sectionContent[selectedSection]?.title}

@@ -17,7 +17,7 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/cosa-facciamo', 'expertise')->name('expertise');
     Route::get('/eventi', 'events')->name('events');
     Route::get('/eventi/{slug}', 'eventShow')->name('public.event.show');
-    Route::get('/gallery', 'gallery')->name('gallery');
+    Route::get('/collaborations', 'gallery')->name('collaborations');
     Route::get('/contatti', 'contacts')->name('contacts');
 
     Route::get('/laboratori-per-scuole', 'laboratories')->name('laboratories');

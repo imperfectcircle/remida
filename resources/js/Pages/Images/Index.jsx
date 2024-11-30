@@ -18,13 +18,13 @@ export default function Index({ auth, images }) {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                        Immagini
+                        Collaborazioni
                     </h2>
                     <Link
                         href={route('image.create')}
                         className="rounded bg-emerald-500 px-3 py-2 text-white shadow transition-all hover:bg-emerald-600"
                     >
-                        Aggiungi Nuova Immagine
+                        Aggiungi Nuova Collaborazione
                     </Link>
                 </div>
             }
@@ -72,7 +72,7 @@ export default function Index({ auth, images }) {
                                                     className="py-5 text-center text-xl"
                                                 >
                                                     Non Sono Ancora Presenti
-                                                    Immagini
+                                                    Collaborazioni
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -11,7 +11,7 @@ import Timeline from '@/Components/Timeline';
 import { variants } from '@/Constants';
 import { CollaborationCarousel } from '@/Components/CollaborationCarousel';
 
-export default function Home({ events }) {
+export default function Home({ events, collaborations }) {
     const [loader, setLoader] = useState(true);
 
     useEffect(() => {
@@ -274,7 +274,7 @@ export default function Home({ events }) {
                         <h2 className="mb-10 text-center text-6xl text-white">
                             Collaborazioni
                         </h2>
-                        <CollaborationCarousel />
+                        <CardCarousel images={collaborations} />
                     </motion.section>
                 </PublicLayout>
             )}

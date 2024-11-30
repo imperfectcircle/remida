@@ -45,7 +45,7 @@ export default function Authenticated({ user, header, children }) {
                                     href={route('image.index')}
                                     active={route().current('image.index')}
                                 >
-                                    Immagini
+                                    Collaborazioni
                                 </NavLink>
                             </div>
                         </div>

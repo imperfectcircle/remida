@@ -55,8 +55,11 @@ export default function Footer() {
                         <Link className="text-white" href={route('expertise')}>
                             Cosa Facciamo
                         </Link>
-                        <Link className="text-white" href={route('gallery')}>
-                            Galleria
+                        <Link
+                            className="text-white"
+                            href={route('collaborations')}
+                        >
+                            Collaborazioni
                         </Link>
                         <Link className="text-white" href={route('events')}>
                             In Evidenza

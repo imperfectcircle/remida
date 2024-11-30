@@ -25,10 +25,8 @@ export default function Dashboard({ auth }) {
                             </ButtonLink>
                         </div>
                         <div className="space-y-5 rounded-lg border border-gray-400 bg-gray-300 p-6 text-center text-gray-900 shadow-lg">
-                            <h2 className="text-2xl">Gallery</h2>
-                            <p>
-                                Crea, Aggiorna ed Elimina Immagini dalla Gallery
-                            </p>
+                            <h2 className="text-2xl">Collaborazioni</h2>
+                            <p>Crea, Aggiorna ed Elimina le Collaborazioni</p>
                             <ButtonLink href={route('image.index')}>
                                 Vai
                             </ButtonLink>

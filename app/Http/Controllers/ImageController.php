@@ -58,7 +58,7 @@ class ImageController extends Controller
             throw $e;
         }
         
-        return to_route('image.create')->with('message', 'Immagine Creata con Successo.');
+        return to_route('image.create')->with('message', 'Collaborazione Creata con Successo.');
     }
     
 
@@ -107,7 +107,7 @@ class ImageController extends Controller
 
             DB::commit();
 
-            return to_route('image.index')->with('message', 'Immagine Aggiornata con Successo.');
+            return to_route('image.index')->with('message', 'Collaborazione Aggiornata con Successo.');
         } catch (\Exception $e) {
             DB::rollback();
             return back()->withErrors(['error' => $e->getMessage()]);
@@ -121,6 +121,6 @@ class ImageController extends Controller
     {
         $imageTitle = $image->title;
         $image->delete();
-        return to_route('image.index')->with('message', "Immagine \"$imageTitle\" Cancellata con Successo.");
+        return to_route('image.index')->with('message', "Collaborazione \"$imageTitle\" Cancellata con Successo.");
     }
 }
