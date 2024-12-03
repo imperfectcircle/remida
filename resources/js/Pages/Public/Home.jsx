@@ -226,7 +226,7 @@ export default function Home({ events, collaborations }) {
                                         Laboratori per scuole
                                     </Link>{' '}
                                     e per il prelievo di materiale non
-                                    strutturato dall’Emporio dei Materiali. I
+                                    strutturato dall'emporio dei Materiali. I
                                     Laboratori creativi per famiglie aprono con
                                     calendario stagionale (vedere le{' '}
                                     <Link

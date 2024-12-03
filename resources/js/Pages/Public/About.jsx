@@ -39,7 +39,7 @@ export default function About() {
                                     origine aziendale e artigianale
                                 </strong>{' '}
                                 (sottoprodotti, rimanenze di magazzino, ecc.)
-                                gestito dall’Associazione di Promozione Sociale
+                                gestito dall'Associazione di Promozione Sociale
                                 Altrementi di Varese.
                             </p>
                         </motion.h1>

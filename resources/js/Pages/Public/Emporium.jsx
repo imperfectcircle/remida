@@ -125,7 +125,7 @@ export default function Emporium() {
                         </p>
                         <p className="mt-5">
                             <strong>
-                                Possono prelevare materiali dall’emporio solo
+                                Possono prelevare materiali dall'emporio solo
                                 associati
                             </strong>
                             , previa iscrizione ad Altrementi aps compilando il{' '}
