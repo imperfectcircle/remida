@@ -236,7 +236,18 @@ export default function Home({ events, collaborations }) {
                                         notizie in Evidenza
                                     </Link>
                                     ). Tutte le attività sono riservate agli
-                                    Associati di Altrementi aps.
+                                    Associati di Altrementi aps. È possibile
+                                    associarsi compilando il{' '}
+                                    <a
+                                        target="_blank"
+                                        href="/modules/domanda_iscrizione_enti_altrementi_2025.pdf"
+                                    >
+                                        Modulo di Iscrizione
+                                    </a>{' '}
+                                    e inviandolo all'indirizzo email{' '}
+                                    <a href="mailto: emporio@remidavarese.it">
+                                        emporio@remidavarese.it
+                                    </a>
                                 </p>
                             </div>
                         </div>
