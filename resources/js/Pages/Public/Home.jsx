@@ -241,11 +241,15 @@ export default function Home({ events, collaborations }) {
                                     <a
                                         target="_blank"
                                         href="/modules/domanda_iscrizione_enti_altrementi_2025.pdf"
+                                        className="text-white underline"
                                     >
                                         Modulo di Iscrizione
                                     </a>{' '}
                                     e inviandolo all'indirizzo email{' '}
-                                    <a href="mailto: emporio@remidavarese.it">
+                                    <a
+                                        className="text-white underline"
+                                        href="mailto: emporio@remidavarese.it"
+                                    >
                                         emporio@remidavarese.it
                                     </a>
                                 </p>
