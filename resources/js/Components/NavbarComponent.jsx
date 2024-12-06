@@ -31,19 +31,21 @@ export default function NavbarComponent() {
                 </div>
             </Navbar.Brand>
             <div className="flex items-center md:order-2">
-                <ThemeSwitcher />
+                <div className="md:flex md:items-center">
+                    <ThemeSwitcher />
 
-                <Link href={route('contacts')} className="ml-5">
-                    <ShimmerButton
-                        className=""
-                        shimmerSize="0.2rem"
-                        background="rgba(185, 28, 28 , 1)"
-                    >
-                        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg dark:from-white dark:to-slate-900/10">
-                            Contatti
-                        </span>
-                    </ShimmerButton>
-                </Link>
+                    <Link href={route('contacts')} className="ml-5">
+                        <ShimmerButton
+                            className=""
+                            shimmerSize="0.2rem"
+                            background="rgba(185, 28, 28 , 1)"
+                        >
+                            <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg dark:from-white dark:to-slate-900/10">
+                                Contatti
+                            </span>
+                        </ShimmerButton>
+                    </Link>
+                </div>
 
                 <Navbar.Toggle />
             </div>
